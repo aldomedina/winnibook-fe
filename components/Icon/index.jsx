@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Icon = styled.div`
   display: inline-block;
-  height: ${(props) => (props.size ? props.size : "20px")};
-  width: ${(props) => (props.size ? props.size : "20px")};
+  height: ${props => (props.size ? props.size : '20px')};
+  width: ${props => (props.size ? props.size : '20px')};
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -12,5 +12,5 @@ export const Icon = styled.div`
   mask-repeat: no-repeat;
   mask-size: contain;
   mask-position: center;
-  ${(props) => `mask-image: url("/icons/${props.icon}.svg")`};
+  ${props => `mask-image: url("/icons/${props.icon}.svg")`};
 `;

@@ -1,4 +1,4 @@
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider, css } from 'styled-components';
 
 export const themeConfig = {
   colors: {
@@ -29,12 +29,19 @@ export const themeConfig = {
     l: '1.5em',
     xl: '2em'
   },
-  breakpoint: {
+  breakpoints: {
     sm: 640,
     md: 768,
     lg: 1024,
     xl: 1280
   }
+};
+
+export const mediaQueries = (key, bigger) => {
+  return style =>
+    `@media (${bigger ? 'min-width' : 'max-width'}: ${
+      themeConfig.breakpoints[key]
+    }px) { ${style} }`;
 };
 
 const Theme = ({ children }) => <ThemeProvider theme={themeConfig}>{children}</ThemeProvider>;

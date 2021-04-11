@@ -4,109 +4,127 @@ export default () => (
       rel="preload"
       href="/fonts/Piazzolla-Black.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-BlackItalic.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-Bold.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-BoldItalic.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-ExtraBold.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-ExtraBoldItalic.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-ExtraLight.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-ExtraLightItalic.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-Italic.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-Light.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-LightItalic.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-Medium.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-MediumItalic.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-Regular.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-SemiBold.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-SemiBoldItalic.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-Thin.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-ThinItalic.woff2"
       as="font"
-      crossOrigin=""
+      type="font/woff2"
+      crossorigin
     />
   </>
 );
