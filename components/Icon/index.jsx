@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const Icon = styled.div`
   display: inline-block;
-  height: ${props => (props.size ? props.size : '20px')};
-  width: ${props => (props.size ? props.size : '20px')};
+  width: ${props => (props.w ? props.w : '20px')};
+  height: ${props => (props.h ? props.h : '20px')};
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;

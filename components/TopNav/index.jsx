@@ -33,7 +33,7 @@ const TopNav = () => {
     <NavWrapper>
       <Link href="/">
         <a>
-          <Icon icon="logo" size="30px" />
+          <Icon icon="logo" w="30px" h="30px" />
         </a>
       </Link>
 

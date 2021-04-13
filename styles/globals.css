@@ -134,5 +134,12 @@ ul {
 }
 a {
   text-decoration: none;
+}
+input,
+button,
+a {
   color: inherit;
+}
+button {
+  font-weight: 500;
 }

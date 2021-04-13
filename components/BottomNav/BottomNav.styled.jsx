@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { animated } from 'react-spring';
 import { mediaQueries } from '../Theme';
+
 export const NavWrapper = styled.div`
   width: 100%;
   position: fixed;

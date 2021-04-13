@@ -40,8 +40,10 @@ export const MenuItem = styled(animated.li)`
       border: none;      
       font-weight: 500;
       padding: 0; 
-      font-size: ${theme.fontSizes.xl}     
+      font-size: ${theme.fontSize.xl}     
       `}
+
+  // to be refactored
   ${({ mobile }) =>
     mobile &&
     mediaQueries('md')`        

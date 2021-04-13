@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="731.286" height="139" viewBox="0 0 731.286 139">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_409" data-name="Rectangle 409" width="114.604" height="87.559" transform="translate(-3 -2)" fill="rgba(0,0,0,0)"/>
+    </clipPath>
+  </defs>
+  <g id="Group_535" data-name="Group 535" transform="translate(0 2)">
+    <text id="INNIBOOK" transform="translate(117.285)" fill="none" stroke="#1c3a3f" stroke-width="2" font-size="108" font-family="LexendDeca-Regular, Lexend Deca"><tspan x="0" y="108">INNIBOOK</tspan></text>
+    <g id="Group_363" data-name="Group 363" transform="translate(111.604 113.408) rotate(180)" clip-path="url(#clip-path)">
+      <path id="Path_437" data-name="Path 437" d="M14.368,0H25.154c2.254,0,3.863,2.576,3.542,5.151L21.934,48.776,17.91,75.016c-.8,4.829-6.278,4.829-7.083,0L6.8,48.776.041,5.151C-.281,2.576,1.329,0,3.583,0Z" transform="translate(3.304 2.23)" fill="#103b40"/>
+      <path id="Path_438" data-name="Path 438" d="M14.407,0H25.192c2.254,0,3.863,2.576,3.542,5.151L21.973,48.937,17.948,75.016c-.8,4.829-6.278,4.829-7.083,0L6.841,48.937.08,5.312C-.4,2.576,1.368.161,3.621.161Z" transform="translate(39.807 2.391)" fill="#103b40"/>
+      <path id="Path_439" data-name="Path 439" d="M14.246,0H25.031c2.254,0,3.863,2.576,3.542,5.151L21.812,48.937,17.787,75.016c-.8,4.829-6.278,4.829-7.083,0L6.68,48.937.08,5.312C-.4,2.576,1.368.161,3.621.161Z" transform="translate(76.51 2.552)" fill="#103b40"/>
+    </g>
+  </g>
+</svg>

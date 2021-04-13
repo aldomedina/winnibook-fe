@@ -22,11 +22,11 @@ export const themeConfig = {
     primary: 'Lexend',
     secondary: 'piazzolla'
   },
-  fontSizes: {
+  fontSize: {
     xs: '.75em',
     sm: '1em',
     md: '1.25em',
-    l: '1.5em',
+    lg: '1.5em',
     xl: '2em'
   },
   breakpoints: {

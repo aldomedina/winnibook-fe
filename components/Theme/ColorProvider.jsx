@@ -2,6 +2,7 @@ import { createContext, useState } from 'react';
 import styled from 'styled-components';
 import { animated, useSpring } from 'react-spring';
 import { themeConfig } from '.';
+import useWindowSize from '../Hooks/useWindowSize';
 
 export const ColorContext = createContext();
 
@@ -12,14 +13,16 @@ const ColorSchemaProvider = styled(animated.div)`
 
 const ColorProvider = ({ children }) => {
   const [colorTheme, setColorTheme] = useState('base');
+  const { width, height } = useWindowSize();
   const selectColorTheme = e => setColorTheme(e);
   const colorSchemaProps = useSpring({
     color: themeConfig.colors[colorTheme].primary,
     borderColor: themeConfig.colors[colorTheme].primary,
     backgroundColor: themeConfig.colors[colorTheme].bgColor
   });
+
   return (
-    <ColorContext.Provider value={{ colorTheme, selectColorTheme }}>
+    <ColorContext.Provider value={{ colorTheme, selectColorTheme, width, height }}>
       <ColorSchemaProvider style={colorSchemaProps}>{children}</ColorSchemaProvider>
     </ColorContext.Provider>
   );
