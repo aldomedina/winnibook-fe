@@ -40,29 +40,21 @@ const HomeHero = () => {
   return (
     <HeroContainer>
       <TitleWrapper style={{ opacity }}>
-        <Box mxauto={true}>
+        <Box mxauto="true">
           <Icon icon="logo-name-outline" w="100%" h="90px" />
         </Box>
-        <H2 textCenter> winnipeg's guide of local business </H2>
+        <H2 textCenter="true"> winnipeg's guide of local business </H2>
       </TitleWrapper>
       <SearchWrapper ref={searchRef} style={searchBarProps}>
         <SearchBar home />
       </SearchWrapper>
-      <Box style={{ opacity }} mxauto={true}>
+      <Box style={{ opacity }} mxauto="true">
         <SocialIcons />
       </Box>
     </HeroContainer>
   );
 };
 
-const SearchWrapper = styled(animated.div)`
-  margin-bottom: 2em;
-  border-radius: 20px;
-  background: rgba(0, 0, 0, 0.1);
-  ${mediaQueries('md')`
-    margin-bottom: 1em;
-    `}
-`;
 const HeroContainer = styled.div`
   height: calc(100%);
   width: 50vw;
@@ -71,10 +63,17 @@ const HeroContainer = styled.div`
   justify-content: center;
   padding: 51px 5vw;
   ${mediaQueries('md')`
-    width: 100%;
+    width: 80vw;
     `}
 `;
-
+const SearchWrapper = styled(animated.div)`
+  margin-bottom: 2em;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.1);
+  ${mediaQueries('md')`
+    margin-bottom: 1em;
+    `}
+`;
 const TitleWrapper = styled(animated.div)`
   margin-bottom: 5rem;
   ${mediaQueries('md')`

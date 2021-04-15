@@ -4,6 +4,7 @@ import { useTrail, interpolate, useSpring } from 'react-spring';
 import { Icon } from '../Icon';
 import { NavWrapper, Menu, MenuItem, ThreeDots } from './index.style';
 import useWindowSize from '../Hooks/useWindowSize';
+
 const items = [
   { key: 0, slug: 'places', name: 'discover places' },
   { key: 1, slug: 'stories', name: 'see all stories' },
@@ -45,7 +46,7 @@ const TopNav = () => {
               ...props,
               transform: interpolate([sc, y], (sc, y) => `scale(${sc}) translateY( ${y}) `)
             }}
-            mobile={!!items[i].mobile}
+            mobile={items[i].mobile ? 1 : 0}
           >
             <Link href={`/${items[i].slug}`}>{items[i].name}</Link>
           </MenuItem>
