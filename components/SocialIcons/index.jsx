@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { Box } from '../Containers';
 import { Icon } from '../Icon';
 import { ColorContext } from '../Theme/ColorProvider';
 
@@ -16,7 +15,7 @@ const SIcon = styled(Icon)`
 const index = () => {
   const { colorTheme } = useContext(ColorContext);
   return (
-    <Box display="flex">
+    <div className="flex">
       {items.map(el => (
         <SIcon
           key={el}
@@ -25,7 +24,7 @@ const index = () => {
           onClick={() => console.log('social network')}
         />
       ))}
-    </Box>
+    </div>
   );
 };
 

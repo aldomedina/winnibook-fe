@@ -7,7 +7,7 @@ import useWindowSize from '../Hooks/useWindowSize';
 export const ColorContext = createContext();
 
 const ColorSchemaProvider = styled(animated.div)`
-  height: 100%;
+  height: ${({ h }) => h + 'px'};
   width: 100%;
 `;
 
@@ -17,13 +17,15 @@ const ColorProvider = ({ children }) => {
   const selectColorTheme = e => setColorTheme(e);
   const colorSchemaProps = useSpring({
     color: themeConfig.colors[colorTheme].primary,
-    borderColor: themeConfig.colors[colorTheme].primary,
+    borderColor: `${themeConfig.colors[colorTheme].primary}`,
     backgroundColor: themeConfig.colors[colorTheme].bgColor
   });
 
   return (
     <ColorContext.Provider value={{ colorTheme, selectColorTheme, width, height }}>
-      <ColorSchemaProvider style={colorSchemaProps}>{children}</ColorSchemaProvider>
+      <ColorSchemaProvider h={height} style={colorSchemaProps}>
+        {children}
+      </ColorSchemaProvider>
     </ColorContext.Provider>
   );
 };

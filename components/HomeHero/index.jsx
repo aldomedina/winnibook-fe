@@ -1,12 +1,8 @@
 import { useEffect, useState, useRef, useContext } from 'react';
 import { animated, useSpring } from '@react-spring/web';
-import styled from 'styled-components';
-import { Box } from '../Containers';
 import { Icon } from '../Icon';
 import SearchBar from '../SearchBar';
 import SocialIcons from '../SocialIcons';
-import { mediaQueries } from '../Theme';
-import { H2 } from '../Titles';
 import { ColorContext } from '../Theme/ColorProvider';
 
 const HomeHero = () => {
@@ -38,47 +34,25 @@ const HomeHero = () => {
   };
 
   return (
-    <HeroContainer>
-      <TitleWrapper style={{ opacity }}>
-        <Box mxauto="true">
+    <div className="w-80vw md:w-50vw h-full flex flex-col justify-center py-14 px-5 md:px-14">
+      <animated.div className="mb-8 md:mb-20" style={{ opacity }}>
+        <div className="mx-auto">
           <Icon icon="logo-name-outline" w="100%" h="90px" />
-        </Box>
-        <H2 textCenter="true"> winnipeg's guide of local business </H2>
-      </TitleWrapper>
-      <SearchWrapper ref={searchRef} style={searchBarProps}>
+        </div>
+        <h2 className="uppercase text-2xl text-center"> winnipeg's guide of local business </h2>
+      </animated.div>
+      <animated.div
+        className="mb-4 md:mb-8 bg-black bg-opacity-10 rounded-20p"
+        ref={searchRef}
+        style={searchBarProps}
+      >
         <SearchBar home />
-      </SearchWrapper>
-      <Box style={{ opacity }} mxauto="true">
+      </animated.div>
+      <animated.div style={{ opacity }} className="mx-auto">
         <SocialIcons />
-      </Box>
-    </HeroContainer>
+      </animated.div>
+    </div>
   );
 };
-
-const HeroContainer = styled.div`
-  height: calc(100%);
-  width: 50vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 51px 5vw;
-  ${mediaQueries('md')`
-    width: 80vw;
-    `}
-`;
-const SearchWrapper = styled(animated.div)`
-  margin-bottom: 2em;
-  border-radius: 20px;
-  background: rgba(0, 0, 0, 0.1);
-  ${mediaQueries('md')`
-    margin-bottom: 1em;
-    `}
-`;
-const TitleWrapper = styled(animated.div)`
-  margin-bottom: 5rem;
-  ${mediaQueries('md')`
-  margin-bottom: 2rem;      
-    `}
-`;
 
 export default HomeHero;

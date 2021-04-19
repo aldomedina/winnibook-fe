@@ -30,7 +30,7 @@ const SearchButton = styled.button`
   position: absolute;
   top: 2px;
   right: 2px;
-  height: 36px;
+  height: calc(100% - 4px);
   ${({ buttonIcon }) => !buttonIcon && 'padding: 0 1.3em;'}
   border-radius: 19px;
   border: none;

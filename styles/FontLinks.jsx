@@ -19,112 +19,116 @@ export default () => (
       href="/fonts/Piazzolla-Bold.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-BoldItalic.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-ExtraBold.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-ExtraBoldItalic.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-ExtraLight.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-ExtraLightItalic.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-Italic.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-Light.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-LightItalic.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-Medium.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-MediumItalic.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-Regular.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-SemiBold.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-SemiBoldItalic.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-Thin.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-ThinItalic.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin="true"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    ></link>
   </>
 );
