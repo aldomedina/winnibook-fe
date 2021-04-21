@@ -1,14 +1,23 @@
-import { useState, useRef } from 'react';
+import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
-import { animated, useSpring } from 'react-spring';
-import BottomNav from '../components/BottomNav';
+import { animated } from 'react-spring';
 import HorizontalPanel from '../components/HorizontalPanel';
 import HomeHero from '../components/HomeHero';
+// QUERIES
+import GET_LOCAL_BY_NAME from '../apollo/queries/getLocalByName.gql';
 import { useHorizontalScroll } from '../components/Hooks/useSideScroll';
 import HomeFooter from '../components/HomeFooter';
-import { mediaQueries } from '../components/Theme';
 
 const Home = () => {
+  const { data, loading } = useQuery(GET_LOCAL_BY_NAME, {
+    variables: {
+      name: 'Test local'
+    }
+  });
+
+  if (data) {
+    console.log(data);
+  }
   const target = useHorizontalScroll();
   return (
     <div className="overflow-hidden">

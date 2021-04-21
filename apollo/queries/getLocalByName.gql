@@ -1,0 +1,9 @@
+query getLocalByName($name: String!) {
+  localByName(name: $name) {
+    data {
+      _id
+      name
+      description
+    }
+  }
+}
