@@ -5,49 +5,50 @@ export default () => (
       href="/fonts/Piazzolla-Black.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-BlackItalic.woff2"
       as="font"
       type="font/woff2"
-      crossorigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-Bold.woff2"
       as="font"
       type="font/woff2"
-      crossOrigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-BoldItalic.woff2"
       as="font"
       type="font/woff2"
-      crossOrigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-ExtraBold.woff2"
       as="font"
       type="font/woff2"
-      crossOrigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-ExtraBoldItalic.woff2"
       as="font"
       type="font/woff2"
-      crossOrigin
+      crossOrigin="true"
     />
     <link
       rel="preload"
       href="/fonts/Piazzolla-ExtraLight.woff2"
       as="font"
       type="font/woff2"
-      crossOrigin
+      crossOrigin="true"
     />
     <link
       rel="preload"

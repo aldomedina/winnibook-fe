@@ -13,7 +13,7 @@ const ColorSchemaProvider = styled(animated.div)`
 
 const ColorProvider = ({ children }) => {
   const [colorTheme, setColorTheme] = useState('base');
-  const { width, height } = useWindowSize();
+  const { height } = useWindowSize();
   const selectColorTheme = e => setColorTheme(e);
   const colorSchemaProps = useSpring({
     color: themeConfig.colors[colorTheme].primary,
@@ -22,7 +22,7 @@ const ColorProvider = ({ children }) => {
   });
 
   return (
-    <ColorContext.Provider value={{ colorTheme, selectColorTheme, width, height }}>
+    <ColorContext.Provider value={{ colorTheme, selectColorTheme }}>
       <ColorSchemaProvider h={height} style={colorSchemaProps}>
         {children}
       </ColorSchemaProvider>

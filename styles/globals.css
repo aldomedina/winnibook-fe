@@ -3,4 +3,23 @@
 @tailwind utilities;
 
 @layer base {
+  .outline-title {
+    @apply uppercase;
+    @apply font-medium;
+    color: rgba(16, 59, 64, 1);
+    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgba(16, 59, 64, 1);
+  }
+  .bg-image {
+    @apply bg-center;
+    @apply bg-cover;
+    @apply bg-no-repeat;
+  }
+  .scrolling-touch {
+    -webkit-overflow-scrolling: touch;
+  }
+  .scrolling-auto {
+    -webkit-overflow-scrolling: auto;
+  }
 }
