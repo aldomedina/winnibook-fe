@@ -10,7 +10,7 @@ const Places = ({ reference }) => {
       customClasses="w-100vw md:w-80vw flex flex-col pt-12 md:pt-40 "
       title="TOP SEARCH THIS WEEK"
     >
-      <div className="flex md:flex-row gap-3 md:gap-5 flex-col h-full w-full overflow-y-scroll md:overflow-y-hidden">
+      <div className="flex md:flex-row gap-3 md:gap-5 flex-col h-full w-full overflow-y-scroll md:overflow-y-visible">
         <div className="group w-full md:w-3/6  md:h-full min-h-40vh">
           <PlaceCard
             name={top.name}

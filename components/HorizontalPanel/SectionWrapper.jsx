@@ -26,7 +26,7 @@ const SectionWrapper = ({
   );
 
   return (
-    <div ref={setRefs} className={`h-full p-5 md:p-16 ${customClasses}`}>
+    <div ref={setRefs} className={`h-full p-5 md:p-12 ${customClasses}`}>
       {title && (
         <h2
           className={`outline-title text-2xl md:max-w-40vw md:text-4xl mb-8 ${

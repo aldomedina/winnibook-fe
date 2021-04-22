@@ -11,7 +11,7 @@ const FeaturedPlaces = ({ reference }) => {
       customClasses="w-screen md:w-70vw rounded-bl-20p md:rounded-bl-50p pt-12 md:pt-40 flex flex-col"
       title="WINNIPEG’S AWESOME local BUSINESS"
     >
-      <div className="h-full max-h-full grid grid-cols-2 md:grid-cols-3 grid-rows-3 md:grid-rows-2 gap-2 md:gap-5">
+      <div className="h-full grid grid-cols-2 md:grid-cols-3 grid-rows-3 md:grid-rows-none md:auto-rows-auto-dense gap-2 md:gap-5 ">
         {featuresBusiness.map(p => (
           <PlaceCard
             key={p.id}

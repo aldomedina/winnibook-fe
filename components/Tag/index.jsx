@@ -9,7 +9,7 @@ const Tag = ({ primaryColor, secondaryColor, secondaryCategory, big }) => {
       $color={secondaryColor}
       $bgcolor={primaryColor}
       className={`w-max py-0.5 md:py-1 px-2 md:px-3 rounded-full self-end uppercase font-medium md:mr-2 md:mb-2 ${
-        big ? 'md:text-lg' : 'text-xxs md:text-xs '
+        big ? 'md:text-md lg:text-lg' : 'text-xxs lg:text-xs '
       }`}
     >
       <span>{secondaryCategory}</span>
