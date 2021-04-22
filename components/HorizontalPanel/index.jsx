@@ -67,7 +67,7 @@ const HorizontalPanel = ({ panelRef }) => {
         />
         <Panel
           $panelHeight={panelHeight}
-          className="relative flex bg-white min-w-max rounded-b-20p md:rounded-b-50p ml-75vw md:ml-40vw shadow-xl"
+          className="relative flex bg-white min-w-max rounded-bl-20p md:rounded-b-50p ml-75vw md:ml-40vw shadow-xl"
         >
           <FeaturedPlaces reference={featuredRef} />
           <Stories reference={latestRef} />
@@ -75,7 +75,7 @@ const HorizontalPanel = ({ panelRef }) => {
           <Winnimap reference={mapRef} />
           <JoinUs reference={joinUsRef} />
         </Panel>
-        <div className="min-w-50vw h-50vh select-none"></div>
+        <div className="min-w-50vw h-50vh select-none hidden md:block"></div>
       </div>
       <BottomNav
         active={activeSection}

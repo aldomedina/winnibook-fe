@@ -6,7 +6,7 @@ import StoryCard from '../StoryCard';
 const Stories = ({ reference }) => {
   const { featured, latest } = s;
   return (
-    <SectionWrapper reference={reference} i={2} customClasses="w-100vw pt-14 md:pt-20">
+    <SectionWrapper reference={reference} i={2} customClasses="w-90vw pt-14 md:pt-20">
       <div className="flex flex-col gap-4 md:flex-row h-full w-full overflow-y-scroll md:overflow-y-hidden">
         <div className="group w-full min-h-50vh md:h-auto md:w-7/12 flex flex-col gap-2 md:gap-5 cursor-pointer md:mr-5">
           <div
