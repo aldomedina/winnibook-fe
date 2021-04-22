@@ -7,6 +7,7 @@ import HomeHero from '../components/HomeHero';
 import GET_LOCAL_BY_NAME from '../apollo/queries/getLocalByName.gql';
 import { useHorizontalScroll } from '../components/Hooks/useSideScroll';
 import HomeFooter from '../components/HomeFooter';
+import useWindowSize from '../components/Hooks/useWindowSize';
 
 const Home = () => {
   const { data, loading } = useQuery(GET_LOCAL_BY_NAME, {
@@ -14,14 +15,15 @@ const Home = () => {
       name: 'Test local'
     }
   });
-
   if (data) {
     console.log(data);
   }
+
+  const { height } = useWindowSize();
   const target = useHorizontalScroll();
   return (
     <div className="overflow-hidden">
-      <Wrapper ref={target}>
+      <Wrapper ref={target} h={height}>
         <BackContainer className="flex fixed top-0 left-0 w-full">
           <HomeHero />
           <HomeFooter />
@@ -38,7 +40,7 @@ const BackContainer = styled.div`
 
 const Wrapper = styled(animated.div)`
   background-color: ${({ theme }) => theme.colors.base['bg-secondary']};
-  height: 100vh;
+  height: ${({ h }) => `${h}px`};
   width: 100vw;
   overflow: auto;
   z-index: -1;
@@ -46,7 +48,7 @@ const Wrapper = styled(animated.div)`
   scrollbar-color: #103b40 rgba(0, 0, 0, 0.15); /* thumb and track color */
   scrollbar-width: thin; /* IE and Edge */
   ::-webkit-scrollbar {
-    border: none;
+    /* border: none; */
     height: 8px;
   }
   ::-webkit-scrollbar-track {
