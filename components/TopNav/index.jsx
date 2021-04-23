@@ -10,9 +10,12 @@ import items from './items';
 const TopNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { width, height } = useWindowSize();
-  const animateMenu = useSpring({ top: width > 768 || isOpen ? 0 : height * -1 });
+  const fullMenuAnimation = useSpring({
+    transform: isOpen || width > 768 ? `translateY(0)` : `translateY(-100%)`,
+    opacity: isOpen || width > 768 ? 1 : 0
+  });
   return (
-    <div className="fixed top-0 left-0 py-2.5 px-5 flex justify-between items-center w-full z-30">
+    <div className="fixed top-0 left-0 py-2 px-3 md:px-5 flex justify-between items-center w-full z-30">
       <Link href="/">
         <a>
           <Icon icon="logo" w="30px" h="30px" />
@@ -21,7 +24,7 @@ const TopNav = () => {
 
       <animated.ul
         className="flex flex-col md:flex-row fixed md:static bg-white md:bg-transparent top-0 left-0 h-full w-full md:h-auto md:w-auto p-1 md:pd-0"
-        style={animateMenu}
+        style={fullMenuAnimation}
       >
         {items.map((el, i) => (
           <li
