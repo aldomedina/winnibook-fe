@@ -14,8 +14,9 @@ const StoryCard = ({ image, title, categories, content }) => {
         {content && <p className="font-serif">{content}</p>}
         {categories && (
           <div className="flex flex-wrap">
-            {categories.map(cat => (
+            {categories.map((cat, i) => (
               <Tag
+                key={`${i}-${cat.name}`}
                 primaryColor={cat.primaryColor}
                 secondaryColor={cat.secondaryColor}
                 secondaryCategory={cat.secondaryCategory}

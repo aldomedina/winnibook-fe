@@ -23,3 +23,22 @@
     -webkit-overflow-scrolling: auto;
   }
 }
+@media (hover: none), (pointer: coarse), (-moz-touch-enabled: 1) {
+  .scroll-horizontal {
+    overflow: scroll !important;
+    overflow: overlay !important;
+    overflow-x: scroll !important;
+    overflow-x: overlay !important;
+    overflow-y: hidden !important;
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+  }
+  .scroll-horizontal > div {
+    transform: none !important;
+    position: relative;
+  }
+
+  .scroll-horizontal::-webkit-scrollbar {
+    display: none !important;
+  }
+}

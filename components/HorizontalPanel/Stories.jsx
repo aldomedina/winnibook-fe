@@ -16,8 +16,9 @@ const Stories = ({ reference }) => {
           <div>
             <h3 className="h-max text-2xl md:text-4xl uppercase mb-1 md:mb-5">{featured.title}</h3>
             <div className="w-max grid gap-4 grid-flow-col auto-cols-auto mb-5">
-              {featured.categories.map(cat => (
+              {featured.categories.map((cat, i) => (
                 <Tag
+                  key={`${i}-${cat.name}`}
                   primaryColor={cat.primaryColor}
                   secondaryColor={cat.secondaryColor}
                   secondaryCategory={cat.secondaryCategory}
@@ -28,8 +29,8 @@ const Stories = ({ reference }) => {
           </div>
         </div>
         <div className="w-full md:w-5/12 flex flex-col gap-4 md:gap-5">
-          {latest.map(s => (
-            <div className="flex-1 ">
+          {latest.map((s, i) => (
+            <div key={`${i}-${s.title}`} className="flex-1 ">
               <StoryCard title={s.title} image={s.img} categories={s.categories} />
             </div>
           ))}

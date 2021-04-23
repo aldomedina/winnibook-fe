@@ -1,7 +1,6 @@
 import { useState, useRef, createContext } from 'react';
 import { animated } from 'react-spring';
 import styled from 'styled-components';
-
 import FeaturedPlaces from './FeaturedPlaces';
 import JoinUs from './JoinUs';
 import Stories from './Stories';

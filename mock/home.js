@@ -56,7 +56,7 @@ export const featuresBusiness = [
 
 export const stories = {
   featured: {
-    id: 1,
+    id: 7,
     img: placeholderImg1,
     title: '3 new Chinese restaurants in West End',
     categories: [
@@ -76,7 +76,7 @@ export const stories = {
   },
   latest: [
     {
-      id: 2,
+      id: 8,
       img: placeholderImg4,
       title: 'The Best Chocolate Shop in Every Region',
       categories: [
@@ -88,7 +88,7 @@ export const stories = {
       ]
     },
     {
-      id: 3,
+      id: 9,
       img: placeholderImg2,
       title: 'April Giveaway: Win food for a whole week!',
       categories: [
@@ -100,7 +100,7 @@ export const stories = {
       ]
     },
     {
-      id: 4,
+      id: 10,
       img: placeholderImg3,
       title: 'New hardware store in town',
       categories: [
@@ -116,7 +116,7 @@ export const stories = {
 
 export const topSearch = {
   top: {
-    id: 1,
+    id: 11,
     name: 'Aplaplac Institute',
     primaryColor: '#BDDEDF',
     secondaryColor: '#103b40',
@@ -125,7 +125,7 @@ export const topSearch = {
   },
   others: [
     {
-      id: 1,
+      id: 12,
       name: "Tony's Master Of Pizza",
       primaryColor: '#f86900',
       secondaryColor: '#fbf4e1',
@@ -133,7 +133,7 @@ export const topSearch = {
       secondaryCategory: 'Eat & Drink'
     },
     {
-      id: 2,
+      id: 13,
       name: 'New West Metals Inc',
       primaryColor: '#103b40',
       secondaryColor: '#ffe600',
@@ -141,7 +141,7 @@ export const topSearch = {
       secondaryCategory: 'Building Materials'
     },
     {
-      id: 3,
+      id: 14,
       name: 'Rocky Mountain Chocolate Factory',
       primaryColor: '#103b40',
       secondaryColor: '#ff9a69',
@@ -149,7 +149,7 @@ export const topSearch = {
       secondaryCategory: 'Chocolate'
     },
     {
-      id: 2,
+      id: 15,
       name: "Tony's Master Of Pizza",
       primaryColor: '#f86900',
       secondaryColor: '#fbf4e1',
