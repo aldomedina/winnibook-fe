@@ -1,6 +1,7 @@
 // GRAPHQL RELATED
 import { ApolloProvider } from '@apollo/client';
 import { client } from '../apollo/client';
+import { useRouter } from 'next/router';
 
 // STYLE RELATED
 import 'tailwindcss/tailwind.css';
@@ -13,11 +14,13 @@ import ColorProvider from '../components/Theme/ColorProvider';
 import TopNav from '../components/TopNav';
 
 function MyApp({ Component, pageProps }) {
+  const { pathname } = useRouter();
+  const showSearch = pathname === '/' ? true : false;
   return (
     <Theme>
       <ColorProvider>
         <ApolloProvider client={client}>
-          <TopNav />
+          <TopNav showSearch={showSearch} />
           <Component {...pageProps} />
         </ApolloProvider>
       </ColorProvider>

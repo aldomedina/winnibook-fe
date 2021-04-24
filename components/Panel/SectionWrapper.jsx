@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { SectionContext } from '.';
+import { PanelContext } from '../../pages';
 
 const SectionWrapper = ({
   children,
@@ -12,7 +12,7 @@ const SectionWrapper = ({
   titleCenter
 }) => {
   const [inViewRef, inView] = useInView({ threshold: sectionThreshold });
-  const { selectActiveSection, activeSection } = useContext(SectionContext);
+  const { selectActiveSection, activeSection } = useContext(PanelContext);
   useEffect(() => {
     inView && i !== activeSection && selectActiveSection(i);
   }, [inView]);

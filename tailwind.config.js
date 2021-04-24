@@ -15,7 +15,15 @@ module.exports = {
       center: true,
       padding: '1rem'
     },
+    borderColor: theme => ({
+      DEFAULT: '#103b40'
+    }),
     extend: {
+      colors: {
+        darkgreen: {
+          primary: '#103b40'
+        }
+      },
       spacing: {
         '10vh': '10vh',
         '20vh': '20vh',
@@ -27,6 +35,7 @@ module.exports = {
         '70vh': '70vh',
         '75vh': '75vh',
         '80vh': '80vh',
+        '85vh': '85vh',
         '90vh': '90vh',
         '100vh': '100vh',
         '10vw': '10vw',
@@ -60,6 +69,22 @@ module.exports = {
       minHeight: {
         '1p': '1px',
         32: '8rem',
+        '10vh': '10vh',
+        '20vh': '20vh',
+        '30vh': '30vh',
+        '40vh': '40vh',
+        '45vh': '45vh',
+        '50vh': '50vh',
+        '60vh': '60vh',
+        '70vh': '70vh',
+        '75vh': '75vh',
+        '80vh': '80vh',
+        '90vh': '90vh',
+        '100vh': '100vh'
+      },
+      maxHeight: {
+        '1p': '1px',
+
         '10vh': '10vh',
         '20vh': '20vh',
         '30vh': '30vh',

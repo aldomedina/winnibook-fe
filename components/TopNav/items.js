@@ -1,8 +1,15 @@
 export default [
-  { key: 0, slug: 'places', name: 'discover places' },
-  { key: 1, slug: 'stories', name: 'see all stories' },
-  { key: 2, slug: 'join', name: 'join us' },
-  { key: 3, slug: 'about-us', name: 'Who we are', mobile: true },
-  { key: 4, slug: 'Terms', name: 'Terms & conditions', mobile: true },
-  { key: 5, slug: 'Privacy', name: 'Privacy Policy', mobile: true }
+  { key: 'places', slug: 'places', name: 'discover places' },
+  { key: 'stories', slug: 'stories', name: 'see all stories' },
+  { key: 'join', slug: 'join', name: 'join us' },
+  {
+    key: 'about',
+    slug: '',
+    name: 'About',
+    subItems: [
+      { key: 'about-us', slug: 'about-us', name: 'Who we are' },
+      { key: 'Terms', slug: 'terms', name: 'Terms & conditions' },
+      { key: 'Privacy', slug: 'privacy', name: 'Privacy Policy' }
+    ]
+  }
 ];

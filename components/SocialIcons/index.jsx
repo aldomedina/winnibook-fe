@@ -15,7 +15,7 @@ const SIcon = styled(Icon)`
 const index = () => {
   const { colorTheme } = useContext(ColorContext);
   return (
-    <div className="flex">
+    <div className="flex items-center">
       {items.map(el => (
         <SIcon
           key={el}

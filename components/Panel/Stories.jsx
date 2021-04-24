@@ -7,10 +7,10 @@ const Stories = ({ reference }) => {
   const { featured, latest } = s;
   return (
     <SectionWrapper reference={reference} i={2} customClasses="w-90vw pt-14 md:pt-20">
-      <div className="flex flex-col gap-4 md:flex-row h-full w-full overflow-y-scroll md:overflow-y-hidden">
+      <div className="flex flex-col gap-4 md:flex-row h-full w-full overflow-y-scroll md:overflow-y-visible">
         <div className="group w-full min-h-50vh md:h-auto md:w-7/12 flex flex-col gap-2 md:gap-5 cursor-pointer md:mr-5">
           <div
-            className="transform transition group-hover:shadow-lg flex-1 md:flex-auto group-hover:-translate-y-0.5 h-30vh md:h-3/6 w-full rounded-20p bg-image"
+            className="transform transition max-h-45vh group-hover:shadow-lg flex-1 md:flex-auto group-hover:-translate-y-0.5 h-30vh md:h-3/6 w-full rounded-20p bg-image"
             style={{ backgroundImage: `url(${featured.img})` }}
           />
           <div>

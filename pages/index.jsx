@@ -1,15 +1,55 @@
+import { useState, useRef, createContext } from 'react';
 import { useQuery } from '@apollo/client';
-import styled from 'styled-components';
-import { animated } from 'react-spring';
-import HorizontalPanel from '../components/HorizontalPanel';
-import HomeHero from '../components/HomeHero';
-// QUERIES
 import GET_LOCAL_BY_NAME from '../apollo/queries/getLocalByName.gql';
-import { useHorizontalScroll } from '../components/Hooks/useSideScroll';
-import HomeFooter from '../components/HomeFooter';
+
+import BottomNav from '../components/BottomNav';
+import bottomNavItems from '../content/homeBottomNav';
+import HorizontalScroll from 'react-scroll-horizontal';
+import HomeBackHero from '../components/HomeBackHero';
+import SectionWrapper from '../components/Panel/SectionWrapper';
+import FeaturedPlaces from '../components/Panel/FeaturedPlaces';
+import JoinUs from '../components/Panel/JoinUs';
+import Stories from '../components/Panel/Stories';
+import Places from '../components/Panel/Places';
+import Winnimap from '../components/Panel/Winnimap';
 import useWindowSize from '../components/Hooks/useWindowSize';
 
+export const PanelContext = createContext();
+
 const Home = () => {
+  const [activeSection, setActiveSection] = useState(0);
+  const [scrollValue, setScrollValue] = useState(0);
+  const selectActiveSection = i => setActiveSection(i);
+  const { isMobile } = useWindowSize();
+  const panelRef = useRef(null);
+  const dummyRef = useRef(null);
+  const featuredRef = useRef(null);
+  const latestRef = useRef(null);
+  const topRef = useRef(null);
+  const mapRef = useRef(null);
+  const joinUsRef = useRef(null);
+  const handleBottomNav = (i, name) => {
+    setActiveSection(i);
+    const panelNode = panelRef.current.childNodes[0].childNodes[0];
+    const goTo = ref => {
+      let splitted = panelNode.style.cssText.split('translate3d(');
+      const currentPos = splitted[1].split('px')[0];
+      isMobile
+        ? ref.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        : setScrollValue(-currentPos - ref.current.offsetLeft);
+    };
+    const allRef = ref =>
+      ({
+        search: dummyRef,
+        featured: featuredRef,
+        latest: latestRef,
+        top: topRef,
+        map: mapRef,
+        joinUs: joinUsRef
+      }[ref]);
+    goTo(allRef(name));
+  };
+
   const { data, loading } = useQuery(GET_LOCAL_BY_NAME, {
     variables: {
       name: 'Test local'
@@ -18,50 +58,36 @@ const Home = () => {
   if (data) {
     console.log(data);
   }
-
-  const { height } = useWindowSize();
-  const target = useHorizontalScroll();
   return (
-    <div className="overflow-hidden">
-      <Wrapper ref={target} h={height}>
-        <BackContainer className="flex fixed top-0 left-0 w-full">
-          <HomeHero />
-          <HomeFooter />
-        </BackContainer>
-        <HorizontalPanel panelRef={target} />
-      </Wrapper>
-    </div>
+    <PanelContext.Provider value={{ selectActiveSection, activeSection }}>
+      <div className="h-full w-screen">
+        <HomeBackHero />
+        <div ref={panelRef} className="w-full h-full">
+          <HorizontalScroll animValues={scrollValue} reverseScroll>
+            <SectionWrapper
+              sectionThreshold={0.9}
+              i={0}
+              reference={dummyRef}
+              customClasses="min-w-100vw md:min-w-50vw h-50vh  select-none"
+            />
+            <div className="flex h-85vh md:h-90vh bg-white rounded-bl-20p shadow-lg">
+              <FeaturedPlaces reference={featuredRef} />
+              <Stories reference={latestRef} />
+              <Places reference={topRef} />
+              <Winnimap reference={mapRef} />
+              <JoinUs reference={joinUsRef} />
+            </div>
+          </HorizontalScroll>
+        </div>
+        <BottomNav
+          active={activeSection}
+          items={bottomNavItems}
+          handleBottomNav={handleBottomNav}
+          onClick={handleBottomNav}
+        />
+      </div>
+    </PanelContext.Provider>
   );
 };
-
-const BackContainer = styled.div`
-  height: calc(100% - 5px);
-`;
-
-const Wrapper = styled(animated.div)`
-  background-color: ${({ theme }) => theme.colors.base['bg-secondary']};
-  height: ${({ h }) => `${h}px`};
-  width: 100vw;
-  overflow: auto;
-  z-index: -1;
-  -ms-overflow-style: none;
-  scrollbar-color: #103b40 rgba(0, 0, 0, 0.15); /* thumb and track color */
-  scrollbar-width: thin; /* IE and Edge */
-  ::-webkit-scrollbar {
-    /* border: none; */
-    height: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.15);
-    height: 8px;
-    &:hover {
-      background: rgba(0, 0, 0, 0.35);
-    }
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #103b40;
-    height: 8px;
-  }
-`;
 
 export default Home;
