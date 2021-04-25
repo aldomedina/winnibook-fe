@@ -1,0 +1,83 @@
+{
+  "name":  "Tony's Master Of Pizza",
+  "description": "",
+  "short_description": "",
+  "latitude":  "",
+  "longitude":  "",
+  "streetLine1":  "",
+  "streetLine2": "",
+  "neighbor": "",
+  "city": "",
+  "postcode":  "",
+  "contacts": [
+    {
+      "name": "Main phone",
+      "type": "phone",
+      "value": "99999-9999"
+    },
+    {
+      "name": "Sales mail",
+      "type": "email",
+      "value": "a@b.com"
+    }
+  ],
+  "mainCategory": {
+    "name": "Restaurants, Bars & Coffees",
+    "theme": "yellow"
+  },
+  "categories": [
+    {
+      "name": "Pizza"
+    },
+    {
+      "name": "Casual dinner"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://s3.amazon.com/sakdjoaidjs.jpg",
+      "alt": "Picture of a pizza"
+    }
+  ],
+  "links": [
+    {
+      "name": "Facebook",
+      "url": "https://facebook.com/pizza"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Pizza party"
+    },
+    {
+      "name": "Cozy"
+    },
+    {
+      "name": "Kid's friendly"
+    }
+  ],
+  "visits": 0,
+  "stories": [
+    {
+      "title": "The best of little italy",
+      "subtitle": "Lorem",
+      "body": "",
+      "mainCategory": {
+        "name": "Restaurants, Bars & Coffees",
+        "theme": "yellow"
+      }
+    }
+  ],
+  "internalContacts": [
+    {
+      "name": "Mario's phone (owner)",
+      "type": "phone",
+      "value": "99999-9999"
+    },
+    {
+      "name": "Mario's email (owner)",
+      "type": "email",
+      "value": "mario@gmail.com"
+    }
+  ]
+}

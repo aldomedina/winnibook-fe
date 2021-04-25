@@ -4,6 +4,12 @@ query getLocalByName($name: String!) {
       _id
       name
       description
+      categories {
+        _id
+        name #resturants
+        theme
+        categories #['bakeries', 'cafes']
+      }
     }
   }
 }
