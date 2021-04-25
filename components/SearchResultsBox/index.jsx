@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { Icon } from '../Icon';
 const SearchResultsContainer = styled.div`
   transition: all 0.3s ease-in;
   height: ${({ $open }) => ($open ? '84vh' : '0vh')};
@@ -9,12 +9,18 @@ const SearchResultsContainer = styled.div`
   backdrop-filter: ${({ $open }) => `blur(10px) opacity(${$open ? 1 : 0}) `};
 `;
 
-const SearchResultsBox = ({ openSearch }) => {
+const SearchResultsBox = ({ openSearch, setOpenSearch }) => {
   return (
     <SearchResultsContainer
       $open={openSearch}
       className="absolute w-90vw md:w-full top-12 rounded-20p -left-11 md:left-0 -z-10 select-none"
-    ></SearchResultsContainer>
+    >
+      {openSearch && (
+        <button onClick={() => setOpenSearch(false)} className="float-right	m-5 cursor-pointer">
+          <Icon icon="x" />
+        </button>
+      )}
+    </SearchResultsContainer>
   );
 };
 

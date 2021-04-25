@@ -82,7 +82,7 @@ const TopNav = ({ showSearch }) => {
           {showSearch && (
             <div ref={searchRef} className="relative md:max-w-40vw w-full">
               <SearchBar buttonIcon={isMobile} />
-              <SearchResultsBox openSearch={openSearch} />
+              <SearchResultsBox openSearch={openSearch} setOpenSearch={setOpenSearch} />
             </div>
           )}
         </div>
