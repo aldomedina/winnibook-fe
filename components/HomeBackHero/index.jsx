@@ -33,7 +33,7 @@ const HomeBackHero = () => {
           <h2 className="uppercase text-2xl text-center">winnipeg's guide of local business</h2>
         </div>
 
-        <div className="mt-20 w-max">
+        <div className="mt-10 md:mt-20 w-max">
           {isMobile ? (
             <div>
               <Lottie options={defaultOptions} height={100} width={100} />
