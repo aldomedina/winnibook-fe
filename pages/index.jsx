@@ -70,7 +70,7 @@ const Home = () => {
               reference={dummyRef}
               customClasses="min-w-100vw md:min-w-50vw h-50vh  select-none"
             />
-            <div className="flex h-85vh md:h-90vh bg-white rounded-bl-20p shadow-lg">
+            <div className="flex  h-90vh bg-white rounded-bl-20p shadow-lg">
               <FeaturedPlaces reference={featuredRef} />
               <Stories reference={latestRef} />
               <Places reference={topRef} />

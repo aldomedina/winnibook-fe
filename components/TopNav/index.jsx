@@ -80,14 +80,14 @@ const TopNav = ({ showSearch }) => {
             </a>
           </Link>
           {showSearch && (
-            <div ref={searchRef} className="relative md:max-w-40vw w-full">
+            <div ref={searchRef} className="flex-1 relative md:max-w-50vw w-full md:mr-10">
               <SearchBar buttonIcon={isMobile} />
               <SearchResultsBox openSearch={openSearch} setOpenSearch={setOpenSearch} />
             </div>
           )}
         </div>
         <animated.ul
-          className="flex-1 flex flex-col md:flex-row min-w-0 gap-5 md:justify-end fixed md:static bg-white md:bg-transparent top-0 left-0 h-full w-full md:h-auto md:w-auto p-5 py-10 md:py-0 md:p-1 md:pd-0"
+          className="flex flex-col md:flex-row min-w-0 gap-5 md:justify-end fixed md:static bg-white md:bg-transparent top-0 left-0 h-full w-full md:h-auto md:w-auto p-5 py-10 md:py-0 md:p-1 md:pd-0"
           style={fullMenuAnimation}
         >
           {items.map((el, i) =>
@@ -96,7 +96,7 @@ const TopNav = ({ showSearch }) => {
                 ref={aboutMenu}
                 key={i}
                 onClick={() => setOpenMenu(true)}
-                className="uppercase px-4 text-left md:text-center whitespace-nowrap	md:text-sm relative"
+                className="uppercase px-2 text-left md:text-center whitespace-nowrap	md:text-sm relative"
               >
                 <span className="opacity-30 md:opacity-100	">{el.name}</span>
                 <DropdownMenu
@@ -111,7 +111,7 @@ const TopNav = ({ showSearch }) => {
                 </DropdownMenu>
               </li>
             ) : (
-              <li key={i} className={`uppercase px-4 md:text-center whitespace-nowrap	md:text-sm`}>
+              <li key={i} className={`uppercase px-2 md:text-center whitespace-nowrap	md:text-sm`}>
                 <Link href={`/${el.slug}`}>{el.name}</Link>
               </li>
             )

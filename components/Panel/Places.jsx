@@ -7,7 +7,7 @@ const Places = ({ reference }) => {
     <SectionWrapper
       i={3}
       reference={reference}
-      customClasses="w-100vw md:w-80vw flex flex-col pt-12 md:pt-40 "
+      customClasses="w-100vw md:w-80vw flex flex-col pt-14 md:pt-40 "
       title="TOP SEARCH THIS WEEK"
     >
       <div className="flex md:flex-row gap-3 md:gap-5 flex-col h-full w-full overflow-y-scroll md:overflow-y-visible">
