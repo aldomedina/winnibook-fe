@@ -25,7 +25,7 @@ const SearchBar = ({ reference, buttonIcon, home, onFocus, onBlur, open, customC
       className={`relative w-full bg-black bg-opacity-5 rounded-full transition-colors focus-within:bg-opacity-10 ${customClasses}`}
     >
       <input
-        className="flex-1 w-full h-9 bg-transparent pl-4 align-middle focus:outline-none "
+        className="flex-1 w-full h-7 bg-transparent pl-4 align-middle focus:outline-none "
         type="text"
       />
       <SearchButton buttonIcon={buttonIcon} home={home}>

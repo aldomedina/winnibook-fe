@@ -16,11 +16,12 @@ import TopNav from '../components/TopNav';
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter();
   const showSearch = pathname === '/' ? true : false;
+  const topNavBG = pathname === '/places' ? true : false;
   return (
     <Theme>
       <ColorProvider>
         <ApolloProvider client={client}>
-          <TopNav showSearch={showSearch} />
+          <TopNav showSearch={showSearch} hasBG={topNavBG} />
           <Component {...pageProps} />
         </ApolloProvider>
       </ColorProvider>

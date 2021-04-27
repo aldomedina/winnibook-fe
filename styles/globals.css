@@ -23,6 +23,13 @@
     -webkit-overflow-scrolling: auto;
   }
 }
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
 @media (hover: none), (pointer: coarse), (-moz-touch-enabled: 1) {
   .scroll-horizontal {
     overflow: scroll !important;

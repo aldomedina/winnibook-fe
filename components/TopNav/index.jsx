@@ -18,8 +18,13 @@ const DropdownMenu = styled(animated.ul)`
     backdrop-filter: blur(10px);
   }
 `;
+const DropdownItem = styled.li`
+  @media (min-width: 768px) {
+    backdrop-filter: blur(0px);
+  }
+`;
 
-const TopNav = ({ showSearch }) => {
+const TopNav = ({ showSearch, hasBG }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
@@ -50,7 +55,6 @@ const TopNav = ({ showSearch }) => {
   }, []);
 
   const handleClick = useCallback(e => {
-    console.log('handleSearchClick', openSearch);
     if (searchRef?.current?.contains(e.target)) {
       setOpenSearch(true);
       return;
@@ -70,10 +74,15 @@ const TopNav = ({ showSearch }) => {
       setOpenSearch(false);
     }
   }, []);
+
   return (
     <>
-      <div className="fixed top-0 left-0 py-2 px-3 md:px-5 flex justify-between items-center w-full z-50">
-        <div className="flex flex-1">
+      <div
+        className={`transition-all fixed top-0 left-0 py-2 px-3 md:px-5 flex justify-between items-center w-full z-50 ${
+          hasBG && 'bg-white shadow'
+        }`}
+      >
+        <div className="flex flex-1 items-center">
           <Link href="/">
             <a className="mr-5">
               <Icon icon="logo" w="30px" h="30px" />
@@ -87,7 +96,7 @@ const TopNav = ({ showSearch }) => {
           )}
         </div>
         <animated.ul
-          className="flex flex-col md:flex-row min-w-0 gap-5 md:justify-end fixed md:static bg-white md:bg-transparent top-0 left-0 h-full w-full md:h-auto md:w-auto p-5 py-10 md:py-0 md:p-1 md:pd-0"
+          className="flex flex-col md:flex-row md:items-center min-w-0 gap-5 md:justify-end fixed md:static bg-white md:bg-transparent top-0 left-0  w-full md:h-auto md:w-auto p-5 py-10 md:py-0 md:p-1 md:pd-0"
           style={fullMenuAnimation}
         >
           {items.map((el, i) =>
@@ -104,9 +113,12 @@ const TopNav = ({ showSearch }) => {
                   style={aboutAnimation}
                 >
                   {el.subItems.map((sub, i) => (
-                    <li key={i} className={`uppercase text-left whitespace-nowrap	md:text-sm mb-3`}>
+                    <DropdownItem
+                      key={i}
+                      className={`uppercase text-left whitespace-nowrap	md:text-sm mb-3`}
+                    >
                       <Link href={`/${sub.slug}`}>{sub.name}</Link>
-                    </li>
+                    </DropdownItem>
                   ))}
                 </DropdownMenu>
               </li>

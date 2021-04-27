@@ -23,7 +23,7 @@ const ColorProvider = ({ children }) => {
 
   return (
     <ColorContext.Provider value={{ colorTheme, selectColorTheme }}>
-      <ColorSchemaProvider h={height} style={colorSchemaProps}>
+      <ColorSchemaProvider className="scrollbar-hide" h={height} style={colorSchemaProps}>
         {children}
       </ColorSchemaProvider>
     </ColorContext.Provider>

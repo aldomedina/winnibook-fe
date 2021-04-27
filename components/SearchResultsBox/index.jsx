@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Icon } from '../Icon';
+
 const SearchResultsContainer = styled.div`
   transition: all 0.3s ease-in;
   height: ${({ $open }) => ($open ? '84vh' : '0vh')};

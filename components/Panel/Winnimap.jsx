@@ -5,7 +5,7 @@ const Winnimap = ({ reference }) => {
     <SectionWrapper
       i={4}
       reference={reference}
-      customClasses="w-screen md:w-80vw bg-yellow-400 flex justify-center items-center"
+      customClasses="w-screen md:w-80vw  flex justify-center items-center"
     >
       Winnimap
     </SectionWrapper>

@@ -1,0 +1,116 @@
+export const items = [
+  { name: 'Island Grill', location: 'Richmond Hill' },
+  { name: 'Flavoroso', location: 'Southaven' },
+  { name: 'Green Curry', location: 'Antioch' },
+  { name: 'El Pirata Porch', location: 'Freehold' },
+  { name: 'Sweet Escape', location: 'Portland' },
+  { name: 'Salty Squid', location: 'Mchenry' },
+  { name: 'Bangalore Spices', location: 'Portland' },
+  { name: 'Pancake World', location: 'Mchenry' },
+  { name: 'Veganic Corner', location: 'Richmond Hill' },
+  { name: 'Masala', location: 'Southaven' },
+  { name: 'Grassfed Grill', location: 'Antioch' },
+  { name: 'Greenanic Smoothies', location: 'Freehold' },
+  { name: 'Freddy’s Stove', location: 'Portland' },
+  { name: 'Grandma’s Sweets', location: 'Mchenry' },
+  { name: 'Spicella Spanish Kitchen', location: 'Richmond Hill' },
+  { name: 'Xin Chao Vietnamese Restaurant', location: 'Southaven' },
+  { name: 'Paterro’s Kitchen', location: 'Antioch' },
+  { name: 'Mediterra Seafood', location: 'Freehold' },
+  { name: 'Street Deli', location: 'Portland' },
+  { name: 'Whispering Bamboo', location: 'Mchenry' },
+  { name: 'Island Grill', location: 'Richmond Hill' },
+  { name: 'Flavoroso', location: 'Southaven' },
+  { name: 'Green Curry', location: 'Antioch' },
+  { name: 'El Pirata Porch', location: 'Freehold' },
+  { name: 'Sweet Escape', location: 'Portland' },
+  { name: 'Salty Squid', location: 'Mchenry' },
+  { name: 'Bangalore Spices', location: 'Portland' },
+  { name: 'Pancake World', location: 'Mchenry' },
+  { name: 'Veganic Corner', location: 'Richmond Hill' },
+  { name: 'Masala', location: 'Southaven' },
+  { name: 'Grassfed Grill', location: 'Antioch' },
+  { name: 'Greenanic Smoothies', location: 'Freehold' },
+  { name: 'Freddy’s Stove', location: 'Portland' },
+  { name: 'Grandma’s Sweets', location: 'Mchenry' },
+  { name: 'Spicella Spanish Kitchen', location: 'Richmond Hill' },
+  { name: 'Xin Chao Vietnamese Restaurant', location: 'Southaven' },
+  { name: 'Paterro’s Kitchen', location: 'Antioch' },
+  { name: 'Mediterra Seafood', location: 'Freehold' },
+  { name: 'Street Deli', location: 'Portland' },
+  { name: 'Whispering Bamboo', location: 'Mchenry' }
+];
+export const filters = {
+  categories: [
+    {
+      name: 'Restaurants, Bars & Coffees',
+      id: 'cat-1',
+      theme: 'cream',
+      subcategorie: [
+        { name: 'Restaurants', id: 'cat-1-1', theme: 'cream' },
+        { name: 'Coffees', id: 'cat-1-2', theme: 'cream' },
+        { name: 'Bars', id: 'cat-1-3', theme: 'cream' },
+        { name: 'Breakfast Restaurants', id: 'cat-1-3', theme: 'cream' },
+        { name: 'Buffets', id: 'cat-1-3', theme: 'cream' },
+        { name: 'Chinese Food Restaurants', id: 'cat-1-3', theme: 'cream' },
+        { name: 'Fish & seafood', id: 'cat-1-3', theme: 'cream' }
+      ]
+    },
+    {
+      name: 'Food, meat & fish',
+      id: 'cat-2',
+      theme: 'lightorange',
+      subcategorie: [
+        { name: 'Bakery', id: 'cat-1-1', theme: 'cream' },
+        { name: 'Banket Rooms', id: 'cat-1-2', theme: 'cream' },
+        { name: 'Butcher Shops', id: 'cat-1-3', theme: 'cream' },
+        { name: 'Caterers', id: 'cat-1-3', theme: 'cream' },
+        { name: 'Cheese', id: 'cat-1-3', theme: 'cream' },
+        { name: 'Chcolate', id: 'cat-1-3', theme: 'cream' },
+        { name: 'Farmers Markets', id: 'cat-1-3', theme: 'cream' },
+        { name: 'Fish & seafood', id: 'cat-1-3', theme: 'cream' },
+        { name: 'Gourmet Food Shops', id: 'cat-1-3', theme: 'cream' },
+        { name: 'Grocery Stores', id: 'cat-1-3', theme: 'cream' },
+        { name: 'Healthy Food Stores', id: 'cat-1-3', theme: 'cream' },
+        { name: 'Natural & Organic Foods', id: 'cat-1-3', theme: 'cream' },
+        { name: 'Pastry Shops', id: 'cat-1-3', theme: 'cream' }
+      ]
+    },
+    {
+      name: 'Construction',
+      id: 'cat-3',
+      theme: 'yellow',
+      subcategorie: [{ name: 'Building Materials', id: 'cat-1-1', theme: 'cream' }]
+    },
+    { name: 'Learning', id: 'cat-4', theme: 'darkgreen', subcategorie: '' },
+    { name: 'Tourism', id: 'cat-5', theme: 'lightgreen', subcategorie: '' },
+    { name: 'Others', id: 'cat-6', theme: 'lightblue', subcategorie: '' }
+  ],
+  locations: [
+    { name: 'Richmond Hill', id: 'richmond-hill' },
+    { name: 'Southaven', id: 'southaven' },
+    { name: 'Antioch', id: 'antioch' },
+    { name: 'Freehold', id: 'freehold' },
+    { name: 'Portland', id: 'portland' },
+    { name: 'Mchenry', id: 'mchenry' }
+  ],
+  hashtags: [
+    { name: 'Cheerful' },
+    { name: 'Reflective' },
+    { name: 'Gloomy' },
+    { name: 'Humorous' },
+    { name: 'Melancholy' },
+    { name: 'Idyllic' },
+    { name: 'Whimsical' },
+    { name: 'Romantic' },
+    { name: 'Mysterious' },
+    { name: 'Ominous' },
+    { name: 'Calm' },
+    { name: 'Lighthearted' },
+    { name: 'Hopeful' },
+    { name: 'Angry' },
+    { name: 'Fearful' },
+    { name: 'Tense' },
+    { name: 'Lonely' }
+  ]
+};

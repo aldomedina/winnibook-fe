@@ -31,6 +31,7 @@ module.exports = {
         '35vh': '35vh',
         '40vh': '40vh',
         '50vh': '50vh',
+        '55vh': '55vh',
         '60vh': '60vh',
         '70vh': '70vh',
         '75vh': '75vh',
@@ -84,7 +85,6 @@ module.exports = {
       },
       maxHeight: {
         '1p': '1px',
-
         '10vh': '10vh',
         '20vh': '20vh',
         '30vh': '30vh',
@@ -122,6 +122,9 @@ module.exports = {
       },
       fontSize: {
         xxs: '.5rem'
+      },
+      boxShadow: {
+        reverse: '0 -1px 3px 0 rgba(0, 0, 0, 0.1)'
       }
     }
   },
@@ -130,7 +133,7 @@ module.exports = {
       zIndex: ['hover']
     }
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [require('@tailwindcss/typography'), require('tailwind-scrollbar-hide')],
   corePlugins: {
     borderColor: false
   }
