@@ -12,22 +12,15 @@ const Places = ({ reference }) => {
     >
       <div className="flex md:flex-row gap-3 md:gap-5 flex-col h-full w-full overflow-y-scroll md:overflow-y-visible">
         <div className="group w-full md:w-3/6  md:h-full min-h-40vh">
-          <PlaceCard
-            name={top.name}
-            primaryColor={top.primaryColor}
-            secondaryColor={top.secondaryColor}
-            secondaryCategory={top.secondaryCategory}
-            big
-          />
+          <PlaceCard name={top.name} theme={top.theme} categories={[top.secondaryCategory]} big />
         </div>
         <div className="group w-full md:w-3/6 min-h-50vh md:min-h-0 md:h-full grid grid-cols-2 grid-rows-2 gap-3 md:gap-5">
           {others.map(el => (
             <PlaceCard
               key={el.id}
               name={el.name}
-              primaryColor={el.primaryColor}
-              secondaryColor={el.secondaryColor}
-              secondaryCategory={el.secondaryCategory}
+              theme={el.theme}
+              categories={[el.secondaryCategory]}
             />
           ))}
         </div>

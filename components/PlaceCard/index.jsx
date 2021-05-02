@@ -5,15 +5,14 @@ import Tag from '../Tag';
 const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis);
 
 const SPlaceCard = styled.div`
-  color: ${({ $color }) => $color};
-  background-color: ${({ $bgcolor }) => $bgcolor};
+  color: ${({ theme, $t }) => theme.colors[$t].primary};
+  background-color: ${({ theme, $t }) => theme.colors[$t].bg};
 `;
 
-const PlaceCard = ({ name, primaryColor, secondaryColor, onClick, secondaryCategory, big }) => {
+const PlaceCard = ({ name, theme, onClick, categories, big }) => {
   return (
     <SPlaceCard
-      $color={primaryColor}
-      $bgcolor={secondaryColor}
+      $t={theme}
       className={`w-full h-full text-sm md:text-md rounded-lg md:rounded-20p flex flex-col justify-between cursor-pointer transform transition hover:shadow-lg hover:-translate-y-1  ${
         big ? 'p-4 md:p-6' : 'p-2 md:p-3'
       }`}
@@ -26,12 +25,7 @@ const PlaceCard = ({ name, primaryColor, secondaryColor, onClick, secondaryCateg
       >
         <ResponsiveEllipsis text={name} maxLine="2" ellipsis="..." basedOn="letters" trimRight />
       </h3>
-      <Tag
-        primaryColor={primaryColor}
-        secondaryColor={secondaryColor}
-        secondaryCategory={secondaryCategory}
-        big={big}
-      />
+      <Tag theme={theme} name={categories[0]} big={big} />
     </SPlaceCard>
   );
 };

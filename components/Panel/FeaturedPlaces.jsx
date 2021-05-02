@@ -13,13 +13,7 @@ const FeaturedPlaces = ({ reference }) => {
     >
       <div className="h-full grid grid-cols-2 md:grid-cols-3 grid-rows-3 md:grid-rows-none md:auto-rows-auto-dense gap-2 md:gap-5 ">
         {featuresBusiness.map(p => (
-          <PlaceCard
-            key={p.id}
-            name={p.name}
-            secondaryCategory={p.secondaryCategory}
-            primaryColor={p.primaryColor}
-            secondaryColor={p.secondaryColor}
-          />
+          <PlaceCard key={p.id} name={p.name} categories={[p.secondaryCategory]} theme={p.theme} />
         ))}
       </div>
     </SectionWrapper>

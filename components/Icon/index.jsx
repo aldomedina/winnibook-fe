@@ -7,8 +7,7 @@ export const Icon = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  background-color: ${({ active, theme }) =>
-    active ? theme.colors[active].primary : theme.colors.base.primary};
+  background-color: currentColor;
   mask-repeat: no-repeat;
   mask-size: contain;
   mask-position: center;

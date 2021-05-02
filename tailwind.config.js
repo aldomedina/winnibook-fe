@@ -5,25 +5,20 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}'
   ],
   darkMode: false,
+  important: true,
   theme: {
     fontFamily: {
       sans: ['Lexend', 'sans-serif'],
       serif: ['piazzolla', 'ui-serif', 'Georgia']
     },
-
     container: {
       center: true,
       padding: '1rem'
     },
     borderColor: theme => ({
-      DEFAULT: '#103b40'
+      DEFAULT: theme('currentColor')
     }),
     extend: {
-      colors: {
-        darkgreen: {
-          primary: '#103b40'
-        }
-      },
       spacing: {
         '10vh': '10vh',
         '20vh': '20vh',
@@ -69,6 +64,7 @@ module.exports = {
       },
       minHeight: {
         '1p': '1px',
+        16: '4rem',
         32: '8rem',
         '10vh': '10vh',
         '20vh': '20vh',
@@ -125,6 +121,9 @@ module.exports = {
       },
       boxShadow: {
         reverse: '0 -1px 3px 0 rgba(0, 0, 0, 0.1)'
+      },
+      colors: {
+        base: '#103b40'
       }
     }
   },

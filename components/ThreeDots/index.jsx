@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import { ColorContext } from '../Theme/ColorProvider';
+import { ColorContext } from '../Theme';
 
 const ThreeDots = ({ handleClick, isOpen }) => {
   const { colorTheme } = useContext(ColorContext);

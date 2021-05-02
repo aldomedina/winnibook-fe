@@ -1,7 +1,7 @@
 import { createContext, useState } from 'react';
 import styled from 'styled-components';
 import { animated, useSpring } from 'react-spring';
-import { themeConfig } from '.';
+import themeConfig from './colors';
 import useWindowSize from '../Hooks/useWindowSize';
 
 export const ColorContext = createContext();
@@ -18,7 +18,7 @@ const ColorProvider = ({ children }) => {
   const colorSchemaProps = useSpring({
     color: themeConfig.colors[colorTheme].primary,
     borderColor: `${themeConfig.colors[colorTheme].primary}`,
-    backgroundColor: themeConfig.colors[colorTheme].bgColor
+    backgroundColor: themeConfig.colors[colorTheme].bg
   });
 
   return (

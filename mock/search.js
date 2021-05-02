@@ -45,46 +45,49 @@ export const filters = {
     {
       name: 'Restaurants, Bars & Coffees',
       id: 'cat-1',
+      isMain: true,
       theme: 'cream',
-      subcategorie: [
+      subcategories: [
         { name: 'Restaurants', id: 'cat-1-1', theme: 'cream' },
         { name: 'Coffees', id: 'cat-1-2', theme: 'cream' },
         { name: 'Bars', id: 'cat-1-3', theme: 'cream' },
-        { name: 'Breakfast Restaurants', id: 'cat-1-3', theme: 'cream' },
-        { name: 'Buffets', id: 'cat-1-3', theme: 'cream' },
-        { name: 'Chinese Food Restaurants', id: 'cat-1-3', theme: 'cream' },
-        { name: 'Fish & seafood', id: 'cat-1-3', theme: 'cream' }
+        { name: 'Breakfast Restaurants', id: 'cat-1-4', theme: 'cream' },
+        { name: 'Buffets', id: 'cat-1-5', theme: 'cream' },
+        { name: 'Chinese Food Restaurants', id: 'cat-1-6', theme: 'cream' },
+        { name: 'Fish & seafood', id: 'cat-1-7', theme: 'cream' }
       ]
     },
     {
       name: 'Food, meat & fish',
       id: 'cat-2',
+      isMain: true,
       theme: 'lightorange',
-      subcategorie: [
-        { name: 'Bakery', id: 'cat-1-1', theme: 'cream' },
-        { name: 'Banket Rooms', id: 'cat-1-2', theme: 'cream' },
-        { name: 'Butcher Shops', id: 'cat-1-3', theme: 'cream' },
-        { name: 'Caterers', id: 'cat-1-3', theme: 'cream' },
-        { name: 'Cheese', id: 'cat-1-3', theme: 'cream' },
-        { name: 'Chcolate', id: 'cat-1-3', theme: 'cream' },
-        { name: 'Farmers Markets', id: 'cat-1-3', theme: 'cream' },
-        { name: 'Fish & seafood', id: 'cat-1-3', theme: 'cream' },
-        { name: 'Gourmet Food Shops', id: 'cat-1-3', theme: 'cream' },
-        { name: 'Grocery Stores', id: 'cat-1-3', theme: 'cream' },
-        { name: 'Healthy Food Stores', id: 'cat-1-3', theme: 'cream' },
-        { name: 'Natural & Organic Foods', id: 'cat-1-3', theme: 'cream' },
-        { name: 'Pastry Shops', id: 'cat-1-3', theme: 'cream' }
+      subcategories: [
+        { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+        { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' },
+        { name: 'Butcher Shops', id: 'cat-2-4', theme: 'lightorange' },
+        { name: 'Caterers', id: 'cat-2-5', theme: 'lightorange' },
+        { name: 'Cheese', id: 'cat-2-6', theme: 'lightorange' },
+        { name: 'Chcolate', id: 'cat-2-7', theme: 'lightorange' },
+        { name: 'Farmers Markets', id: 'cat-2-8', theme: 'lightorange' },
+        { name: 'Fish & seafood', id: 'cat-2-9', theme: 'lightorange' },
+        { name: 'Gourmet Food Shops', id: 'cat-2-10', theme: 'lightorange' },
+        { name: 'Grocery Stores', id: 'cat-2-11', theme: 'lightorange' },
+        { name: 'Healthy Food Stores', id: 'cat-2-12', theme: 'lightorange' },
+        { name: 'Natural & Organic Foods', id: 'cat-2-13', theme: 'lightorange' },
+        { name: 'Pastry Shops', id: 'cat-2-14', theme: 'lightorange' }
       ]
     },
     {
       name: 'Construction',
       id: 'cat-3',
+      isMain: true,
       theme: 'yellow',
-      subcategorie: [{ name: 'Building Materials', id: 'cat-1-1', theme: 'cream' }]
+      subcategories: [{ name: 'Building Materials', id: 'cat-3-1', theme: 'yellow' }]
     },
-    { name: 'Learning', id: 'cat-4', theme: 'darkgreen', subcategorie: '' },
-    { name: 'Tourism', id: 'cat-5', theme: 'lightgreen', subcategorie: '' },
-    { name: 'Others', id: 'cat-6', theme: 'lightblue', subcategorie: '' }
+    { name: 'Learning', id: 'cat-4', theme: 'darkgreen', subcategories: '', isMain: true },
+    { name: 'Tourism', id: 'cat-5', theme: 'lightgreen', subcategories: '', isMain: true },
+    { name: 'Others', id: 'cat-6', theme: 'lightblue', subcategories: '', isMain: true }
   ],
   locations: [
     { name: 'Richmond Hill', id: 'richmond-hill' },
@@ -95,22 +98,31 @@ export const filters = {
     { name: 'Mchenry', id: 'mchenry' }
   ],
   hashtags: [
-    { name: 'Cheerful' },
-    { name: 'Reflective' },
-    { name: 'Gloomy' },
-    { name: 'Humorous' },
-    { name: 'Melancholy' },
-    { name: 'Idyllic' },
-    { name: 'Whimsical' },
-    { name: 'Romantic' },
-    { name: 'Mysterious' },
-    { name: 'Ominous' },
-    { name: 'Calm' },
-    { name: 'Lighthearted' },
-    { name: 'Hopeful' },
-    { name: 'Angry' },
-    { name: 'Fearful' },
-    { name: 'Tense' },
-    { name: 'Lonely' }
+    { name: 'Cheerful', id: 'Cheerful' },
+    { name: 'Reflective', id: 'Reflective' },
+    { name: 'Gloomy', id: 'Gloomy' },
+    { name: 'Humorous', id: 'Humorous' },
+    { name: 'Melancholy', id: 'Melancholy' },
+    { name: 'Idyllic', id: 'Idyllic' },
+    { name: 'Whimsical', id: 'Whimsical' },
+    { name: 'Romantic', id: 'Romantic' },
+    { name: 'Mysterious', id: 'Mysterious' },
+    { name: 'Ominous', id: 'Ominous' },
+    { name: 'Calm', id: 'Calm' },
+    { name: 'Lighthearted', id: 'Lighthearted' },
+    { name: 'Hopeful', id: 'Hopeful' },
+    { name: 'Angry', id: 'Angry' },
+    { name: 'Fearful', id: 'Fearful' },
+    { name: 'Tense', id: 'Tense' },
+    { name: 'Lonely', id: 'Lonely' },
+    { name: 'Ostry', id: 'Ostry' },
+    { name: 'Birthdays', id: 'Birthdays' },
+    { name: 'Wedding Cakes', id: 'Wedding Cakes' },
+    { name: 'Pet friendly', id: 'Pet-friendly' },
+    { name: 'Gluten Free', id: 'Gluten-Free' },
+    { name: 'Vegan', id: 'vegan' },
+    { name: 'Wifi', id: 'Wifi' },
+    { name: 'Sport TV', id: 'Sport-TV' },
+    { name: 'Capuccino', id: 'Capuccino' }
   ]
 };

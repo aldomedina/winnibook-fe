@@ -8,28 +8,34 @@ const SearchButton = styled.button`
   height: calc(100% - 4px);
   padding: ${({ buttonIcon }) => (buttonIcon ? '0 .5rem' : '0 1.3rem')};
   border-radius: 19px;
-  background-color: ${({ theme, active, home }) =>
-    home
-      ? theme.colors.base['bg-secondary']
-      : active
-      ? theme.colors[active].primary
-      : theme.colors.base['bg-primary']};
-  font-size: ${({ theme }) => theme.fontSize.xs};
+  background-color: ${({ theme, $t }) => theme.colors[$t].bg};
 `;
 
-const SearchBar = ({ reference, buttonIcon, home, onFocus, onBlur, open, customClasses }) => {
+const SearchBar = ({
+  reference,
+  onChange,
+  value,
+  buttonIcon,
+  home,
+  customClasses,
+  placeholder,
+  theme = 'base'
+}) => {
   return (
     <div
       ref={reference}
       home={home}
-      className={`relative w-full bg-black bg-opacity-5 rounded-full transition-colors focus-within:bg-opacity-10 ${customClasses}`}
+      className={`relative w-full h-full bg-black bg-opacity-5 rounded-full transition-colors focus-within:bg-opacity-10 ${customClasses}`}
     >
       <input
-        className="flex-1 w-full h-7 bg-transparent pl-4 align-middle focus:outline-none "
+        className="flex-1 w-full py-2 h-full bg-transparent pl-4 align-middle focus:outline-none placeholder-current"
         type="text"
+        placeholder={placeholder}
+        value={value}
+        onChange={e => onChange(e.target.value)}
       />
-      <SearchButton buttonIcon={buttonIcon} home={home}>
-        {buttonIcon ? <Icon icon="search" w="16px" /> : 'SEARCH'}{' '}
+      <SearchButton buttonIcon={buttonIcon} home={home} className="text-xs" $t={theme}>
+        {buttonIcon ? <Icon icon="search" w="16px" /> : 'SEARCH'}
       </SearchButton>
     </div>
   );

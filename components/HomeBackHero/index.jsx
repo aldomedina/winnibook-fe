@@ -14,6 +14,7 @@ const ScrollWheel = styled.div`
   animation-duration: 1.5s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in;
+  background-color: ${({ theme }) => theme.colors.base.primary};
 `;
 
 const HomeBackHero = () => {
@@ -39,8 +40,8 @@ const HomeBackHero = () => {
               <Lottie options={defaultOptions} height={100} width={100} />
             </div>
           ) : (
-            <div className="h-20 rounded-full w-12 border border-1 border-darkgreen-primary flex justify-center ">
-              <ScrollWheel className="bg-darkgreen-primary w-2 h-3 rounded-full mt-4" />
+            <div className="h-20 rounded-full w-12 border border-1 border-base-primary flex justify-center ">
+              <ScrollWheel className="w-2 h-3 rounded-full mt-4" />
             </div>
           )}
         </div>

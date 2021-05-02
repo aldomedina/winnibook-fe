@@ -17,9 +17,9 @@ const StoryCard = ({ image, title, categories, content }) => {
             {categories.map((cat, i) => (
               <Tag
                 key={`${i}-${cat.name}`}
-                primaryColor={cat.primaryColor}
-                secondaryColor={cat.secondaryColor}
-                secondaryCategory={cat.secondaryCategory}
+                theme={cat.theme}
+                name={cat.secondaryCategory}
+                invertColors
               />
             ))}
           </div>

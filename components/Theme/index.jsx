@@ -1,49 +1,45 @@
-import { ThemeProvider, css } from 'styled-components';
+import { createContext, useState, useEffect } from 'react';
+import styled, { ThemeProvider, createGlobalStyle, css } from 'styled-components';
+import { useRouter } from 'next/router';
+import { animated, useSpring } from 'react-spring';
 
-export const themeConfig = {
-  colors: {
-    base: {
-      'bg-primary': '#FFFFFF',
-      'bg-secondary': '#F7F7F7',
-      primary: '#103B40'
-    },
-    beige: {
-      'bg-primary': '#FBF4E1',
-      'bg-secondary': '#FBF4E1',
-      primary: '#F86900'
-    },
-    'dark-green': {
-      'bg-primary': '#103B40',
-      'bg-secondary': '#103B40',
-      primary: '#BDDEDF'
-    }
-  },
-  fonts: {
-    primary: 'Lexend',
-    secondary: 'piazzolla'
-  },
-  fontSize: {
-    xs: '.75em',
-    sm: '1em',
-    md: '1.25em',
-    lg: '1.5em',
-    xl: '2em'
-  },
-  breakpoints: {
-    sm: 640,
-    md: 768,
-    lg: 1024,
-    xl: 1280
+import themeConfig from './colors';
+
+const GlobalStyles = createGlobalStyle`
+  html, body, #__next {
+    height: 100%;
   }
-};
 
-export const mediaQueries = (key, bigger) => {
-  return style =>
-    `@media (${bigger ? 'min-width' : 'max-width'}: ${
-      themeConfig.breakpoints[key]
-    }px) { ${style} }`;
-};
+`;
 
-const Theme = ({ children }) => <ThemeProvider theme={themeConfig}>{children}</ThemeProvider>;
+const ColorParent = styled(animated.div)`
+  height: 100%;
+`;
+
+export const ColorContext = createContext();
+
+const Theme = ({ children }) => {
+  const [colorTheme, setColorTheme] = useState('base');
+  const { pathname } = useRouter();
+
+  const colorSchemaProps = useSpring({
+    color: themeConfig.colors[colorTheme].primary,
+    borderColor: `${themeConfig.colors[colorTheme].primary}`,
+    backgroundColor: themeConfig.colors[colorTheme].bg
+  });
+
+  useEffect(() => {
+    setColorTheme('base');
+  }, [pathname]);
+
+  return (
+    <ThemeProvider theme={themeConfig}>
+      <ColorContext.Provider value={{ colorTheme, setColorTheme }}>
+        <GlobalStyles />
+        <ColorParent style={colorSchemaProps}>{children}</ColorParent>
+      </ColorContext.Provider>
+    </ThemeProvider>
+  );
+};
 
 export default Theme;

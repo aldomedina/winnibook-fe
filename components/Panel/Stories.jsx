@@ -17,12 +17,7 @@ const Stories = ({ reference }) => {
             <h3 className="h-max text-2xl md:text-4xl uppercase mb-1 md:mb-5">{featured.title}</h3>
             <div className="w-max grid gap-4 grid-flow-col auto-cols-auto mb-5">
               {featured.categories.map((cat, i) => (
-                <Tag
-                  key={`${i}-${cat.name}`}
-                  primaryColor={cat.primaryColor}
-                  secondaryColor={cat.secondaryColor}
-                  secondaryCategory={cat.secondaryCategory}
-                />
+                <Tag key={`${i}-${cat.name}`} theme={cat.theme} name={cat.secondaryCategory} />
               ))}
             </div>
             <p className="font-serif hidden md:block">{featured.body}</p>

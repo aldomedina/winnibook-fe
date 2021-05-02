@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
 import { Icon } from '../Icon';
-import { ColorContext } from '../Theme/ColorProvider';
+import { ColorContext } from '../Theme';
 
 const items = ['instagram', 'twitter', 'facebook'];
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useSpring, animated } from 'react-spring';
@@ -9,6 +9,8 @@ import SearchBar from '../SearchBar';
 import SocialIcons from '../SocialIcons';
 import items from './items';
 import SearchResultsBox from '../SearchResultsBox';
+import { ColorContext } from '../Theme';
+import themeConfig from '../Theme/colors';
 
 const DropdownMenu = styled(animated.ul)`
   @media (min-width: 768px) {
@@ -28,10 +30,18 @@ const TopNav = ({ showSearch, hasBG }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
-
+  const { colorTheme } = useContext(ColorContext);
   const { isMobile } = useWindowSize();
   const searchRef = useRef();
   const aboutMenu = useRef();
+
+  const BGAnimation = useSpring({
+    backgroundColor: !hasBG
+      ? 'transparent'
+      : colorTheme === 'base'
+      ? '#ffffff'
+      : themeConfig.colors[colorTheme].bg
+  });
 
   const fullMenuAnimation = useSpring({
     transform: isOpen || !isMobile ? `translateY(0)` : `translateY(-100%)`,
@@ -77,9 +87,10 @@ const TopNav = ({ showSearch, hasBG }) => {
 
   return (
     <>
-      <div
+      <animated.div
+        style={BGAnimation}
         className={`transition-all fixed top-0 left-0 py-2 px-3 md:px-5 flex justify-between items-center w-full z-50 ${
-          hasBG && 'bg-white shadow'
+          hasBG && 'shadow'
         }`}
       >
         <div className="flex flex-1 items-center">
@@ -89,14 +100,14 @@ const TopNav = ({ showSearch, hasBG }) => {
             </a>
           </Link>
           {showSearch && (
-            <div ref={searchRef} className="flex-1 relative md:max-w-50vw w-full md:mr-10">
+            <div ref={searchRef} className="flex-1 relative md:max-w-40vw w-full md:mr-10">
               <SearchBar buttonIcon={isMobile} />
               <SearchResultsBox openSearch={openSearch} setOpenSearch={setOpenSearch} />
             </div>
           )}
         </div>
         <animated.ul
-          className="flex flex-col md:flex-row md:items-center min-w-0 gap-5 md:justify-end fixed md:static bg-white md:bg-transparent top-0 left-0  w-full md:h-auto md:w-auto p-5 py-10 md:py-0 md:p-1 md:pd-0"
+          className="flex flex-col md:flex-row md:items-center min-w-0 gap-5 md:justify-end fixed md:static bg-white md:bg-transparent top-0 left-0  w-full h-full md:h-auto md:w-auto p-5 py-10 md:py-0 md:p-1 md:pd-0"
           style={fullMenuAnimation}
         >
           {items.map((el, i) =>
@@ -109,7 +120,7 @@ const TopNav = ({ showSearch, hasBG }) => {
               >
                 <span className="opacity-30 md:opacity-100	">{el.name}</span>
                 <DropdownMenu
-                  className="md:absolute -left-11 rounded-20p w-max p-5 pt-3 top-7"
+                  className="md:absolute -left-11 rounded-lg w-max p-5 pt-3 top-7"
                   style={aboutAnimation}
                 >
                   {el.subItems.map((sub, i) => (
@@ -133,7 +144,7 @@ const TopNav = ({ showSearch, hasBG }) => {
           </div>
         </animated.ul>
         <ThreeDots isOpen={isOpen} handleClick={() => setIsOpen(!isOpen)} />
-      </div>
+      </animated.div>
     </>
   );
 };

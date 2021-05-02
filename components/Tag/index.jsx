@@ -1,18 +1,45 @@
 import styled from 'styled-components';
+import { Icon } from '../Icon';
 const STag = styled.div`
-  color: ${({ $color }) => $color};
-  background-color: ${({ $bgcolor }) => $bgcolor};
+  background-color: ${({ theme, $t, $invert, $isFilterTag }) =>
+    $isFilterTag ? 'transparent' : $invert ? theme.colors[$t].bg : theme.colors[$t].primary};
+  color: ${({ theme, $t, $invert, $isFilterTag }) =>
+    $isFilterTag ? 'inherit' : $invert ? theme.colors[$t].primary : theme.colors[$t].bg};
 `;
-const Tag = ({ primaryColor, secondaryColor, secondaryCategory, big }) => {
+
+const Tag = ({
+  theme,
+  name,
+  big,
+  onTagCLick,
+  invertColors,
+  handleRemoveClick,
+  cat,
+  filterTag,
+  size
+}) => {
   return (
     <STag
-      $color={secondaryColor}
-      $bgcolor={primaryColor}
-      className={`w-max py-0.5 md:py-1 px-2 md:px-3 rounded-full self-end uppercase font-medium md:mr-2 md:mb-2 ${
-        big ? 'md:text-md lg:text-lg' : 'text-xxs lg:text-xs '
-      }`}
+      onClick={() => onTagCLick && onTagCLick(cat)}
+      $t={theme}
+      $isFilterTag={filterTag}
+      $invert={invertColors}
+      className={`tag ${big ? 'text-xs md:text-md lg:text-lg' : 'text-xxs lg:text-xs '} ${
+        onTagCLick ? 'cursor-pointer' : ''
+      } ${filterTag ? 'border border-1 flex items-center 	' : ''}`}
     >
-      <span>{secondaryCategory}</span>
+      <span className="align-center whitespace-nowrap">{name}</span>
+      {handleRemoveClick && (
+        <div
+          className="ml-2 mt-0.5 cursor-pointer"
+          onClick={e => {
+            e.stopPropagation();
+            handleRemoveClick(cat);
+          }}
+        >
+          <Icon icon="x" w="16px" h="16px" />
+        </div>
+      )}
     </STag>
   );
 };

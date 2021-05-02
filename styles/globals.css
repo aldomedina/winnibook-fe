@@ -16,13 +16,68 @@
     @apply bg-cover;
     @apply bg-no-repeat;
   }
+  .tag {
+    @apply w-max;
+    @apply py-0.5;
+    @apply md:py-1;
+    @apply px-2;
+    @apply md:px-3;
+    @apply rounded-full;
+    @apply self-end;
+    @apply uppercase;
+    @apply font-medium;
+    @apply md:mr-2;
+    @apply md:mb-2;
+  }
   .scrolling-touch {
     -webkit-overflow-scrolling: touch;
   }
   .scrolling-auto {
     -webkit-overflow-scrolling: auto;
   }
+
+  .bg-glass {
+    box-shadow: 0 10px 8px 0px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.15);
+    transition: backdrop-filter 0.3s ease-in;
+    backdrop-filter: blur(10px);
+  }
 }
+
+/* REACT-SELECT OVERWRITE */
+.react-select-container {
+  border: none;
+  border-bottom: 1px solid;
+  border-color: inherit;
+}
+.react-select__control {
+  background-color: transparent !important;
+  border: none !important;
+}
+.react-select__placeholder {
+  opacity: 0.3;
+  color: inherit !important;
+}
+.react-select__control--is-focused {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+.react-select__dropdown-indicator {
+  color: inherit !important;
+}
+.react-select__indicator-separator {
+  display: none !important;
+}
+.react-select__option {
+  cursor: pointer !important;
+}
+.react-select__option--is-focused {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* SCROLLBAR-HIDE */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -30,22 +85,19 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
-@media (hover: none), (pointer: coarse), (-moz-touch-enabled: 1) {
-  .scroll-horizontal {
-    overflow: scroll !important;
-    overflow: overlay !important;
-    overflow-x: scroll !important;
-    overflow-x: overlay !important;
-    overflow-y: hidden !important;
-    -ms-overflow-style: none !important;
-    scrollbar-width: none !important;
-  }
-  .scroll-horizontal > div {
-    transform: none !important;
-    position: relative;
-  }
 
-  .scroll-horizontal::-webkit-scrollbar {
-    display: none !important;
-  }
+/* STYLED SCROLLBAR */
+.styled-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.15);
+}
+.styled-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.styled-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.15);
+}
+.styled-scrollbar::-webkit-scrollbar-thumb {
+  background-color: currentColor;
+  border-radius: 999px;
 }
