@@ -3,7 +3,7 @@ import { useSpring, animated } from 'react-spring';
 import Select from '../Select';
 import useWindowSize from '../Hooks/useWindowSize';
 import { filters as mock } from '../../mock/search';
-import { getItemByKey, removeItemById } from '../../utils';
+import { getItemByKey, removeItemById, sortByName } from '../../utils';
 import SearchBar from '../SearchBar';
 import Tag from '../Tag';
 import { ColorContext } from '../Theme';
@@ -60,11 +60,32 @@ const FilterBars = ({ open, setOpen, filters, setFilters }) => {
       setFilters(removedSubCategories);
       setCategoriesDisplayed(categories);
     }
+
+    const isSubCategory = selectedFilter.type === subCategoryId;
+    if (isSubCategory) {
+      setCategoriesDisplayed([...categoriesDisplayed, filter]);
+    }
+
+    const isHashtag = selectedFilter.type === 'hashtag';
+    if (isHashtag) {
+      setHashtagsDisplayed([...hashtagsDisplayed, filter]);
+    }
   };
 
   const handleCategoryClick = cat => {
     addNewFilter({ ...cat, type: cat.isMain ? mainCategoryId : subCategoryId });
-    cat.isMain && setCategoriesDisplayed(cat.subcategories);
+    if (cat.isMain) {
+      setCategoriesDisplayed(cat.subcategories);
+    } else {
+      const removedSubcategory = removeItemById(categoriesDisplayed, cat.id);
+      setCategoriesDisplayed(removedSubcategory);
+    }
+  };
+
+  const handleHashtagClick = hashtag => {
+    addNewFilter({ ...hashtag, type: 'hashtag' });
+    const removedHashtag = removeItemById(hashtagsDisplayed, hashtag.id);
+    setHashtagsDisplayed(removedHashtag);
   };
 
   const handleLocationChange = (list, item) => {
@@ -129,7 +150,7 @@ const FilterBars = ({ open, setOpen, filters, setFilters }) => {
 
           <div className="flex styled-scrollbar max-h-30vh overflow-x-scroll md:overflow-y-auto md:overflow-x-hidden md:flex-wrap md:justify-center md:mt-20 gap-2">
             {categoriesDisplayed &&
-              categoriesDisplayed.map(cat => (
+              sortByName(categoriesDisplayed).map(cat => (
                 <Tag
                   key={cat.id}
                   name={cat.name}
@@ -145,7 +166,7 @@ const FilterBars = ({ open, setOpen, filters, setFilters }) => {
         <SearchByTag
           items={hashtagsDisplayed}
           theme={colorTheme}
-          handleHashtagClick={el => addNewFilter({ ...el, type: 'hashtag' })}
+          handleHashtagClick={handleHashtagClick}
         />
       </div>
     </animated.div>
