@@ -148,7 +148,7 @@ const FilterBars = ({ open, setOpen, filters, setFilters }) => {
             search by categories
           </h3>
 
-          <div className="flex styled-scrollbar max-h-30vh overflow-x-scroll md:overflow-y-auto md:overflow-x-hidden md:flex-wrap md:justify-center md:mt-20 gap-2">
+          <div className="flex styled-scrollbar max-h-30vh overflow-x-scroll md:overflow-y-auto md:overflow-x-hidden md:flex-wrap md:justify-center md:mt-10 gap-2">
             {categoriesDisplayed &&
               sortByName(categoriesDisplayed).map(cat => (
                 <Tag
