@@ -120,7 +120,7 @@ const TopNav = ({ showSearch, hasBG }) => {
               >
                 <span className="opacity-30 md:opacity-100	">{el.name}</span>
                 <DropdownMenu
-                  className="md:absolute -left-11 rounded-lg w-max p-5 pt-3 top-7"
+                  className="md:absolute -left-11 rounded-lg w-max p-5 pt-3 top-10"
                   style={aboutAnimation}
                 >
                   {el.subItems.map((sub, i) => (
@@ -134,7 +134,11 @@ const TopNav = ({ showSearch, hasBG }) => {
                 </DropdownMenu>
               </li>
             ) : (
-              <li key={i} className={`uppercase px-2 md:text-center whitespace-nowrap	md:text-sm`}>
+              <li
+                onClick={() => setIsOpen(false)}
+                key={i}
+                className={`uppercase px-2 md:text-center whitespace-nowrap	md:text-sm`}
+              >
                 <Link href={`/${el.slug}`}>{el.name}</Link>
               </li>
             )

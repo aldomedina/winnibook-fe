@@ -25,7 +25,7 @@ const Tag = ({
       $isFilterTag={filterTag}
       $invert={invertColors}
       className={`tag ${big ? 'text-xs md:text-md lg:text-lg' : 'text-xxs lg:text-xs '} ${
-        onTagCLick ? 'cursor-pointer' : ''
+        onTagCLick ? 'cursor-pointer hover-interaction' : ''
       } ${filterTag ? 'border border-1 flex items-center 	' : ''}`}
     >
       <span className="align-center whitespace-nowrap">{name}</span>

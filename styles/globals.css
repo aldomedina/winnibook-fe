@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  button:focus {
+    box-shadow: none;
+    outline: none;
+  }
   .outline-title {
     @apply uppercase;
     @apply font-medium;
@@ -34,6 +38,12 @@
   }
   .scrolling-auto {
     -webkit-overflow-scrolling: auto;
+  }
+  .hover-interaction {
+    @apply transform;
+    @apply transition;
+    @apply hover:shadow-lg;
+    @apply hover:-translate-y-0.5;
   }
 
   .bg-glass {
@@ -93,6 +103,7 @@
 }
 .styled-scrollbar::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
 }
 .styled-scrollbar::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.15);

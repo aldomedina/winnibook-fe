@@ -16,6 +16,7 @@ const SearchBar = ({
   onChange,
   value,
   buttonIcon,
+  noIcon,
   home,
   customClasses,
   placeholder,
@@ -34,9 +35,11 @@ const SearchBar = ({
         value={value}
         onChange={e => onChange(e.target.value)}
       />
-      <SearchButton buttonIcon={buttonIcon} home={home} className="text-xs" $t={theme}>
-        {buttonIcon ? <Icon icon="search" w="16px" /> : 'SEARCH'}
-      </SearchButton>
+      {!noIcon && (
+        <SearchButton buttonIcon={buttonIcon} home={home} className="text-xs" $t={theme}>
+          {buttonIcon ? <Icon icon="search" w="16px" /> : 'SEARCH'}
+        </SearchButton>
+      )}
     </div>
   );
 };

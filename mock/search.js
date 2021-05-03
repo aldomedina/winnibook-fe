@@ -117,7 +117,7 @@ export const filters = {
     { name: 'Lonely', id: 'Lonely' },
     { name: 'Ostry', id: 'Ostry' },
     { name: 'Birthdays', id: 'Birthdays' },
-    { name: 'Wedding Cakes', id: 'Wedding Cakes' },
+    { name: 'Wedding Cakes', id: 'Wedding-Cakes' },
     { name: 'Pet friendly', id: 'Pet-friendly' },
     { name: 'Gluten Free', id: 'Gluten-Free' },
     { name: 'Vegan', id: 'vegan' },

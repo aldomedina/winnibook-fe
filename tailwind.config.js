@@ -124,6 +124,13 @@ module.exports = {
       },
       colors: {
         base: '#103b40'
+      },
+      gridTemplateColumns: {
+        filters: 'max-content auto max-content',
+        'filters-small': 'auto 40px'
+      },
+      gridTemplateRows: {
+        filters: 'max-content auto'
       }
     }
   },

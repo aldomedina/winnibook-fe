@@ -25,7 +25,7 @@ const SearchByTag = ({ items, theme, handleHashtagClick }) => {
           theme={theme}
         />
       </div>
-      <div className="flex styled-scrollbar max-h-30vh overflow-x-scroll md:overflow-y-auto md:overflow-x-hidden md:flex-wrap md:justify-center md:mt-10 gap-2">
+      <div className="flex py-3 styled-scrollbar max-h-30vh overflow-x-scroll md:overflow-y-auto md:overflow-x-hidden md:flex-wrap md:justify-center md:mt-10 gap-2">
         {filteredItems &&
           sortByName(filteredItems).map(el => (
             <Tag key={el.id} filterTag name={el.name} onTagCLick={handleHashtagClick} cat={el} />
