@@ -139,7 +139,7 @@ module.exports = {
       zIndex: ['hover']
     }
   },
-  plugins: [require('@tailwindcss/typography'), require('tailwind-scrollbar-hide')],
+  plugins: [require('@tailwindcss/typography')],
   corePlugins: {
     borderColor: false
   }
