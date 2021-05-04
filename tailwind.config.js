@@ -117,7 +117,8 @@ module.exports = {
         '20p': '20px'
       },
       fontSize: {
-        xxs: '.5rem'
+        '2xs': '.6rem',
+        '3xs': '.5rem'
       },
       boxShadow: {
         reverse: '0 -1px 3px 0 rgba(0, 0, 0, 0.1)'
@@ -139,7 +140,7 @@ module.exports = {
       zIndex: ['hover']
     }
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [require('@tailwindcss/typography'), require('tailwind-scrollbar-hide')],
   corePlugins: {
     borderColor: false
   }

@@ -36,7 +36,9 @@ const Theme = ({ children }) => {
     <ThemeProvider theme={themeConfig}>
       <ColorContext.Provider value={{ colorTheme, setColorTheme }}>
         <GlobalStyles />
-        <ColorParent style={colorSchemaProps}>{children}</ColorParent>
+        <ColorParent className="scrollbar-hide" style={colorSchemaProps}>
+          {children}
+        </ColorParent>
       </ColorContext.Provider>
     </ThemeProvider>
   );

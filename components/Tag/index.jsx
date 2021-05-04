@@ -16,7 +16,7 @@ const Tag = ({
   handleRemoveClick,
   cat,
   filterTag,
-  size
+  small
 }) => {
   return (
     <STag
@@ -24,9 +24,15 @@ const Tag = ({
       $t={theme}
       $isFilterTag={filterTag}
       $invert={invertColors}
-      className={`tag ${big ? 'text-xs md:text-md lg:text-lg' : 'text-xxs lg:text-xs '} ${
-        onTagCLick ? 'cursor-pointer hover-interaction' : ''
-      } ${filterTag ? 'border border-1 flex items-center 	' : ''}`}
+      className={`tag ${
+        big
+          ? 'text-xs md:text-md lg:text-lg'
+          : small
+          ? 'text-3xs md:text-2xs'
+          : 'text-3xs lg:text-xs '
+      } ${onTagCLick ? 'cursor-pointer hover-interaction' : ''} ${
+        filterTag ? 'border border-1 flex items-center 	' : ''
+      }`}
     >
       <span className="align-center whitespace-nowrap">{name}</span>
       {handleRemoveClick && (

@@ -1,14 +1,40 @@
-const PlaceRow = ({ place }) => {
-  const { name, location } = place;
+import { useRef } from 'react';
+import { useSpring, animated } from 'react-spring';
+import { sortByName } from '../../utils';
+import useMeasure from '../Hooks/useMeasure';
+import PlaceRowBody from './PlaceRowBody';
+import PlaceRowHeader from './PlaceRowHeader';
+
+const PlaceRow = ({ place, index, openPlace, setOpenPlace }) => {
+  const { name, location, categories } = place; // 🚨  MOCK ALERT 🚨
+  const isOpen = index === openPlace;
+  const headerRef = useRef(null);
+  const headerHeight = headerRef?.current?.offsetHeight;
+  const rowRef = useRef(null);
+  const onRowHeaderClick = () => {
+    if (!openPlace) {
+      rowRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setOpenPlace(index);
+    } else {
+      setOpenPlace(false);
+    }
+  };
+
   return (
-    <li className="container mb-5 md:mb-2">
-      <div className="flex flex-col md:flex-row">
-        <h3 className="uppercase text-2xl md:text-4xl">{name}</h3>
-        <div className="flex-1 border-b-2 border-dotted opacity-30 hidden md:block" />
-        <h4 className="uppercase text-lg font-light md:text-2xl">{location}</h4>
-      </div>
+    <li ref={rowRef} className="container mb-1 md:mb-2">
+      <PlaceRowHeader
+        reference={headerRef}
+        name={name}
+        location={location}
+        categories={sortByName(categories.slice(0, 2))}
+        onRowHeaderClick={onRowHeaderClick}
+        isOpen={isOpen}
+      />
+      <PlaceRowBody isOpen={isOpen} headerHeight={headerHeight} />
     </li>
   );
 };
 
 export default PlaceRow;
+
+// sortByName(place.categories.slice(0, 2))
