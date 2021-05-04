@@ -33,7 +33,7 @@ const Places = () => {
             place={item}
             listRef={listRef}
             index={i}
-            openPlace={openPlace}
+            openPlace={openPlace === i}
             setOpenPlace={setOpenPlace}
           />
         ))}

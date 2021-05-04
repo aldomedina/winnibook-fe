@@ -21,6 +21,7 @@ module.exports = {
     extend: {
       spacing: {
         '10vh': '10vh',
+        '15vh': '15vh',
         '20vh': '20vh',
         '30vh': '30vh',
         '35vh': '35vh',
@@ -34,7 +35,9 @@ module.exports = {
         '85vh': '85vh',
         '90vh': '90vh',
         '100vh': '100vh',
+        '5vw': '5vw',
         '10vw': '10vw',
+        '15vw': '15vw',
         '20vw': '20vw',
         '30vw': '30vw',
         '40vw': '40vw',
