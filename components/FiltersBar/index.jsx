@@ -18,8 +18,16 @@ const hashtagId = 'hashtag';
 const locationId = 'location';
 const searchbarId = 'text';
 
-const FilterBars = ({ open, setOpen, filters, setFilters }) => {
-  const { locations, categories, hashtags } = mock; // <---- MOCK ALERT - to be integrated with BE
+const FilterBars = ({
+  open,
+  setOpen,
+  filters,
+  setFilters,
+  reference,
+  headerReference,
+  hideFilters
+}) => {
+  const { locations, categories, hashtags } = mock; // 🚨  MOCK ALERT 🚨
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [categoriesDisplayed, setCategoriesDisplayed] = useState([]);
   const [hashtagsDisplayed, setHashtagsDisplayed] = useState([]);
@@ -29,7 +37,11 @@ const FilterBars = ({ open, setOpen, filters, setFilters }) => {
   const { setColorTheme, colorTheme } = useContext(ColorContext);
   const hideValue = height ? height * 0.5 : 0;
   const openMenuAnimation = useSpring({
-    transform: open ? `translate3d(0px,0px,0px)` : `translate3d(0px,${hideValue}px,0px)`,
+    transform: hideFilters
+      ? `translate3d(0px,${height}px,0px)`
+      : open
+      ? `translate3d(0px,0px,0px)`
+      : `translate3d(0px,${hideValue}px,0px)`,
     backgroundColor: colorTheme === 'base' ? '#ffffff' : themeConfig.colors[colorTheme].bg
   });
 
@@ -115,10 +127,14 @@ const FilterBars = ({ open, setOpen, filters, setFilters }) => {
 
   return (
     <animated.div
+      ref={reference}
       style={openMenuAnimation}
       className="w-full shadow-reverse rounded-t-20p md:rounded-t-50p fixed bottom-0 left-0 z-20 flex flex-col"
     >
-      <div className="w-full min-h-16 gap-3 py-3 px-3 md:px-10 grid-cols-filters-small grid md:grid-cols-filters grid-rows-filters md:grid-rows-1">
+      <div
+        ref={headerReference}
+        className="w-full min-h-16 gap-3 py-3 px-3 md:px-10 grid-cols-filters-small grid md:grid-cols-filters grid-rows-filters md:grid-rows-1"
+      >
         <div className="h-full max-h-8 min-w-20vw ">
           <SearchBar
             noIcon

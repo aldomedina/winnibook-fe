@@ -68,7 +68,7 @@ const Home = () => {
               sectionThreshold={0.9}
               i={0}
               reference={dummyRef}
-              customClasses="min-w-100vw md:min-w-50vw h-50vh  select-none"
+              customClasses="min-w-100vw md:min-w-50vw h-100vh select-none"
             />
             <div className="flex  h-90vh bg-white rounded-bl-20p shadow-lg">
               <FeaturedPlaces reference={featuredRef} />

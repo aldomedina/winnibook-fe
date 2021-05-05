@@ -1,7 +1,7 @@
-import placeholderImg1 from './placeholder-light-restaurant.png';
-import placeholderImg2 from './placeholder-giveaway.jpeg';
-import placeholderImg3 from './placeholder-hardware.png';
-import placeholderImg4 from './placeholder-chocolate.jpeg';
+import placeholderImg1 from './images/placeholder-light-restaurant.png';
+import placeholderImg2 from './images/placeholder-giveaway.jpeg';
+import placeholderImg3 from './images/placeholder-hardware.png';
+import placeholderImg4 from './images/placeholder-chocolate.jpeg';
 
 export const featuresBusiness = [
   {
