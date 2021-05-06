@@ -2,7 +2,6 @@ import HorizontalScroll from 'react-scroll-horizontal';
 import { animated, useSpring } from 'react-spring';
 import useWindowSize from '../Hooks/useWindowSize';
 import PlaceDetailsPanel from '../PlaceDetailsPanel';
-import Spinner from '../spinner';
 
 const PlaceRowBody = ({ isOpen, headerHeight, data, isLoading }) => {
   const { height, isMobile } = useWindowSize();
