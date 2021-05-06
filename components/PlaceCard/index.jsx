@@ -25,7 +25,7 @@ const PlaceCard = ({ name, theme, onClick, categories, big }) => {
       >
         <ResponsiveEllipsis text={name} maxLine="2" ellipsis="..." basedOn="letters" trimRight />
       </h3>
-      <Tag theme={theme} name={categories[0]} big={big} />
+      {categories && <Tag theme={theme} name={categories[0].name} big={big} />}
     </SPlaceCard>
   );
 };

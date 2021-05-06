@@ -20,6 +20,8 @@ module.exports = {
     }),
     extend: {
       spacing: {
+        152: '38rem',
+        136: '34rem',
         '10vh': '10vh',
         '15vh': '15vh',
         '20vh': '20vh',
@@ -46,12 +48,14 @@ module.exports = {
         '70vw': '70vw',
         '75vw': '75vw',
         '80vw': '80vw',
+        '85vw': '85vw',
         '90vw': '90vw',
         '100vw': '100vw'
       },
       minWidth: {
         '1p': '1px',
         32: '8rem',
+        28: '7rem',
         '10vw': '10vw',
         '20vw': '20vw',
         '30vw': '30vw',
@@ -68,6 +72,7 @@ module.exports = {
       minHeight: {
         '1p': '1px',
         16: '4rem',
+        28: '7rem',
         32: '8rem',
         '10vh': '10vh',
         '20vh': '20vh',
@@ -83,6 +88,7 @@ module.exports = {
         '100vh': '100vh'
       },
       maxHeight: {
+        28: '7rem',
         '1p': '1px',
         '10vh': '10vh',
         '20vh': '20vh',
@@ -98,6 +104,10 @@ module.exports = {
         '100vh': '100vh'
       },
       maxWidth: {
+        28: '7rem',
+        40: '10rem',
+        136: '34rem',
+        152: '38rem',
         '1p': '1px',
         '10vw': '10vw',
         '20vw': '20vw',

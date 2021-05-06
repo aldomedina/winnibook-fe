@@ -1,3 +1,6 @@
+import placeholderImg1 from './images/placeholder-light-restaurant.png';
+import placeholderImg2 from './images/placeholder-giveaway.jpeg';
+
 export default function getPlaceDetails() {
   return {
     name: "Tony's Master Of Pizza",
@@ -25,14 +28,16 @@ export default function getPlaceDetails() {
     ],
     mainCategory: {
       name: 'Restaurants, Bars & Coffees',
-      theme: 'yellow'
+      theme: 'lightorange'
     },
     categories: [
       {
-        name: 'Pizza'
+        name: 'Pizza',
+        theme: 'lightorange'
       },
       {
-        name: 'Casual dinner'
+        name: 'Casual dinner',
+        theme: 'lightorange'
       }
     ],
     images: [
@@ -49,30 +54,45 @@ export default function getPlaceDetails() {
     ],
     tags: [
       {
+        id: 'pizza',
         name: 'Pizza party'
       },
       {
+        id: 'cozy',
         name: 'Cozy'
       },
       {
+        id: 'kids',
         name: "Kid's friendly"
       }
     ],
     visits: 0,
     stories: [
       {
+        id: 'similar-story',
         title: 'The best of little italy',
+        image: placeholderImg1,
         mainCategory: {
           name: 'Restaurants, Bars & Coffees',
           theme: 'yellow'
-        }
+        },
+        categories: [
+          { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+          { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+        ]
       },
       {
+        id: 'similar-sjasdjkasbjd',
         title: '3 new Chinese restaurants in West End',
+        image: placeholderImg2,
         mainCategory: {
           name: 'Restaurants, Bars & Coffees',
           theme: 'yellow'
-        }
+        },
+        categories: [
+          { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+          { name: 'other stuff', id: 'cat-2-3', theme: 'lightblue' }
+        ]
       }
     ],
     similar: [
@@ -81,14 +101,14 @@ export default function getPlaceDetails() {
         name: "Tony's Master Of Pizza",
         theme: 'cream',
         primaryCategory: 'Restaurants, Bars & Coffees',
-        secondaryCategory: 'Eat & Drink'
+        categories: [{ name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' }]
       },
       {
         id: 2,
         name: 'New West Metals Inc',
         theme: 'yellow',
         primaryCategory: 'Construction',
-        secondaryCategory: 'Building Materials'
+        categories: [{ name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' }]
       }
     ],
     internalContacts: [

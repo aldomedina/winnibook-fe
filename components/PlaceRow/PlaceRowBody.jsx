@@ -1,5 +1,8 @@
+import HorizontalScroll from 'react-scroll-horizontal';
 import { animated, useSpring } from 'react-spring';
 import useWindowSize from '../Hooks/useWindowSize';
+import PlaceDetailsPanel from '../PlaceDetailsPanel';
+import Spinner from '../spinner';
 
 const PlaceRowBody = ({ isOpen, headerHeight, data, isLoading }) => {
   const { height, isMobile } = useWindowSize();
@@ -8,7 +11,17 @@ const PlaceRowBody = ({ isOpen, headerHeight, data, isLoading }) => {
   });
   return (
     <animated.div style={animationProps} className="overflow-hidden">
-      {isOpen && 'Many stuff written over here'}
+      <div className="w-full h-full flex justify-center items-center">
+        {isOpen && isLoading ? (
+          <div className="w-full h-full"> loading...</div>
+        ) : isOpen && !isLoading && data.name ? (
+          <div className="w-full h-full">
+            <PlaceDetailsPanel data={data} />
+          </div>
+        ) : (
+          ''
+        )}
+      </div>
     </animated.div>
   );
 };

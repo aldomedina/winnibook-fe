@@ -21,7 +21,9 @@ const Places = () => {
   return (
     <div className="h-full  overflow-hidden">
       <ul
-        className={`scrollbar-hide ${!!openPlace ? 'overflow-y-hidden' : 'overflow-y-scroll'}`}
+        className={`scrollbar-hide max-width-100w overflow-x-hidden ${
+          !!openPlace ? 'overflow-y-hidden' : 'overflow-y-scroll'
+        }`}
         style={{
           marginTop: isMobile ? 60 : 56,
           height: isMobile ? height - 56 : height - 52
@@ -51,7 +53,7 @@ const Places = () => {
         setFilters={setActiveFilters}
         open={filtersOpen}
         setOpen={setFiltersOpen}
-        hideFilters={!!openPlace}
+        hideFilters={openPlace !== false}
       />
     </div>
   );

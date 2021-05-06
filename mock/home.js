@@ -56,11 +56,11 @@ export const stories = {
     categories: [
       {
         theme: 'cream',
-        secondaryCategory: 'Restaurants, Bars & Coffees'
+        name: 'Restaurants, Bars & Coffees'
       },
       {
         theme: 'cream',
-        secondaryCategory: 'Eat & Drink'
+        name: 'Eat & Drink'
       }
     ],
     body:
@@ -74,7 +74,7 @@ export const stories = {
       categories: [
         {
           theme: 'lightorange',
-          secondaryCategory: 'Chocolate'
+          name: 'Chocolate'
         }
       ]
     },
@@ -85,7 +85,7 @@ export const stories = {
       categories: [
         {
           theme: 'lightblue',
-          secondaryCategory: 'Giveaway'
+          name: 'Giveaway'
         }
       ]
     },
@@ -96,7 +96,7 @@ export const stories = {
       categories: [
         {
           theme: 'yellow',
-          secondaryCategory: 'Hardware Store'
+          name: 'Hardware Store'
         }
       ]
     }

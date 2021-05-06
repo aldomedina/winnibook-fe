@@ -27,15 +27,15 @@ const PlaceRow = ({ place, index, openPlace, setOpenPlace }) => {
     const fetchPlaceData = async () => {
       setIsLoading(true);
       const response = await getPlaceDetails();
-      setIsLoading(false);
       setData(response);
+      setIsLoading(false);
     };
 
     openPlace && fetchPlaceData();
   }, [openPlace]);
 
   return (
-    <li ref={rowRef} className=" mb-1 md:mb-2">
+    <li ref={rowRef} className="relative mb-1 md:mb-2">
       <PlaceRowHeader
         reference={headerRef}
         name={name}

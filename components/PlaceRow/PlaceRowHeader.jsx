@@ -11,7 +11,7 @@ const PlaceRowHeader = ({ categories, name, location, onRowHeaderClick, isOpen, 
   return (
     <div
       ref={reference}
-      className="relative px-3 md:px-5 py-1 max-w-90vw md:max-w-full flex flex-col md:flex-row md:items-end cursor-pointer"
+      className="px-3 md:px-5 py-2 max-w-90vw md:max-w-full flex flex-col md:flex-row md:items-end cursor-pointer"
       onClick={onRowHeaderClick}
     >
       <div className="flex flex-col-reverse md:flex-row ">
@@ -28,10 +28,10 @@ const PlaceRowHeader = ({ categories, name, location, onRowHeaderClick, isOpen, 
       <h4 className="uppercase text-lg font-light md:text-2xl">{location}</h4>
       <animated.div
         style={animatedProp}
-        className="h-full absolute md:static -right-5vw md:flex top-5  items-center justify-center"
+        className="absolute right-3 md:static md:flex top-5 items-center justify-center"
         onClick={onRowHeaderClick}
       >
-        <Icon icon="x" w="30px" h="28px" />
+        <Icon icon="x" w="28px" h="28px" />
       </animated.div>
     </div>
   );
