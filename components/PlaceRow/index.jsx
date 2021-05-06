@@ -1,14 +1,59 @@
-const PlaceRow = ({ place }) => {
-  const { name, location } = place;
+import { useEffect, useState } from 'react';
+import { useRef } from 'react';
+import getPlaceDetails from '../../mock/place';
+import { sortByName } from '../../utils';
+import PlaceRowBody from './PlaceRowBody';
+import PlaceRowHeader from './PlaceRowHeader';
+
+const PlaceRow = ({ place, index, openPlace, setOpenPlace }) => {
+  const { name, location, categories } = place; // 🚨  MOCK ALERT 🚨
+  const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const headerRef = useRef(null);
+  const headerHeight = headerRef?.current?.offsetHeight;
+  const rowRef = useRef(null);
+
+  const onRowHeaderClick = () => {
+    console.log('onRowHeaderClick', openPlace);
+    if (!openPlace) {
+      rowRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setOpenPlace(index);
+    } else {
+      setOpenPlace(false);
+    }
+  };
+
+  useEffect(() => {
+    const fetchPlaceData = async () => {
+      setIsLoading(true);
+      const response = await getPlaceDetails();
+      setData(response);
+      setIsLoading(false);
+    };
+
+    openPlace && fetchPlaceData();
+  }, [openPlace]);
+
   return (
-    <li className="container mb-5 md:mb-2">
-      <div className="flex flex-col md:flex-row">
-        <h3 className="uppercase text-2xl md:text-4xl">{name}</h3>
-        <div className="flex-1 border-b-2 border-dotted opacity-30 hidden md:block" />
-        <h4 className="uppercase text-lg font-light md:text-2xl">{location}</h4>
-      </div>
+    <li ref={rowRef} className="relative mb-1 md:mb-2">
+      <PlaceRowHeader
+        reference={headerRef}
+        name={name}
+        location={location}
+        categories={sortByName(categories.slice(0, 2))}
+        onRowHeaderClick={onRowHeaderClick}
+        isOpen={openPlace}
+      />
+      <PlaceRowBody
+        isOpen={openPlace}
+        headerHeight={headerHeight}
+        data={data}
+        isLoading={isLoading}
+      />
     </li>
   );
 };
 
 export default PlaceRow;
+
+// sortByName(place.categories.slice(0, 2))

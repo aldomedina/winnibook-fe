@@ -1,44 +1,277 @@
 export const items = [
-  { name: 'Island Grill', location: 'Richmond Hill' },
-  { name: 'Flavoroso', location: 'Southaven' },
-  { name: 'Green Curry', location: 'Antioch' },
-  { name: 'El Pirata Porch', location: 'Freehold' },
-  { name: 'Sweet Escape', location: 'Portland' },
-  { name: 'Salty Squid', location: 'Mchenry' },
-  { name: 'Bangalore Spices', location: 'Portland' },
-  { name: 'Pancake World', location: 'Mchenry' },
-  { name: 'Veganic Corner', location: 'Richmond Hill' },
-  { name: 'Masala', location: 'Southaven' },
-  { name: 'Grassfed Grill', location: 'Antioch' },
-  { name: 'Greenanic Smoothies', location: 'Freehold' },
-  { name: 'Freddy’s Stove', location: 'Portland' },
-  { name: 'Grandma’s Sweets', location: 'Mchenry' },
-  { name: 'Spicella Spanish Kitchen', location: 'Richmond Hill' },
-  { name: 'Xin Chao Vietnamese Restaurant', location: 'Southaven' },
-  { name: 'Paterro’s Kitchen', location: 'Antioch' },
-  { name: 'Mediterra Seafood', location: 'Freehold' },
-  { name: 'Street Deli', location: 'Portland' },
-  { name: 'Whispering Bamboo', location: 'Mchenry' },
-  { name: 'Island Grill', location: 'Richmond Hill' },
-  { name: 'Flavoroso', location: 'Southaven' },
-  { name: 'Green Curry', location: 'Antioch' },
-  { name: 'El Pirata Porch', location: 'Freehold' },
-  { name: 'Sweet Escape', location: 'Portland' },
-  { name: 'Salty Squid', location: 'Mchenry' },
-  { name: 'Bangalore Spices', location: 'Portland' },
-  { name: 'Pancake World', location: 'Mchenry' },
-  { name: 'Veganic Corner', location: 'Richmond Hill' },
-  { name: 'Masala', location: 'Southaven' },
-  { name: 'Grassfed Grill', location: 'Antioch' },
-  { name: 'Greenanic Smoothies', location: 'Freehold' },
-  { name: 'Freddy’s Stove', location: 'Portland' },
-  { name: 'Grandma’s Sweets', location: 'Mchenry' },
-  { name: 'Spicella Spanish Kitchen', location: 'Richmond Hill' },
-  { name: 'Xin Chao Vietnamese Restaurant', location: 'Southaven' },
-  { name: 'Paterro’s Kitchen', location: 'Antioch' },
-  { name: 'Mediterra Seafood', location: 'Freehold' },
-  { name: 'Street Deli', location: 'Portland' },
-  { name: 'Whispering Bamboo', location: 'Mchenry' }
+  {
+    name: 'Island Grill',
+    location: 'Richmond Hill',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Flavoroso',
+    location: 'Southaven',
+    categories: [
+      { name: 'Restaurants', id: 'cat-1-1', theme: 'cream' },
+      { name: 'Coffees', id: 'cat-1-2', theme: 'cream' }
+    ]
+  },
+  {
+    name: 'Green Curry',
+    location: 'Antioch',
+    categories: [{ name: 'Bakery', id: 'cat-2-2', theme: 'lightblue' }]
+  },
+  {
+    name: 'El Pirata Porch',
+    location: 'Freehold',
+    categories: [{ name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightgreen' }]
+  },
+  {
+    name: 'Sweet Escape',
+    location: 'Portland',
+    categories: [{ name: 'Restaurants', id: 'cat-1-1', theme: 'darkgreen' }]
+  },
+  {
+    name: 'Salty Squid',
+    location: 'Mchenry',
+    categories: [{ name: 'Coffees', id: 'cat-1-2', theme: 'cream' }]
+  },
+  {
+    name: 'Bangalore Spices',
+    location: 'Portland',
+    categories: [
+      { name: 'Restaurants', id: 'cat-1-1', theme: 'cream' },
+      { name: 'Coffees', id: 'cat-1-2', theme: 'cream' }
+    ]
+  },
+  {
+    name: 'Pancake World',
+    location: 'Mchenry',
+    categories: [{ name: 'Building Materials', id: 'cat-3-1', theme: 'yellow' }]
+  },
+  {
+    name: 'Veganic Corner',
+    location: 'Richmond Hill',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Masala',
+    location: 'Southaven',
+    categories: [{ name: 'Restaurants', id: 'cat-1-1', theme: 'lightgreen' }]
+  },
+  {
+    name: 'Grassfed Grill',
+    location: 'Antioch',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Greenanic Smoothies',
+    location: 'Freehold',
+    categories: [{ name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }]
+  },
+  {
+    name: 'Freddy’s Stove',
+    location: 'Portland',
+    categories: [
+      { name: 'other', id: 'cat-2-2', theme: 'lightblue' },
+      { name: 'other stuff', id: 'cat-2-3', theme: 'lightblue' }
+    ]
+  },
+  {
+    name: 'Grandma’s Sweets',
+    location: 'Mchenry',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Spicella Spanish Kitchen',
+    location: 'Richmond Hill',
+    categories: [{ name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }]
+  },
+  {
+    name: 'Xin Chao Vietnamese Restaurant',
+    location: 'Southaven',
+    categories: [{ name: 'Bakery', id: 'cat-2-2', theme: 'cream' }]
+  },
+  {
+    name: 'Paterro’s Kitchen',
+    location: 'Antioch',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Mediterra Seafood',
+    location: 'Freehold',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Street Deli',
+    location: 'Portland',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Whispering Bamboo',
+    location: 'Mchenry',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Island Grill',
+    location: 'Richmond Hill',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Flavoroso',
+    location: 'Southaven',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Green Curry',
+    location: 'Antioch',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'El Pirata Porch',
+    location: 'Freehold',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Sweet Escape',
+    location: 'Portland',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Salty Squid',
+    location: 'Mchenry',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Bangalore Spices',
+    location: 'Portland',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Pancake World',
+    location: 'Mchenry',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Veganic Corner',
+    location: 'Richmond Hill',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Masala',
+    location: 'Southaven',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Grassfed Grill',
+    location: 'Antioch',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Greenanic Smoothies',
+    location: 'Freehold',
+    categories: [{ name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }]
+  },
+  {
+    name: 'Freddy’s Stove',
+    location: 'Portland',
+    categories: [{ name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' }]
+  },
+  {
+    name: 'Grandma’s Sweets',
+    location: 'Mchenry',
+    categories: [{ name: 'Banket Rooms', id: 'cat-2-3', theme: 'cream' }]
+  },
+  {
+    name: 'Spicella Spanish Kitchen',
+    location: 'Richmond Hill',
+    categories: [{ name: 'Bakery', id: 'cat-2-2', theme: 'yellow' }]
+  },
+  {
+    name: 'Xin Chao Vietnamese Restaurant',
+    location: 'Southaven',
+    categories: [{ name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }]
+  },
+  {
+    name: 'Paterro’s Kitchen',
+    location: 'Antioch',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Mediterra Seafood',
+    location: 'Freehold',
+    categories: [{ name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' }]
+  },
+  {
+    name: 'Street Deli',
+    location: 'Portland',
+    categories: [
+      { name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' },
+      { name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }
+    ]
+  },
+  {
+    name: 'Whispering Bamboo',
+    location: 'Mchenry',
+    categories: [{ name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }]
+  }
 ];
 export const filters = {
   categories: [
