@@ -30,7 +30,7 @@ const PlaceDetailsPanel = ({ data }) => {
         country={country}
         postcode={postcode}
       />
-      <div className="min-w-80vw md:min-w-30vw bg-yellow-100 px-3 md:px-5"></div>
+      <div className="min-w-80vw md:min-w-30vw px-3 md:px-5"> MAP with direction</div>
       <SimilarStories stories={stories} />
       <SimilarPlaces similar={similar} />
     </HorizontalScroll>

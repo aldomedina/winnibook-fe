@@ -23,7 +23,13 @@ const PlaceCard = ({ name, theme, onClick, categories, big }) => {
           big ? 'md:text-4xl lg:text-6xl text-3xl' : 'text-md md:text-xl leading-5'
         }`}
       >
-        <ResponsiveEllipsis text={name} maxLine="2" ellipsis="..." basedOn="letters" trimRight />
+        <ResponsiveEllipsis
+          text={name}
+          maxLine={big ? '3' : '2'}
+          ellipsis="..."
+          basedOn="letters"
+          trimRight
+        />
       </h3>
       {categories && <Tag theme={theme} name={categories[0].name} big={big} />}
     </SPlaceCard>

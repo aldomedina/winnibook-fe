@@ -9,42 +9,43 @@ export const featuresBusiness = [
     name: "Tony's Master Of Pizza",
     theme: 'cream',
     primaryCategory: 'Restaurants, Bars & Coffees',
-    secondaryCategory: 'Eat & Drink'
+    categories: [{ name: 'Eat & Drink', id: 'cat-2-2', theme: 'cream' }]
   },
   {
     id: 2,
     name: 'New West Metals Inc',
     theme: 'yellow',
     primaryCategory: 'Construction',
-    secondaryCategory: 'Building Materials'
+    categories: [{ name: 'Building Materials', id: 'cat-2-2', theme: 'yellow' }]
   },
   {
     id: 3,
     name: 'Rocky Mountain Chocolate Factory',
     theme: 'lightorange',
     primaryCategory: 'Food',
-    secondaryCategory: 'Chocolate'
+    categories: [{ name: 'Chocolate', id: 'cat-2-2', theme: 'lightorange' }]
   },
   {
     id: 5,
     name: 'One Stop Meat Shop',
     theme: 'lightgreen',
     primaryCategory: 'Restaurants, Bars & Coffees',
-    secondaryCategory: 'Eat & Drink'
+    categories: [{ name: 'Eat & Drink', id: 'cat-2-2', theme: 'lightgreen' }]
   },
   {
     id: 6,
     name: 'Aplaplac Institute',
     theme: 'darkgreen',
     primaryCategory: 'Restaurants, Bars & Coffees',
-    secondaryCategory: 'Eat & Drink'
+    categories: [{ name: 'Eat & Drink', id: 'cat-2-2', theme: 'darkgreen' }]
   },
   {
     id: 4,
     name: 'Eiffel Tower Pastry Shop & Catering',
     theme: 'lightorange',
     primaryCategory: 'Food',
-    secondaryCategory: 'Bakery'
+    secondaryCategory: 'Bakery',
+    categories: [{ name: 'Bakery ', id: 'cat-2-2', theme: 'lightorange' }]
   }
 ];
 
@@ -109,7 +110,8 @@ export const topSearch = {
     name: 'Aplaplac Institute',
     theme: 'lightgreen',
     primaryCategory: 'Learning',
-    secondaryCategory: 'Fine arts school'
+    secondaryCategory: 'Fine arts school',
+    categories: [{ name: 'Fine arts school', id: 'cat-2-2', theme: 'lightgreen' }]
   },
   others: [
     {
@@ -117,28 +119,32 @@ export const topSearch = {
       name: "Tony's Master Of Pizza",
       theme: 'cream',
       primaryCategory: 'Restaurants, Bars & Coffees',
-      secondaryCategory: 'Eat & Drink'
+      secondaryCategory: 'Eat & Drink',
+      categories: [{ name: 'Eat & Drink', id: 'cat-2-2', theme: 'cream' }]
     },
     {
       id: 13,
       name: 'New West Metals Inc',
       theme: 'yellow',
       primaryCategory: 'Construction',
-      secondaryCategory: 'Building Materials'
+      secondaryCategory: 'Building Materials',
+      categories: [{ name: 'Building Materials', id: 'cat-2-2', theme: 'yellow' }]
     },
     {
       id: 14,
       name: 'Rocky Mountain Chocolate Factory',
       theme: 'lightorange',
       primaryCategory: 'Food',
-      secondaryCategory: 'Chocolate'
+      secondaryCategory: 'Chocolate',
+      categories: [{ name: 'chocolate', id: 'cat-2-2', theme: 'lightorange' }]
     },
     {
       id: 15,
       name: "Tony's Master Of Pizza",
       theme: 'cream',
       primaryCategory: 'Restaurants, Bars & Coffees',
-      secondaryCategory: 'Eat & Drink'
+      secondaryCategory: 'Eat & Drink',
+      categories: [{ name: 'Eat & Drink', id: 'cat-2-2', theme: 'cream' }]
     }
   ]
 };

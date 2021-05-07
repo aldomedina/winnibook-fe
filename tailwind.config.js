@@ -145,6 +145,9 @@ module.exports = {
       },
       gridTemplateRows: {
         filters: 'max-content auto'
+      },
+      gridAutoRows: {
+        stories: 'minmax(250px, max-content)'
       }
     }
   },
