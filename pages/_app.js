@@ -12,10 +12,12 @@ import Theme from '../components/Theme';
 // COMPONENTS
 import TopNav from '../components/TopNav';
 
+const pagesWithNavBG = ['/places', '/stories'];
+
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter();
   const showSearch = pathname === '/' ? true : false;
-  const topNavBG = pathname === '/places' ? true : false;
+  const topNavBG = pagesWithNavBG.indexOf(pathname) >= 0 ? true : false;
   return (
     <Theme>
       <ApolloProvider client={client}>

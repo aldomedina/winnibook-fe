@@ -162,7 +162,7 @@ const FilterBars = ({
       </div>
       <div className="container min-h-50vh flex-1 h-full md:py-4 flex flex-col md:flex-row justify-between items-stretch gap-3 md:gap-10 ">
         <div className="flex-1 pt-5 md:pt-0 ">
-          <div className="w-full md:-mt-1.5">
+          <div className=" w-72 md:-mt-1.5">
             <Select
               isMulti
               controlShouldRenderValue={false}

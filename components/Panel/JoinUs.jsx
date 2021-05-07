@@ -18,7 +18,7 @@ const JoinUs = ({ reference }) => {
         <Icon icon="big-arrow-down" w="2rem" h="4rem" />
       </div>
 
-      <RoundButton customClasses="mx-auto block" text="JOIN US!" strokeColor="#103b40" big />
+      <RoundButton customClasses="mx-auto block" text="JOIN US!" big />
     </SectionWrapper>
   );
 };

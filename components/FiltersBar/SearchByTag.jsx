@@ -15,8 +15,8 @@ const SearchByTag = ({ items, theme, handleHashtagClick }) => {
   }, [value, items]);
 
   return (
-    <div className="flex-1">
-      <div className="w-full">
+    <div className="flex-1 flex flex-col">
+      <div className="w-72 md:self-center">
         <SearchBar
           value={value}
           onChange={setValue}
