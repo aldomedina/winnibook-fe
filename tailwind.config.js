@@ -20,6 +20,8 @@ module.exports = {
     }),
     extend: {
       spacing: {
+        13: '3.25rem',
+        22: '5.5rem',
         152: '38rem',
         136: '34rem',
         '10vh': '10vh',
@@ -54,8 +56,10 @@ module.exports = {
       },
       minWidth: {
         '1p': '1px',
-        32: '8rem',
         28: '7rem',
+        32: '8rem',
+        36: '9rem',
+        44: '11rem',
         '10vw': '10vw',
         '20vw': '20vw',
         '30vw': '30vw',
@@ -74,6 +78,8 @@ module.exports = {
         16: '4rem',
         28: '7rem',
         32: '8rem',
+        36: '9rem',
+        44: '11rem',
         '10vh': '10vh',
         '20vh': '20vh',
         '30vh': '30vh',
