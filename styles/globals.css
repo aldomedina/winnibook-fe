@@ -45,12 +45,44 @@
     @apply hover:shadow-lg;
     @apply hover:-translate-y-0.5;
   }
+}
+/* BG GLASS */
+.bg-glass {
+  box-shadow: 0 10px 8px 0px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.15);
+  transition: backdrop-filter 0.3s ease-in;
+  backdrop-filter: blur(10px);
+}
 
-  .bg-glass {
-    box-shadow: 0 10px 8px 0px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.15);
-    transition: backdrop-filter 0.3s ease-in;
-    backdrop-filter: blur(10px);
+/* STORY HEADER GRID */
+.grid-item-date {
+  grid-area: date;
+}
+.grid-item-img {
+  grid-area: img;
+}
+.grid-item-categories {
+  grid-area: categories;
+}
+.grid-item-titles {
+  grid-area: titles;
+}
+.story-header-grid {
+  display: grid;
+  grid-template-columns: 1fr 38rem 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    'img img img'
+    'date titles categories';
+}
+@media only screen and (max-width: 1024px) {
+  .story-header-grid {
+    grid-template-columns: max-content 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      'date categories categories'
+      'img img img'
+      'titles titles titles';
   }
 }
 
@@ -113,7 +145,7 @@
   border-radius: 999px;
 }
 
-/* HORIZONTAL SCROLL */
+/* HORIZONTAL SCROLL TOUCH MOBILE PATCH */
 @media (hover: none), (pointer: coarse), (-moz-touch-enabled: 1) {
   .scroll-horizontal {
     overflow: scroll !important;
