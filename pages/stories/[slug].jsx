@@ -33,7 +33,7 @@ const Story = ({ storyData }) => {
             <h4 className="opacity-50 mb-3">on this article</h4>
             <div className="flex flex-row lg:flex-col md:overflow-y-visible overflow-x-auto w-full gap-3 mb-4">
               {places.map(place => (
-                <div className="w-44 h-36  min-w-44 min-h-36 md:overflow-y-visible">
+                <div key={place.id} className="w-44 h-36  min-w-44 min-h-36 md:overflow-y-visible">
                   <PlaceCard name={place.name} theme={place.theme} categories={place.categories} />
                 </div>
               ))}
