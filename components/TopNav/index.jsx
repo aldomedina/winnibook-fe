@@ -4,18 +4,15 @@ import { useSpring, animated } from 'react-spring';
 import { Icon } from '../Icon';
 import useWindowSize from '../Hooks/useWindowSize';
 import ThreeDots from '../ThreeDots';
-import SearchBar from '../SearchBar';
-
-import SearchResultsBox from '../SearchResultsBox';
 import { ColorContext } from '../Theme';
 import themeConfig from '../Theme/colors';
-import Menu from '../Menu';
+import Menu from './Menu';
+import NavSearch from './NavSearch';
 
 const TopNav = ({ showSearch, hasBG }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
   const { colorTheme } = useContext(ColorContext);
   const { isMobile } = useWindowSize();
   const searchRef = useRef();
@@ -77,10 +74,12 @@ const TopNav = ({ showSearch, hasBG }) => {
             </a>
           </Link>
           {showSearch && (
-            <div ref={searchRef} className="flex-1 relative md:max-w-40vw w-full md:mr-10">
-              <SearchBar buttonIcon={isMobile} value={searchValue} onChange={setSearchValue} />
-              <SearchResultsBox openSearch={openSearch} setOpenSearch={setOpenSearch} />
-            </div>
+            <NavSearch
+              searchRef={searchRef}
+              openSearch={openSearch}
+              setOpenSearch={setOpenSearch}
+              isMobile={isMobile}
+            />
           )}
         </div>
         <Menu
@@ -89,6 +88,7 @@ const TopNav = ({ showSearch, hasBG }) => {
           aboutMenu={aboutMenu}
           openMenu={openMenu}
           setOpenMenu={setOpenMenu}
+          isMobile={isMobile}
         />
         <ThreeDots isOpen={isOpen} handleClick={() => setIsOpen(!isOpen)} />
       </animated.div>

@@ -1,5 +1,6 @@
 export const items = [
   {
+    id: '062731d2-6667-40dd-9175-f00aba3fb738',
     name: 'Island Grill',
     location: 'Richmond Hill',
     categories: [
@@ -10,6 +11,7 @@ export const items = [
   },
   {
     name: 'Flavoroso',
+    id: '062731d2-6667-40dd-9175-f00aba3fb728',
     location: 'Southaven',
     categories: [
       { name: 'Restaurants', id: 'cat-1-1', theme: 'cream' },
@@ -17,26 +19,31 @@ export const items = [
     ]
   },
   {
+    id: '062731d1-6667-40dd-9175-f00aba3fb738',
     name: 'Green Curry',
     location: 'Antioch',
     categories: [{ name: 'Bakery', id: 'cat-2-2', theme: 'lightblue' }]
   },
   {
+    id: '062531d2-6667-40dd-9175-f00aba3fb738',
     name: 'El Pirata Porch',
     location: 'Freehold',
     categories: [{ name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightgreen' }]
   },
   {
+    id: '062731d2-6622-40dd-9175-f00aba3fb738',
     name: 'Sweet Escape',
     location: 'Portland',
     categories: [{ name: 'Restaurants', id: 'cat-1-1', theme: 'darkgreen' }]
   },
   {
+    id: '162731d2-6667-40dd-9175-f00aba3fb738',
     name: 'Salty Squid',
     location: 'Mchenry',
     categories: [{ name: 'Coffees', id: 'cat-1-2', theme: 'cream' }]
   },
   {
+    id: '262731d2-6667-40dd-9175-f00aba3fb738',
     name: 'Bangalore Spices',
     location: 'Portland',
     categories: [
@@ -45,11 +52,13 @@ export const items = [
     ]
   },
   {
+    id: '062731d2-8888-40dd-9175-f00aba3fb738',
     name: 'Pancake World',
     location: 'Mchenry',
     categories: [{ name: 'Building Materials', id: 'cat-3-1', theme: 'yellow' }]
   },
   {
+    id: '062731d2-6667-40dd-2225-f00aba3fb738',
     name: 'Veganic Corner',
     location: 'Richmond Hill',
     categories: [
@@ -58,11 +67,13 @@ export const items = [
     ]
   },
   {
+    id: '062731d2-6667-40dd-9175-f00cca3fb738',
     name: 'Masala',
     location: 'Southaven',
     categories: [{ name: 'Restaurants', id: 'cat-1-1', theme: 'lightgreen' }]
   },
   {
+    id: '062731d2-6667-40dd-9175-d00aba3fb738',
     name: 'Grassfed Grill',
     location: 'Antioch',
     categories: [
@@ -71,11 +82,13 @@ export const items = [
     ]
   },
   {
+    id: '06272222-6667-40dd-9175-f00aba3fb738',
     name: 'Greenanic Smoothies',
     location: 'Freehold',
     categories: [{ name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }]
   },
   {
+    id: '062731d2-6667-99dd-9175-f00aba3fb738',
     name: 'Freddy’s Stove',
     location: 'Portland',
     categories: [
@@ -84,6 +97,7 @@ export const items = [
     ]
   },
   {
+    id: '06273ad2-6667-40dd-9175-f00aba3fb738',
     name: 'Grandma’s Sweets',
     location: 'Mchenry',
     categories: [
@@ -92,16 +106,19 @@ export const items = [
     ]
   },
   {
+    id: '1aa731d2-6667-40dd-9175-f00aba3fb738',
     name: 'Spicella Spanish Kitchen',
     location: 'Richmond Hill',
     categories: [{ name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }]
   },
   {
+    id: '0bb731d2-6667-40dd-9175-f00aba3fb738',
     name: 'Xin Chao Vietnamese Restaurant',
     location: 'Southaven',
     categories: [{ name: 'Bakery', id: 'cat-2-2', theme: 'cream' }]
   },
   {
+    id: '062731d2-6667-40dd-9175-f00abaccb738',
     name: 'Paterro’s Kitchen',
     location: 'Antioch',
     categories: [
@@ -110,6 +127,7 @@ export const items = [
     ]
   },
   {
+    id: '062731d2-aldo-40dd-9175-f00aba3fb738',
     name: 'Mediterra Seafood',
     location: 'Freehold',
     categories: [
@@ -118,6 +136,7 @@ export const items = [
     ]
   },
   {
+    id: 'thomas31d2-6667-40dd-9175-f00aba3fb738',
     name: 'Street Deli',
     location: 'Portland',
     categories: [
@@ -126,6 +145,7 @@ export const items = [
     ]
   },
   {
+    id: '062731d2-6acv-40dd-9175-f00aba3fb738',
     name: 'Whispering Bamboo',
     location: 'Mchenry',
     categories: [
@@ -134,6 +154,7 @@ export const items = [
     ]
   },
   {
+    id: '062731d2-asdf-40dd-9175-f00aba3fb738',
     name: 'Island Grill',
     location: 'Richmond Hill',
     categories: [
@@ -142,6 +163,7 @@ export const items = [
     ]
   },
   {
+    id: '062731d2-6667-40dd-asdf-f00aba3fb738',
     name: 'Flavoroso',
     location: 'Southaven',
     categories: [
@@ -150,6 +172,7 @@ export const items = [
     ]
   },
   {
+    id: '062731d2-6667-asdf-9175-f00aba3fb738',
     name: 'Green Curry',
     location: 'Antioch',
     categories: [
@@ -158,6 +181,7 @@ export const items = [
     ]
   },
   {
+    id: '062731d2-6667-40dd-9175-asdfba3fb738',
     name: 'El Pirata Porch',
     location: 'Freehold',
     categories: [
@@ -166,6 +190,7 @@ export const items = [
     ]
   },
   {
+    id: '062731d2-6667-40dd-9175-f00aba3fasdf',
     name: 'Sweet Escape',
     location: 'Portland',
     categories: [
@@ -174,6 +199,7 @@ export const items = [
     ]
   },
   {
+    id: '062731d2-asdfafaf-40dd-9175-f00aba3fb738',
     name: 'Salty Squid',
     location: 'Mchenry',
     categories: [
@@ -182,6 +208,7 @@ export const items = [
     ]
   },
   {
+    id: 'sadsadasfqwfsa-6667-40dd-9175-f00aba3fb738',
     name: 'Bangalore Spices',
     location: 'Portland',
     categories: [
@@ -190,6 +217,7 @@ export const items = [
     ]
   },
   {
+    id: '062731d2-6667-asdasddasd-9175-f00aba3fb738',
     name: 'Pancake World',
     location: 'Mchenry',
     categories: [
@@ -198,6 +226,7 @@ export const items = [
     ]
   },
   {
+    id: '062731d2-66asdgdsf67-40dd-9175-f00aba3fb738',
     name: 'Veganic Corner',
     location: 'Richmond Hill',
     categories: [
@@ -206,6 +235,7 @@ export const items = [
     ]
   },
   {
+    id: '062731d2-6667-40dd-9175-f00aasdasqwba3fb738',
     name: 'Masala',
     location: 'Southaven',
     categories: [
@@ -214,6 +244,7 @@ export const items = [
     ]
   },
   {
+    id: 'sadasdsdasdasfqwewqeq-6667-40dd-9175-f00aba3fb738',
     name: 'Grassfed Grill',
     location: 'Antioch',
     categories: [
@@ -222,21 +253,25 @@ export const items = [
     ]
   },
   {
+    id: 'ewqeawqe-6667-40dd-9175-f00aba3fb738',
     name: 'Greenanic Smoothies',
     location: 'Freehold',
     categories: [{ name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }]
   },
   {
+    id: '062731d2-6667-40dd-9175-f00aba31222e213fb738',
     name: 'Freddy’s Stove',
     location: 'Portland',
     categories: [{ name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' }]
   },
   {
+    id: '062731d2-6667-w14e1-9175-f00aba3fb738',
     name: 'Grandma’s Sweets',
     location: 'Mchenry',
     categories: [{ name: 'Banket Rooms', id: 'cat-2-3', theme: 'cream' }]
   },
   {
+    id: '062731d2-6667-40dd-9175-sad21d21',
     name: 'Spicella Spanish Kitchen',
     location: 'Richmond Hill',
     categories: [{ name: 'Bakery', id: 'cat-2-2', theme: 'yellow' }]
@@ -247,6 +282,7 @@ export const items = [
     categories: [{ name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }]
   },
   {
+    id: 'asd21rd-6667-40dd-9175-f00aba3fb738',
     name: 'Paterro’s Kitchen',
     location: 'Antioch',
     categories: [
@@ -255,11 +291,13 @@ export const items = [
     ]
   },
   {
+    id: '062731d2-21edgh-40dd-9175-f00aba3fb738',
     name: 'Mediterra Seafood',
     location: 'Freehold',
     categories: [{ name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' }]
   },
   {
+    id: '062731d2-6667-40dd-9175-12edvg13',
     name: 'Street Deli',
     location: 'Portland',
     categories: [
@@ -268,6 +306,7 @@ export const items = [
     ]
   },
   {
+    id: 'sd1r1313d-6667-40dd-9175-f00aba3fb738',
     name: 'Whispering Bamboo',
     location: 'Mchenry',
     categories: [{ name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }]

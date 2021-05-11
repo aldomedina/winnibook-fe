@@ -2,11 +2,8 @@ import Link from 'next/link';
 import { useSpring, animated } from 'react-spring';
 import SocialIcons from '../SocialIcons';
 import items from './items';
-import useWindowSize from '../Hooks/useWindowSize';
 
-const Menu = ({ isOpen, setIsOpen, aboutMenu, openMenu, setOpenMenu }) => {
-  const { isMobile } = useWindowSize();
-
+const Menu = ({ isOpen, setIsOpen, aboutMenu, openMenu, setOpenMenu, isMobile }) => {
   const slideFadeTransition = useSpring({
     transform: isOpen || !isMobile ? `translateY(0)` : `translateY(-100%)`,
     opacity: isOpen || !isMobile ? 1 : 0

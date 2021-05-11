@@ -3,6 +3,15 @@
 @tailwind utilities;
 
 @layer base {
+  .btn {
+    @apply rounded  px-2 py-1 md:px-4 md:py-2 text-xs uppercase font-medium;
+  }
+  .btn-outline {
+    @apply border;
+    background-color: rgba(255, 255, 255, 0.15);
+    transition: backdrop-filter 0.3s ease-in;
+    backdrop-filter: blur(10px);
+  }
   button:focus {
     box-shadow: none;
     outline: none;
