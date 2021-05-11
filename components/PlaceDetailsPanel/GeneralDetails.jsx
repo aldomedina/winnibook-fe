@@ -15,7 +15,7 @@ const GeneralDetails = ({
     <div className="relative md:min-w-80vw  px-3 md:px-12 flex items-center justify-center">
       <div className="min-h-50vh max-h-full py-5 md:max-h-136 flex flex-row items-start gap-5 md:gap-10">
         {/* TAGS */}
-        <div className="flex flex-col md:flex-row self-stretch overflow-y-auto overflow-x-hidden">
+        <div className="flex flex-col md:flex-row self-stretch overflow-y-auto styled-scrollbar pr-2 overflow-x-hidden">
           <div className="px-1 flex flex-row md:flex-col mb-3">
             <div className="flex-1">
               <h3 className="uppercase mb-3 font-medium">categories</h3>

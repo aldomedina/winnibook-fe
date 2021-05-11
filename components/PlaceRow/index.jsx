@@ -14,7 +14,6 @@ const PlaceRow = ({ place, index, openPlace, setOpenPlace }) => {
   const rowRef = useRef(null);
 
   const onRowHeaderClick = () => {
-    console.log('onRowHeaderClick', openPlace);
     if (!openPlace) {
       rowRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
       setOpenPlace(index);

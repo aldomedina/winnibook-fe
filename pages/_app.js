@@ -12,7 +12,7 @@ import Theme from '../components/Theme';
 // COMPONENTS
 import TopNav from '../components/TopNav';
 
-const pagesWithSearch = ['/', '/stories/[slug]'];
+const pagesWithSearch = ['/', '/stories/[slug]', '/places/[slug]'];
 const pagesWithNavBG = ['/places', '/stories', '/stories/[slug]'];
 
 function MyApp({ Component, pageProps }) {

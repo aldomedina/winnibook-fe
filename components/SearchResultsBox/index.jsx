@@ -30,12 +30,19 @@ const SearchResultsBox = ({ openSearch, setOpenSearch, results, activeSearch }) 
             {results.length ? (
               results.map((el, i) => (
                 <li
-                  className={`uppercase text-lg px-5 first:mt-5 py-1 transition-transform transform hover:scale-105 cursor-pointer ${
+                  key={`${el.id}-${i}`}
+                  className={` text-lg px-5 first:mt-5 py-1  ${
                     i + 1 === results.length && 'mb-16'
                   }`}
-                  key={el.id}
                 >
-                  <Link href="#">{el.name}</Link>
+                  <Link href={`/places/${el.slug}`}>
+                    <div
+                      className="uppercase w-full transition-transform transform hover:translate-x-1  cursor-pointer"
+                      onClick={() => setOpenSearch(false)}
+                    >
+                      {el.name}
+                    </div>
+                  </Link>
                 </li>
               ))
             ) : (

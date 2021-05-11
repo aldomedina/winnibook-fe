@@ -7,9 +7,8 @@ const SimilarStories = ({ stories }) => {
         <h3 className="uppercase mb-3 font-medium">Featured In</h3>
         <div className="flex-1 flex flex-row h-full gap-5 md:gap-10">
           {stories?.map((story, i) => (
-            <div className="flex-1 self-stretch">
+            <div key={`${story.id}-${i}`} className="flex-1 self-stretch">
               <StoryCard
-                key={`${story.id}-${i}`}
                 image={story.image}
                 title={story.title}
                 categories={story.categories}

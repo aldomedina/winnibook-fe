@@ -7,9 +7,8 @@ const SimilarPlaces = ({ similar }) => {
         <h3 className="uppercase mb-3 font-medium">Similar places</h3>
         <div className="flex-1 flex flex-row h-full gap-3 md:gap-10">
           {similar?.map((place, i) => (
-            <div className="flex-1 self-stretch">
+            <div key={`${place.id}-${i}`} className="flex-1 self-stretch">
               <PlaceCard
-                key={`${place.id}-${i}`}
                 name={place.name}
                 theme={place.theme}
                 onClick={() => console.log(place.name)}
