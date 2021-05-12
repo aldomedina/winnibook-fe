@@ -23,11 +23,13 @@ export default function getStoryData() {
     ],
     places: [
       {
+        id: '42b54b28-0d8d-48b4-bdf9-d761dc425302',
         name: 'Chinese Restaurant Xu Gan',
         theme: 'lightorange',
         categories: [{ name: 'Banket Rooms', id: 'cat-2-3', theme: 'lightorange' }]
       },
       {
+        id: '18961a7a-c6b4-4964-86fe-a43f4811a006',
         name: 'Pekin Wantan',
         theme: 'lightblue',
         categories: [
@@ -36,6 +38,7 @@ export default function getStoryData() {
         ]
       },
       {
+        id: '0361f3d7-46e3-41ea-9544-5c28d7adfbd1',
         name: 'I Love Spring Rolls',
         location: 'Mchenry',
         theme: 'cream',

@@ -14,6 +14,7 @@ export default function getPlaceDetails() {
     neighbor: 'Ritchot',
     country: 'Canada',
     postcode: 'MB R3B 0N2',
+    theme: 'lightorange',
     contacts: [
       {
         name: 'Main phone',
@@ -97,14 +98,14 @@ export default function getPlaceDetails() {
     ],
     similar: [
       {
-        id: 1,
+        id: 'sad12d1wd',
         name: "Tony's Master Of Pizza",
         theme: 'cream',
         primaryCategory: 'Restaurants, Bars & Coffees',
         categories: [{ name: 'Bakery', id: 'cat-2-2', theme: 'lightorange' }]
       },
       {
-        id: 2,
+        id: 'sadasd13r1d',
         name: 'New West Metals Inc',
         theme: 'yellow',
         primaryCategory: 'Construction',
