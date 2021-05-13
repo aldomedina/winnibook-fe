@@ -1,8 +1,7 @@
 import RoundButton from '../Buttons/RoundButton';
-import { Spring, animated } from 'react-spring';
-
 import { Icon } from '../Icon';
 import SectionWrapper from './SectionWrapper';
+import Link from 'next/link';
 
 const JoinUs = ({ reference }) => {
   return (
@@ -17,8 +16,9 @@ const JoinUs = ({ reference }) => {
       <div className="mx-auto block w-max animate-bounce">
         <Icon icon="big-arrow-down" w="2rem" h="4rem" />
       </div>
-
-      <RoundButton customClasses="mx-auto block" text="JOIN US!" big />
+      <Link href="/join-us">
+        <RoundButton customClasses="mx-auto block" text="JOIN US!" big />
+      </Link>
     </SectionWrapper>
   );
 };
