@@ -121,7 +121,7 @@ const JoinUs = () => {
         updateStep={newStep => validateStep(step, newStep > step ? 'next' : 'back') && setStep}
         setData={setData}
       />
-      <form className="flex-1 w-screen overflow-x-hidden max-h-full pb-14">
+      <div className="flex-1 w-screen overflow-x-hidden max-h-full pb-14">
         <animated.div className="flex max-h-full" style={translateProps} {...handlers}>
           {setData.map(el => (
             <div key={el.step} className=" min-w-100vw max-h-full">
@@ -129,7 +129,7 @@ const JoinUs = () => {
             </div>
           ))}
         </animated.div>
-      </form>
+      </div>
       <animated.div style={BGAnimation} className="py-5 px-5 lg:px-0 shadow-reverse z10">
         <div className="max-w-152 block mx-auto">
           <div className="w-full flex justify-between gap-5">
