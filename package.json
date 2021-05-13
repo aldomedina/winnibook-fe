@@ -23,6 +23,7 @@
     "react-scroll-horizontal": "^1.6.6",
     "react-select": "^4.3.0",
     "react-spring": "^9.1.0",
+    "react-swipeable": "^6.1.0",
     "resize-observer-polyfill": "^1.5.1",
     "styled-components": "^5.2.3",
     "tailwind-scrollbar-hide": "^1.0.3"

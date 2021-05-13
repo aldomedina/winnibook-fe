@@ -3,6 +3,23 @@
 @tailwind utilities;
 
 @layer base {
+  ::placeholder {
+    opacity: 0.5;
+  }
+  input::-webkit-input-placeholder {
+    opacity: 0.5;
+  }
+  textarea::-webkit-input-placeholder {
+    opacity: 0.5;
+  }
+  .h-with-nav {
+    max-height: calc(100% - 52px);
+    height: calc(100% - 52px);
+    margin-top: 52px;
+  }
+  .error-msg {
+    @apply font-serif text-xs;
+  }
   .btn {
     @apply rounded  px-2 py-1 md:px-4 md:py-2 text-xs uppercase font-medium;
   }

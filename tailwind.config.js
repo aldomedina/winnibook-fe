@@ -75,6 +75,7 @@ module.exports = {
       },
       minHeight: {
         '1p': '1px',
+        14: '3.5rem',
         16: '4rem',
         28: '7rem',
         32: '8rem',
