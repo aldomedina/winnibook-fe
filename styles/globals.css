@@ -139,6 +139,10 @@
   box-shadow: none !important;
   background-color: transparent !important;
 }
+.react-select__menu,
+.react-select__menu-list {
+  overflow-x: hidden !important;
+}
 .react-select__dropdown-indicator {
   color: inherit !important;
 }
@@ -150,6 +154,11 @@
 }
 .react-select__option--is-focused {
   background-color: rgba(0, 0, 0, 0.1) !important;
+}
+.react-select__option--is-selected {
+  color: currentColor !important;
+  transform: skew(-10deg);
+  opacity: 0.5;
 }
 
 /* SCROLLBAR-HIDE */
