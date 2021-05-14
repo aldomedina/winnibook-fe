@@ -6,7 +6,7 @@ import PlaceRowBody from './PlaceRowBody';
 import PlaceRowHeader from './PlaceRowHeader';
 
 const PlaceRow = ({ place, index, openPlace, setOpenPlace }) => {
-  const { name, location, categories } = place; // 🚨  MOCK ALERT 🚨
+  const { name, city, categories } = place; // 🚨  MOCK ALERT 🚨
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const headerRef = useRef(null);
@@ -38,7 +38,7 @@ const PlaceRow = ({ place, index, openPlace, setOpenPlace }) => {
       <PlaceRowHeader
         reference={headerRef}
         name={name}
-        location={location}
+        city={city}
         categories={sortByName(categories.slice(0, 2))}
         onRowHeaderClick={onRowHeaderClick}
         isOpen={openPlace}

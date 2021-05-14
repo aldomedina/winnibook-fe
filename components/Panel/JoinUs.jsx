@@ -17,7 +17,9 @@ const JoinUs = ({ reference }) => {
         <Icon icon="big-arrow-down" w="2rem" h="4rem" />
       </div>
       <Link href="/join-us">
-        <RoundButton customClasses="mx-auto block" text="JOIN US!" big />
+        <a>
+          <RoundButton customClasses="mx-auto block" text="JOIN US!" big />
+        </a>
       </Link>
     </SectionWrapper>
   );

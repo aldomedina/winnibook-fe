@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import InputText from '../Inputs/InputText';
 import { filters } from '../../mock/search'; // 🚨  MOCK ALERT 🚨
 import Select from '../Select';
 import { ColorContext } from '../Theme';
@@ -38,33 +39,45 @@ const WinnibookInfo = ({ formDetails, setFormDetails, errors, setErrors, active 
           <span className="error-msg mt-2">{errors.main_category}</span>
         </div>
         {formDetails.main_category && (
-          <div className="mb-5">
-            <label htmlFor="contact_type_1" className="text-xs font-medium leading-10">
-              Sub Category
-            </label>
-            <Select
-              closeMenuOnSelect={false}
-              isMulti
-              options={formDetails.main_category.subcategories}
-              getOptionLabel={el => el.name}
-              getOptionValue={el => el.id}
+          <>
+            <div className="mb-5">
+              <label htmlFor="contact_type_1" className="text-xs font-medium leading-10">
+                Sub Category
+              </label>
+              <Select
+                closeMenuOnSelect={false}
+                isMulti
+                options={formDetails.main_category.subcategories}
+                getOptionLabel={el => el.name}
+                getOptionValue={el => el.id}
+                onChange={value => {
+                  setErrors({});
+                  setFormDetails({ ...formDetails, subcategories: value });
+                }}
+                className="react-select-container"
+                classNamePrefix="react-select"
+                placeholder="Main category"
+                name="Main category"
+                theme={theme => ({
+                  ...theme,
+                  colors: {
+                    neutral0: themeConfig.colors[colorTheme].bg
+                  }
+                })}
+              />
+              <span className="error-msg mt-2">{errors.subcategories}</span>
+            </div>
+            <InputText
+              label="Cant't find a subcategory that suits you? Suggest one here:"
+              id="suggestion"
+              placeholder="Suggestion"
+              value={formDetails.suggestion}
               onChange={value => {
                 setErrors({});
-                setFormDetails({ ...formDetails, subcategories: value });
+                setFormDetails({ ...formDetails, suggestion: value });
               }}
-              className="react-select-container"
-              classNamePrefix="react-select"
-              placeholder="Main category"
-              name="Main category"
-              theme={theme => ({
-                ...theme,
-                colors: {
-                  neutral0: themeConfig.colors[colorTheme].bg
-                }
-              })}
             />
-            <span className="error-msg mt-2">{errors.subcategories}</span>
-          </div>
+          </>
         )}
       </div>
     </div>

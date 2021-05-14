@@ -10,5 +10,8 @@ module.exports = withImages({
   },
   webpackDevMiddleware: config => {
     return config;
+  },
+  env: {
+    GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY
   }
 });

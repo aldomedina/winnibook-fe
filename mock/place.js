@@ -15,6 +15,8 @@ export default function getPlaceDetails() {
     country: 'Canada',
     postcode: 'MB R3B 0N2',
     theme: 'lightorange',
+
+    location: { lat: 49.8979011, lng: -97.1602454 },
     contacts: [
       {
         name: 'Main phone',
