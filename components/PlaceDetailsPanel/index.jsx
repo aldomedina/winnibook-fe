@@ -1,6 +1,7 @@
 import React from 'react';
 import HorizontalScroll from 'react-scroll-horizontal';
 import GeneralDetails from './GeneralDetails';
+import PlaceMap from './PlaceMap';
 import SimilarPlaces from './SimilarPlaces';
 import SimilarStories from './SimilarStories';
 
@@ -15,7 +16,9 @@ const PlaceDetailsPanel = ({ data }) => {
     country,
     postcode,
     similar,
-    stories
+    stories,
+    location,
+    theme
   } = data;
 
   return (
@@ -30,7 +33,7 @@ const PlaceDetailsPanel = ({ data }) => {
         country={country}
         postcode={postcode}
       />
-      <div className="min-w-80vw md:min-w-30vw px-3 md:px-5"> MAP with direction</div>
+      <PlaceMap location={location} theme={theme} />
       <SimilarStories stories={stories} />
       <SimilarPlaces similar={similar} />
     </HorizontalScroll>

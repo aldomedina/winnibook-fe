@@ -5,7 +5,7 @@ import useWindowSize from '../Hooks/useWindowSize';
 const PlaceRowHeader = ({
   categories,
   name,
-  location,
+  city,
   onRowHeaderClick,
   isOpen,
   reference,
@@ -35,7 +35,7 @@ const PlaceRowHeader = ({
         )}
       </div>
       {!isSingle && <div className="flex-1 border-b-2 border-dotted opacity-30 hidden md:block" />}
-      {!isSingle && <h4 className="uppercase text-lg font-light md:text-2xl">{location}</h4>}
+      {!isSingle && <h4 className="uppercase text-lg font-light md:text-2xl">{city}</h4>}
       {!isSingle && (
         <animated.div
           style={animatedProp}

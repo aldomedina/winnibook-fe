@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import { ColorContext } from '../../components/Theme';
 import themeConfig from '../../components/Theme/colors';
 import Stepper from '../../components/Stepper';
@@ -78,7 +79,8 @@ const JoinUs = () => {
       }
 
       // Validate address with Google Maps API
-
+      const validAddress = city.name && geocode();
+      if (!validAddress) errors['address1'] = 'Invalid address';
       // Mandatory fields
       if (!name?.length) errors['name'] = 'Mandatory Field';
       if (!description?.length) errors['description'] = 'Mandatory Field';
@@ -111,7 +113,30 @@ const JoinUs = () => {
     setErrors(errors);
     return false;
   };
+  const geocode = async () => {
+    const { address1, address2, postcode, city } = formDetails;
+    const address = `${address1} ${address2 ? address2 : ''} ${postcode}, ${city.name}, Canada`;
+    try {
+      const { data } = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+        params: {
+          address: address,
+          key: process.env.GOOGLE_MAPS_KEY
+        }
+      });
 
+      setFormDetails({
+        ...formDetails,
+        location: {
+          lat: data.results[0].geometry.location.lat,
+          lng: data.results[0].geometry.location.lng
+        }
+      });
+
+      return true;
+    } catch (err) {
+      return false;
+    }
+  };
   return (
     <div className="max-h-full flex flex-col">
       <div className="min-h-14" />
