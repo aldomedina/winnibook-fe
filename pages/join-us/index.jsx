@@ -77,8 +77,7 @@ const JoinUs = () => {
         errors['postcode'] = 'Invalid postcode for Canada';
       }
 
-      // Validate address
-      // with google api
+      // Validate address with Google Maps API
 
       // Mandatory fields
       if (!name?.length) errors['name'] = 'Mandatory Field';
@@ -118,7 +117,9 @@ const JoinUs = () => {
       <div className="min-h-14" />
       <Stepper
         step={step}
-        updateStep={newStep => validateStep(step, newStep > step ? 'next' : 'back') && setStep}
+        updateStep={newStep =>
+          validateStep(step, newStep > step ? 'next' : 'back') && setStep(newStep)
+        }
         setData={setData}
       />
       <div className="flex-1 w-screen overflow-x-hidden max-h-full pb-14">
