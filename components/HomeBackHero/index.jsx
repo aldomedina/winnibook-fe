@@ -6,7 +6,7 @@ const scrollAnimation = keyframes`
   0% { opacity: 0; }
   20% { opacity: 1; }
   60% { opacity: 0.8; }
-  100% { opacity: 0; transform: translateY(25px); }
+  100% { opacity: 0; transform: translateY(15px); }
 `;
 
 const ScrollWheel = styled.div`
@@ -40,9 +40,11 @@ const HomeBackHero = () => {
               <Lottie options={defaultOptions} height={100} width={100} />
             </div>
           ) : (
-            <div className="h-20 rounded-full w-12 border border-1 border-base-primary flex justify-center ">
-              <ScrollWheel className="w-2 h-3 rounded-full mt-4" />
-            </div>
+            <>
+              <div className="h-13 rounded-full ml-1 w-8 border border-1 border-base-primary flex justify-center ">
+                <ScrollWheel className="w-1 h-3 rounded-full mt-2" />
+              </div>
+            </>
           )}
         </div>
       </div>

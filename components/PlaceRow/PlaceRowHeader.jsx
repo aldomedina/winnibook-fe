@@ -2,7 +2,15 @@ import Tag from '../Tag';
 import { animated, useSpring } from 'react-spring';
 import { Icon } from '../Icon';
 import useWindowSize from '../Hooks/useWindowSize';
-const PlaceRowHeader = ({ categories, name, location, onRowHeaderClick, isOpen, reference }) => {
+const PlaceRowHeader = ({
+  categories,
+  name,
+  city,
+  onRowHeaderClick,
+  isOpen,
+  reference,
+  isSingle
+}) => {
   const { isMobile } = useWindowSize();
   const animatedProp = useSpring({
     width: !isOpen ? '0%' : '10%',
@@ -11,11 +19,13 @@ const PlaceRowHeader = ({ categories, name, location, onRowHeaderClick, isOpen, 
   return (
     <div
       ref={reference}
-      className="relative py-1 max-w-80vw md:max-w-full flex flex-col md:flex-row md:items-end cursor-pointer"
+      className="px-3 md:px-5 py-2 max-w-90vw md:max-w-full flex flex-col md:flex-row md:items-end cursor-pointer"
       onClick={onRowHeaderClick}
     >
       <div className="flex flex-col-reverse md:flex-row ">
-        <h3 className="uppercase text-2xl md:text-4xl md:mr-3">{name}</h3>
+        <h3 className={`uppercase text-2xl md:mr-3 ${isSingle ? 'md:text-6xl' : 'md:text-4xl'}`}>
+          {name}
+        </h3>
         {categories && (
           <div className="flex gap-1">
             {categories.map(cat => (
@@ -24,14 +34,17 @@ const PlaceRowHeader = ({ categories, name, location, onRowHeaderClick, isOpen, 
           </div>
         )}
       </div>
-      <div className="flex-1 border-b-2 border-dotted opacity-30 hidden md:block" />
-      <h4 className="uppercase text-lg font-light md:text-2xl">{location}</h4>
-      <animated.div
-        style={animatedProp}
-        className="h-full absolute md:static md:flex top-5 -right-10vw items-center justify-center"
-      >
-        <Icon icon="x" w="30px" h="28px" />
-      </animated.div>
+      {!isSingle && <div className="flex-1 border-b-2 border-dotted opacity-30 hidden md:block" />}
+      {!isSingle && <h4 className="uppercase text-lg font-light md:text-2xl">{city}</h4>}
+      {!isSingle && (
+        <animated.div
+          style={animatedProp}
+          className="absolute right-3 md:static md:flex top-5 items-center justify-center"
+          onClick={onRowHeaderClick}
+        >
+          <Icon icon="x" w="28px" h="28px" />
+        </animated.div>
+      )}
     </div>
   );
 };

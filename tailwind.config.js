@@ -20,7 +20,12 @@ module.exports = {
     }),
     extend: {
       spacing: {
+        13: '3.25rem',
+        22: '5.5rem',
+        152: '38rem',
+        136: '34rem',
         '10vh': '10vh',
+        '15vh': '15vh',
         '20vh': '20vh',
         '30vh': '30vh',
         '35vh': '35vh',
@@ -34,7 +39,9 @@ module.exports = {
         '85vh': '85vh',
         '90vh': '90vh',
         '100vh': '100vh',
+        '5vw': '5vw',
         '10vw': '10vw',
+        '15vw': '15vw',
         '20vw': '20vw',
         '30vw': '30vw',
         '40vw': '40vw',
@@ -43,12 +50,16 @@ module.exports = {
         '70vw': '70vw',
         '75vw': '75vw',
         '80vw': '80vw',
+        '85vw': '85vw',
         '90vw': '90vw',
         '100vw': '100vw'
       },
       minWidth: {
         '1p': '1px',
+        28: '7rem',
         32: '8rem',
+        36: '9rem',
+        44: '11rem',
         '10vw': '10vw',
         '20vw': '20vw',
         '30vw': '30vw',
@@ -64,8 +75,12 @@ module.exports = {
       },
       minHeight: {
         '1p': '1px',
+        14: '3.5rem',
         16: '4rem',
+        28: '7rem',
         32: '8rem',
+        36: '9rem',
+        44: '11rem',
         '10vh': '10vh',
         '20vh': '20vh',
         '30vh': '30vh',
@@ -80,6 +95,8 @@ module.exports = {
         '100vh': '100vh'
       },
       maxHeight: {
+        28: '7rem',
+        44: '11rem',
         '1p': '1px',
         '10vh': '10vh',
         '20vh': '20vh',
@@ -95,6 +112,10 @@ module.exports = {
         '100vh': '100vh'
       },
       maxWidth: {
+        28: '7rem',
+        40: '10rem',
+        136: '34rem',
+        152: '38rem',
         '1p': '1px',
         '10vw': '10vw',
         '20vw': '20vw',
@@ -132,6 +153,9 @@ module.exports = {
       },
       gridTemplateRows: {
         filters: 'max-content auto'
+      },
+      gridAutoRows: {
+        stories: 'minmax(250px, max-content)'
       }
     }
   },

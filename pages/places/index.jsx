@@ -3,11 +3,13 @@ import FilterBars from '../../components/FiltersBar';
 import useWindowSize from '../../components/Hooks/useWindowSize';
 import PlaceRow from '../../components/PlaceRow';
 import { items } from '../../mock/search';
+import { useRouter } from 'next/router';
 
 const Places = () => {
   const [filtersOpen, setFiltersOpen] = useState(true);
   const [openPlace, setOpenPlace] = useState(false);
   const [activeFilters, setActiveFilters] = useState([]);
+  const router = useRouter();
   const listRef = useRef(null);
   const filtersRef = useRef(null);
   const filtersHeaderRef = useRef(null);
@@ -33,7 +35,7 @@ const Places = () => {
             place={item}
             listRef={listRef}
             index={i}
-            openPlace={openPlace}
+            openPlace={openPlace === i}
             setOpenPlace={setOpenPlace}
           />
         ))}
