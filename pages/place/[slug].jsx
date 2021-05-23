@@ -1,31 +1,47 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router'
 
-import PlaceDetailsPanel from '../../components/PlaceDetailsPanel';
-import PlaceRowHeader from '../../components/PlaceRow/PlaceRowHeader';
+import TopNav from '../../components/TopNav';
+import PlaceRow from '../../components/PlaceRow';
 import { ColorContext } from '../../components/Theme';
 import getPlaceDetails from '../../mock/place';
 
 const Place = ({ placeData }) => {
-  const router = useRouter()
+  const router = useRouter();
+
   const { setColorTheme } = useContext(ColorContext);
+
+  const headerRef = useRef(null);
 
   useEffect(() => {
     placeData?.theme && setColorTheme(placeData.theme);
   }, []);
   return (
-    <div className="pt-14 h-full overflow-y-hidden">
-      {/* <div className="py-2">
-        <PlaceRowHeader
-          isOpen={false}
-          name={placeData.name}
-          location={placeData.neighbor}
-          isSingle
-        />
-      </div>
-      <div className="w-full h-full">
-        <PlaceDetailsPanel data={placeData} />
-      </div> */}
+    <div className="bg-white h-full">
+
+      <TopNav
+        reference={headerRef} 
+        hasBG
+      />
+
+      {
+        placeData ?
+        <div
+          className={`
+            scrollbar-hide 
+            overflow-y-hidden
+          `}
+        >
+          <PlaceRow
+            place={placeData}
+            openPlace={true}
+            setOpenPlace={() => {}}
+            isSingle={true}
+          />
+        </div>
+        : ""
+      }
+      
     </div>
   );
 };

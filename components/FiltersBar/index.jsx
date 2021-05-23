@@ -1,18 +1,14 @@
 import { useState, useContext, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
 
-import useWindowSize from '../Hooks/useWindowSize';
-
 import { getItemByKey, removeItemById, sortByName } from '../../utils';
 
 import { ColorContext } from '../Theme';
 import themeConfig from '../Theme/colors';
 
 import Tag from '../Tag';
-import Select from '../Select';
 import SearchBar from '../SearchBar';
 import TagsSearch from '../TagsSearch';
-import SearchByTag from './SearchByTag';
 import FiltersIcon from './FiltersIcon';
 
 import { filters as mock } from '../../mock/search';
@@ -80,6 +76,7 @@ const FilterBars = ({
     }
 
     const isMainCategory = selectedFilter.type === mainCategoryId;
+    
     if (isMainCategory && selectedFilter.theme) {
       setColorTheme('base');
       const copy = [...filters];
@@ -220,30 +217,6 @@ const FilterBars = ({
           md:pb-7 
         "
       >
-
-        {/* <div className="flex-1 pt-5 md:pt-0 ">
-          <div className=" w-72 md:-mt-1.5">
-            <Select
-              isMulti
-              controlShouldRenderValue={false}
-              options={locations}
-              getOptionLabel={el => el.name}
-              getOptionValue={el => el.id}
-              value={selectedLocations}
-              isClearable={false}
-              onChange={handleLocationChange}
-              className="react-select-container"
-              classNamePrefix="react-select"
-              placeholder="SEARCH BY LOCATION"
-              theme={theme => ({
-                ...theme,
-                colors: {
-                  neutral0: themeConfig.colors[colorTheme].bg
-                }
-              })}
-            />
-          </div>
-        </div> */}
 
         <TagsSearch
           items={locations}

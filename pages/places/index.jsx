@@ -4,33 +4,63 @@ import styled from 'styled-components';
 
 import TopNav from '../../components/TopNav';
 import FilterBars from '../../components/FiltersBar';
-import PlaceRow from '../../components/PlaceRow';
 
+import PlaceRowHeader from '../../components/PlaceRow/PlaceRowHeader';
+
+import { sortByName } from '../../utils';
 import { items } from '../../mock/search';
 
 const PlacesSearchResults = styled.div`
-  
+  min-height: 100vh;
+
+  a {
+    max-height: 56px;
+    opacity: 1;
+    transition: max-height .4s .4s, opacity .3s;
+
+    &.hidden-place {
+      overflow: hidden;
+      max-height: 0 !important;
+      opacity: 0 !important;
+    }
+  }
 `;
 
 const Places = () => {
-  const [filtersOpen, setFiltersOpen] = useState(true);
-  const [openPlace, setOpenPlace] = useState(false);
-  const [activeFilters, setActiveFilters] = useState([]);
   const router = useRouter();
   
-  const headerRef = useRef(null);
-  const listRef = useRef(null);
-  const rowRef = useRef(null);
+  const headerRef = useRef(null); 
+  const rowRef = useRef(null); 
   const filtersRef = useRef(null);
   const filtersHeaderRef = useRef(null);
 
-  useEffect(() => {
-    console.log('activeFilters changed - new query string', activeFilters);
-    console.log('openPlace', openPlace);
-  }, [activeFilters, openPlace]);
+  const [filtersOpen, setFiltersOpen] = useState(true);
+  const [filtersHidden, setFiltersHidden] = useState(false);
+  const [activeFilters, setActiveFilters] = useState([]);
 
-  const handlePlaceRowClick = () => {
-    // rowRef.current.scrollIntoView({ behavior: 'smooth' });
+  const [openPlace, setOpenPlace] = useState(false);
+  
+  useEffect(() => {
+    setOpenPlace(false);
+    setFiltersHidden(false);
+  }, []);
+
+  const handlePlaceClick = (e, i) => {
+    if (e.nativeEvent?.metaKey || e.nativeEvent?.controlKey) {
+      return;
+    }
+
+    e.preventDefault();
+    
+    setOpenPlace(i);
+    setFiltersHidden(true);
+
+    window.scrollTo(0, 0);
+
+    // after all transitions
+    setTimeout(async () => {
+      await router.push("place/" + i);
+    }, 600);
   }
 
   return (
@@ -38,6 +68,7 @@ const Places = () => {
       style={
         {
           paddingBottom: (filtersHeaderRef.current?.clientHeight) + "px",
+          overflow: openPlace !== false ? "hidden" : "auto"
         }
       }
     >
@@ -48,26 +79,27 @@ const Places = () => {
 
       <ul
         className={`
-          scrollbar-hide 
-          ${
-            !!openPlace ? 
-              'overflow-y-hidden' 
-            : 
-            'overflow-y-scroll'
-          }
+          scrollbar-hide
         `}
       >
         {items.map((item, i) => (
-          <PlaceRow
-            key={item.name + i}
-            place={item}
-            listRef={listRef}
-            rowRef={rowRef}
-            index={i}
-            openPlace={openPlace === i}
-            setOpenPlace={setOpenPlace}
-            onRowHeaderClick={handlePlaceRowClick}
-          />
+          <a
+            key={i} 
+            style={{
+              maxHeight: rowRef.current?.clientHeight + "px"
+            }}
+            className={"block " + (openPlace !== false && openPlace !== i ? "hidden-place" : "")}
+            href={"place/" + i}
+            onClick={(e) => handlePlaceClick(e, i)}
+          >
+            <PlaceRowHeader
+              reference={rowRef}
+              name={item.name}
+              city={item.city}
+              categories={sortByName(item.categories.slice(0, 2))}
+              isOpen={openPlace === i}
+            />
+          </a>
         ))}
       </ul>
 
@@ -78,7 +110,7 @@ const Places = () => {
         setFilters={setActiveFilters}
         open={filtersOpen}
         setOpen={setFiltersOpen}
-        hidden={openPlace !== false}
+        hidden={filtersHidden}
       />
     </PlacesSearchResults>
   );

@@ -7,7 +7,7 @@ import { sortByName } from '../../utils';
 import PlaceRowBody from './PlaceRowBody';
 import PlaceRowHeader from './PlaceRowHeader';
 
-const PlaceRow = ({ place, index, openPlace, setOpenPlace, onRowHeaderClick, rowRef }) => {
+const PlaceRow = ({ place, openPlace, setOpenPlace, onRowHeaderClick, rowRef, isSingle }) => {
   const { name, city, categories } = place; // 🚨  MOCK ALERT 🚨
 
   const [data, setData] = useState({});
@@ -15,22 +15,22 @@ const PlaceRow = ({ place, index, openPlace, setOpenPlace, onRowHeaderClick, row
   const headerRef = useRef(null);
   const headerHeight = headerRef?.current?.offsetHeight;
 
-  const handleRowHeaderClick = () => {
-    if (!openPlace) {
-      setOpenPlace(index);
+  // const handleRowHeaderClick = () => {
+  //   if (!openPlace) {
+  //     setOpenPlace(index);
       
-      if (onRowHeaderClick) {
-        onRowHeaderClick(index);
-      }
+  //     if (onRowHeaderClick) {
+  //       onRowHeaderClick(index);
+  //     }
 
-    } else {
-      setOpenPlace(false);
+  //   } else {
+  //     setOpenPlace(false);
       
-      if (onRowHeaderClick) {
-        onRowHeaderClick(false);
-      }
-    }
-  };
+  //     if (onRowHeaderClick) {
+  //       onRowHeaderClick(false);
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     const fetchPlaceData = async () => {
@@ -44,15 +44,17 @@ const PlaceRow = ({ place, index, openPlace, setOpenPlace, onRowHeaderClick, row
   }, [openPlace]);
 
   return (
-    <li ref={rowRef} className="relative mb-1 md:mb-2">
+    <li ref={rowRef} className="relative list-none mb-1 md:mb-2">
       <PlaceRowHeader
         reference={headerRef}
         name={name}
         city={city}
         categories={sortByName(categories.slice(0, 2))}
-        onRowHeaderClick={handleRowHeaderClick}
+        // onRowHeaderClick={handleRowHeaderClick}
         isOpen={openPlace}
+        isSingle={isSingle}
       />
+      
       <PlaceRowBody
         isOpen={openPlace}
         headerHeight={headerHeight}
