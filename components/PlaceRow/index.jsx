@@ -1,24 +1,34 @@
 import { useEffect, useState } from 'react';
 import { useRef } from 'react';
+
 import getPlaceDetails from '../../mock/place';
 import { sortByName } from '../../utils';
+
 import PlaceRowBody from './PlaceRowBody';
 import PlaceRowHeader from './PlaceRowHeader';
 
-const PlaceRow = ({ place, index, openPlace, setOpenPlace }) => {
+const PlaceRow = ({ place, index, openPlace, setOpenPlace, onRowHeaderClick, rowRef }) => {
   const { name, city, categories } = place; // 🚨  MOCK ALERT 🚨
+
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const headerRef = useRef(null);
   const headerHeight = headerRef?.current?.offsetHeight;
-  const rowRef = useRef(null);
 
-  const onRowHeaderClick = () => {
+  const handleRowHeaderClick = () => {
     if (!openPlace) {
-      rowRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
       setOpenPlace(index);
+      
+      if (onRowHeaderClick) {
+        onRowHeaderClick(index);
+      }
+
     } else {
       setOpenPlace(false);
+      
+      if (onRowHeaderClick) {
+        onRowHeaderClick(false);
+      }
     }
   };
 
@@ -40,7 +50,7 @@ const PlaceRow = ({ place, index, openPlace, setOpenPlace }) => {
         name={name}
         city={city}
         categories={sortByName(categories.slice(0, 2))}
-        onRowHeaderClick={onRowHeaderClick}
+        onRowHeaderClick={handleRowHeaderClick}
         isOpen={openPlace}
       />
       <PlaceRowBody

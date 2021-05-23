@@ -1,29 +1,37 @@
 import { useState, useEffect, useRef, useCallback, useContext } from 'react';
 import Link from 'next/link';
 import { useSpring, animated } from 'react-spring';
-import { Icon } from '../Icon';
-import useWindowSize from '../Hooks/useWindowSize';
-import ThreeDots from '../ThreeDots';
+
 import { ColorContext } from '../Theme';
 import themeConfig from '../Theme/colors';
+
+import useWindowSize from '../Hooks/useWindowSize';
+
+import { Icon } from '../Icon';
+import ThreeDots from '../ThreeDots';
 import Menu from './Menu';
 import NavSearch from './NavSearch';
 
-const TopNav = ({ showSearch, hasBG }) => {
+const TopNav = ({ showSearch, hasBG, reference }) => {
+  
   const [isOpen, setIsOpen] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const { colorTheme } = useContext(ColorContext);
   const { isMobile } = useWindowSize();
+
   const searchRef = useRef();
   const aboutMenu = useRef();
 
   const BGAnimation = useSpring({
-    backgroundColor: !hasBG
-      ? 'transparent'
-      : colorTheme === 'base'
-      ? '#ffffff'
-      : themeConfig.colors[colorTheme].bg
+    // backgroundColor: !hasBG
+    //   ? 'transparent'
+    //   : colorTheme === 'base'
+    //   ? '#ffffff'
+    //   : themeConfig.colors[colorTheme].bg
+    backdropFilter: 'blur(1px)',
+    position: 'sticky',
+    top: 0
   });
 
   useEffect(() => {
@@ -60,12 +68,28 @@ const TopNav = ({ showSearch, hasBG }) => {
   }, []);
 
   return (
-    <>
+    <div
+      ref={reference}
+    >
       <animated.div
         style={BGAnimation}
-        className={`transition-all fixed top-0 left-0 py-2 px-3 md:px-5 flex justify-between items-center w-full z-50 ${
-          hasBG && 'shadow'
-        }`}
+        className={`
+          transition-all 
+          top-0 
+          left-0 
+          py-2 
+          px-3 
+          md:px-5 
+          flex 
+          justify-between 
+          items-center 
+          w-full 
+          z-50 
+          ${
+            // hasBG && 'shadow'
+            ''
+          }
+        `}
       >
         <div className="flex flex-1 items-center">
           <Link href="/">
@@ -92,7 +116,7 @@ const TopNav = ({ showSearch, hasBG }) => {
         />
         <ThreeDots isOpen={isOpen} handleClick={() => setIsOpen(!isOpen)} />
       </animated.div>
-    </>
+    </div>
   );
 };
 

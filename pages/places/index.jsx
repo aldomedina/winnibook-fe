@@ -1,49 +1,74 @@
-import { useState, useEffect, useRef } from 'react';
-import FilterBars from '../../components/FiltersBar';
-import useWindowSize from '../../components/Hooks/useWindowSize';
-import PlaceRow from '../../components/PlaceRow';
-import { items } from '../../mock/search';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
+
+import TopNav from '../../components/TopNav';
+import FilterBars from '../../components/FiltersBar';
+import PlaceRow from '../../components/PlaceRow';
+
+import { items } from '../../mock/search';
+
+const PlacesSearchResults = styled.div`
+  
+`;
 
 const Places = () => {
   const [filtersOpen, setFiltersOpen] = useState(true);
   const [openPlace, setOpenPlace] = useState(false);
   const [activeFilters, setActiveFilters] = useState([]);
   const router = useRouter();
+  
+  const headerRef = useRef(null);
   const listRef = useRef(null);
+  const rowRef = useRef(null);
   const filtersRef = useRef(null);
   const filtersHeaderRef = useRef(null);
-  const { height, isMobile } = useWindowSize();
 
   useEffect(() => {
     console.log('activeFilters changed - new query string', activeFilters);
     console.log('openPlace', openPlace);
   }, [activeFilters, openPlace]);
 
+  const handlePlaceRowClick = () => {
+    // rowRef.current.scrollIntoView({ behavior: 'smooth' });
+  }
+
   return (
-    <div className="h-full  overflow-hidden">
+    <PlacesSearchResults
+      style={
+        {
+          paddingBottom: (filtersHeaderRef.current?.clientHeight) + "px",
+        }
+      }
+    >
+      <TopNav
+        reference={headerRef} 
+        hasBG
+      />
+
       <ul
-        className={`scrollbar-hide ${!!openPlace ? 'overflow-y-hidden' : 'overflow-y-scroll'}`}
-        style={{
-          marginTop: isMobile ? 60 : 56,
-          height: isMobile ? height - 56 : height - 52
-        }}
+        className={`
+          scrollbar-hide 
+          ${
+            !!openPlace ? 
+              'overflow-y-hidden' 
+            : 
+            'overflow-y-scroll'
+          }
+        `}
       >
         {items.map((item, i) => (
           <PlaceRow
             key={item.name + i}
             place={item}
             listRef={listRef}
+            rowRef={rowRef}
             index={i}
             openPlace={openPlace === i}
             setOpenPlace={setOpenPlace}
+            onRowHeaderClick={handlePlaceRowClick}
           />
         ))}
-        <li
-          style={{
-            height: isMobile ? height - 156 : height - 104
-          }}
-        ></li>
       </ul>
 
       <FilterBars
@@ -53,9 +78,9 @@ const Places = () => {
         setFilters={setActiveFilters}
         open={filtersOpen}
         setOpen={setFiltersOpen}
-        hideFilters={!!openPlace}
+        hidden={openPlace !== false}
       />
-    </div>
+    </PlacesSearchResults>
   );
 };
 

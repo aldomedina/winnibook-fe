@@ -1,16 +1,21 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
-import Select from '../Select';
+
 import useWindowSize from '../Hooks/useWindowSize';
-import { filters as mock } from '../../mock/search';
+
 import { getItemByKey, removeItemById, sortByName } from '../../utils';
-import SearchBar from '../SearchBar';
-import Tag from '../Tag';
+
 import { ColorContext } from '../Theme';
 import themeConfig from '../Theme/colors';
-import { useEffect } from 'react';
+
+import Tag from '../Tag';
+import Select from '../Select';
+import SearchBar from '../SearchBar';
+import TagsSearch from '../TagsSearch';
 import SearchByTag from './SearchByTag';
 import FiltersIcon from './FiltersIcon';
+
+import { filters as mock } from '../../mock/search';
 
 const mainCategoryId = 'main-category';
 const subCategoryId = 'sub-category';
@@ -25,23 +30,28 @@ const FilterBars = ({
   setFilters,
   reference,
   headerReference,
-  hideFilters
+  hidden
 }) => {
+
+  console.log(headerReference);
   const { locations, categories, hashtags } = mock; // 🚨  MOCK ALERT 🚨
+
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [categoriesDisplayed, setCategoriesDisplayed] = useState([]);
   const [hashtagsDisplayed, setHashtagsDisplayed] = useState([]);
   const [searchBarValue, setSearchBarValue] = useState('');
 
-  const { height } = useWindowSize();
   const { setColorTheme, colorTheme } = useContext(ColorContext);
-  const hideValue = height ? height * 0.5 : 0;
+
   const openMenuAnimation = useSpring({
-    transform: hideFilters
-      ? `translate3d(0px,${height}px,0px)`
-      : open
-      ? `translate3d(0px,0px,0px)`
-      : `translate3d(0px,${hideValue}px,0px)`,
+    transform: 
+      hidden ? 
+        `translate3d(0px,${reference.current?.clientHeight}px,0px)`
+      : 
+      open ? 
+        `translate3d(0px,0px,0px)`
+      : 
+        `translate3d(0px,${(reference.current?.clientHeight - headerReference.current?.clientHeight)}px,0px)`,
     backgroundColor: colorTheme === 'base' ? '#ffffff' : themeConfig.colors[colorTheme].bg
   });
 
@@ -58,6 +68,7 @@ const FilterBars = ({
   };
 
   const removeFilter = filter => {
+
     const newFilterState = removeItemById(filters, filter.id);
     setFilters(newFilterState);
     const selectedFilter = getItemByKey(filters, filter.id, 'id');
@@ -131,21 +142,44 @@ const FilterBars = ({
       style={openMenuAnimation}
       className="w-full shadow-reverse rounded-t-20p md:rounded-t-50p fixed bottom-0 left-0 z-20 flex flex-col"
     >
+
+      {/* FILTERS HEADER */}
       <div
         ref={headerReference}
-        className="w-full min-h-16 gap-3 py-3 px-3 md:px-10 grid-cols-filters-small grid md:grid-cols-filters grid-rows-filters md:grid-rows-1"
+        className="
+          w-full 
+          min-h-16 
+          gap-3
+
+          py-4 
+          px-3 
+          md:px-6
+
+          grid-cols-filters-small 
+          grid 
+          md:grid-cols-filters 
+          grid-rows-filters 
+          md:grid-rows-1
+        "
+        onClick={() => setOpen(open => !open)}
       >
-        <div className="h-full max-h-8 min-w-20vw ">
+
+        {/* SEARCH BAR */}
+        <div 
+          className="h-full min-w-40vw "
+          onClick={(evt) => evt.stopPropagation()}>
           <SearchBar
             noIcon
             placeholder="SEARCH..."
             onChange={handleSearchBarChange}
             theme={colorTheme}
             value={searchBarValue}
+            big
           />
         </div>
 
-        <div className="flex flex-wrap max-h-32 overflow-y-auto gap-2 md:gap-0.5  justify-self-stretch row-start-2 col-span-full md:row-auto md:col-auto	">
+        {/* ACTIVE FILTERS TAGS */}
+        <div className="flex flex-wrap max-h-32 overflow-y-auto gap-2 md:gap-0.5  justify-self-stretch row-start-2 col-span-full md:row-auto md:col-auto">
           {filters.map(filter => (
             <Tag
               key={`selected-${filter.id}`}
@@ -156,12 +190,38 @@ const FilterBars = ({
             />
           ))}
         </div>
-        <button onClick={() => setOpen(open => !open)} className="w-11 self-start relative">
+
+        {/* TOGGLE FILTERS */}
+        <button className="w-11 py-2 self-start relative">
           <FiltersIcon isOpen={open} theme={colorTheme} />
         </button>
+
       </div>
-      <div className="container min-h-50vh flex-1 h-full md:py-4 flex flex-col md:flex-row justify-between items-stretch gap-3 md:gap-10 ">
-        <div className="flex-1 pt-5 md:pt-0 ">
+
+      {/* ADVANCED FILTERS */}
+      <div 
+        className="
+          min-h-35vh 
+          h-full 
+
+          flex-1 
+          flex 
+          flex-col
+          md:flex-row 
+          justify-between 
+          items-stretch 
+          gap-3 
+          md:gap-10
+
+          px-3 
+          md:px-6
+
+          md:pt-10 
+          md:pb-7 
+        "
+      >
+
+        {/* <div className="flex-1 pt-5 md:pt-0 ">
           <div className=" w-72 md:-mt-1.5">
             <Select
               isMulti
@@ -183,14 +243,19 @@ const FilterBars = ({
               })}
             />
           </div>
-        </div>
+        </div> */}
+
+        <TagsSearch
+          items={locations}
+          searchPlaceholder="FIND REGION"
+          theme={colorTheme}
+          handleHashtagClick={handleHashtagClick}
+        />
+
         {categoriesDisplayed && categoriesDisplayed.length ? (
           <div className="flex-1">
-            <h3 className="uppercase opacity-30 ml-3 md:ml-0 md:text-center md:mb-5">
-              search by categories
-            </h3>
 
-            <div className="flex py-3  styled-scrollbar max-h-30vh overflow-x-scroll md:overflow-y-auto md:overflow-x-hidden md:flex-wrap md:justify-center md:mt-10 gap-2">
+            <div className="flex py-3  styled-scrollbar max-h-30vh overflow-x-scroll md:overflow-y-auto md:overflow-x-hidden md:flex-wrap md:justify-center gap-2">
               {sortByName(categoriesDisplayed).map(cat => (
                 <Tag
                   key={cat.id}
@@ -199,7 +264,7 @@ const FilterBars = ({
                   invertColors={cat.isMain}
                   onTagCLick={handleCategoryClick}
                   cat={cat}
-                  big={cat.isMain}
+                  big
                 />
               ))}
             </div>
@@ -211,12 +276,15 @@ const FilterBars = ({
             </h3>
           </div>
         )}
-        <SearchByTag
+
+        <TagsSearch
           items={hashtagsDisplayed}
+          searchPlaceholder="FIND TAG"
           theme={colorTheme}
           handleHashtagClick={handleHashtagClick}
         />
       </div>
+
     </animated.div>
   );
 };

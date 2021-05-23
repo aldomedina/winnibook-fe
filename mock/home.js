@@ -54,6 +54,7 @@ export const stories = {
     id: 7,
     img: placeholderImg1,
     title: '3 new Chinese restaurants in West End',
+    theme: 'lightblue',
     categories: [
       {
         theme: 'cream',
