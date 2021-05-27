@@ -19,6 +19,7 @@ const PlaceRowHeader = ({
     width: !isOpen ? '0%' : '10%',
     opacity: isOpen ? 1 : 0
   });
+  
   return (
     <div
       ref={reference}
@@ -30,10 +31,10 @@ const PlaceRowHeader = ({
         <h3 className={`uppercase transition-all text-2xl md:mr-3 ${isOpen ? 'md:text-6xl' : 'md:text-4xl'}`}>
           {name}
         </h3>
-        {categories && (
+        {categories && !isOpen && (
           <div className="flex gap-1">
             {categories.map(cat => (
-              <Tag key={cat.id} name={cat.name} theme={cat.theme} cat={cat} small />
+              <Tag key={cat.category?.id} name={cat.category?.name} theme={cat.category?.theme} tagInfo={cat.category} small />
             ))}
           </div>
         )}

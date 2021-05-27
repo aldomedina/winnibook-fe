@@ -8,40 +8,11 @@ import PlaceRowBody from './PlaceRowBody';
 import PlaceRowHeader from './PlaceRowHeader';
 
 const PlaceRow = ({ place, openPlace, setOpenPlace, onRowHeaderClick, rowRef, isSingle }) => {
-  const { name, city, categories } = place; // 🚨  MOCK ALERT 🚨
+  const { name, city, categories=[] } = place;
 
-  const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const headerRef = useRef(null);
   const headerHeight = headerRef?.current?.offsetHeight;
-
-  // const handleRowHeaderClick = () => {
-  //   if (!openPlace) {
-  //     setOpenPlace(index);
-      
-  //     if (onRowHeaderClick) {
-  //       onRowHeaderClick(index);
-  //     }
-
-  //   } else {
-  //     setOpenPlace(false);
-      
-  //     if (onRowHeaderClick) {
-  //       onRowHeaderClick(false);
-  //     }
-  //   }
-  // };
-
-  useEffect(() => {
-    const fetchPlaceData = async () => {
-      setIsLoading(true);
-      const response = await getPlaceDetails();
-      setData(response);
-      setIsLoading(false);
-    };
-
-    openPlace && fetchPlaceData();
-  }, [openPlace]);
 
   return (
     <li ref={rowRef} className="relative list-none mb-1 md:mb-2">
@@ -58,7 +29,7 @@ const PlaceRow = ({ place, openPlace, setOpenPlace, onRowHeaderClick, rowRef, is
       <PlaceRowBody
         isOpen={openPlace}
         headerHeight={headerHeight}
-        data={data}
+        data={place}
         isLoading={isLoading}
       />
     </li>

@@ -1,0 +1,6 @@
+query getAllCities($name: String, $limit: Int) {
+  winnibook_cities(limit: $limit, where: {name: {_ilike: $name}}) {
+    id
+    name
+  }
+}

@@ -4,16 +4,12 @@ import { sortByName } from '../../utils';
 import Tag from '../Tag';
 import SearchBar from '../SearchBar';
 
-const TagsSearch = ({ items, theme, handleHashtagClick, searchPlaceholder }) => {
-  const [value, setValue] = useState('');
+const TagsSearch = ({ items, theme, onTagClick, searchPlaceholder, onSearchChange }) => {
   const [filteredItems, setFilteredItems] = useState([]);
 
   useEffect(() => {
-    let filtered = [...items];
-    if (value)
-      filtered = items.filter(item => item.name.toLowerCase().includes(value.toLowerCase()));
-    setFilteredItems(filtered);
-  }, [value, items]);
+    setFilteredItems(items);
+  }, [items]);
 
   return (
     <div 
@@ -29,8 +25,7 @@ const TagsSearch = ({ items, theme, handleHashtagClick, searchPlaceholder }) => 
         "
       >
         <SearchBar
-          value={value}
-          onChange={setValue}
+          onChange={onSearchChange}
           noIcon
           placeholder={searchPlaceholder ? searchPlaceholder : "SEARCH"}
           theme={theme}
@@ -53,7 +48,7 @@ const TagsSearch = ({ items, theme, handleHashtagClick, searchPlaceholder }) => 
       >
         {filteredItems &&
           sortByName(filteredItems).map(el => (
-            <Tag key={el.id} filterTag name={el.name} onTagCLick={handleHashtagClick} cat={el} />
+            <Tag key={el.id} filterTag name={el.name} onTagClick={onTagClick} tagInfo={el} />
           ))}
       </div>
     </div>

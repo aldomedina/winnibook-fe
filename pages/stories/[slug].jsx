@@ -18,6 +18,7 @@ const Story = ({ storyData }) => {
       <TopNav
         reference={headerRef} 
         hasBG
+        showSearch
       />
 
       <div className="px-3 md:px-5 pt-5">

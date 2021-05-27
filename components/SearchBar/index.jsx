@@ -50,6 +50,7 @@ const SearchBar = ({
           focus:outline-none 
           placeholder-current
           bg-transparent 
+          border-none
           ${big ? 'text-xl' : ''}
         `}
         type="text"

@@ -23,7 +23,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <Theme>
       <ApolloProvider client={client}>
-        {/* <TopNav showSearch={showSearch} hasBG={topNavBG} /> */}
         <Component {...pageProps} />
       </ApolloProvider>
     </Theme>

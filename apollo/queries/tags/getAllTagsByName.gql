@@ -1,0 +1,6 @@
+query getAllTags($name: String, $limit: Int) {
+  winnibook_tags(limit: $limit, where: {name: {_ilike: $name}}) {
+    id
+    name
+  }
+}

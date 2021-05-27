@@ -7,15 +7,10 @@ import SimilarStories from './SimilarStories';
 
 const PlaceDetailsPanel = ({ data }) => {
   const {
-    categories,
+    categories=[],
     tags,
     description,
-    streetLine1,
-    streetLine2,
-    neighbor,
-    country,
-    postcode,
-    similar,
+    address,
     stories,
     location,
     theme
@@ -27,15 +22,11 @@ const PlaceDetailsPanel = ({ data }) => {
         categories={categories}
         tags={tags}
         description={description}
-        streetLine1={streetLine1}
-        streetLine2={streetLine2}
-        neighbor={neighbor}
-        country={country}
-        postcode={postcode}
+        address={address}
       />
-      <PlaceMap location={location} theme={theme} />
-      <SimilarStories stories={stories} />
-      <SimilarPlaces similar={similar} />
+      {/* <PlaceMap location={location} theme={theme} />
+      <SimilarStories stories={stories} /> */}
+      {/* <SimilarPlaces similar={similar} /> */}
     </HorizontalScroll>
   );
 };

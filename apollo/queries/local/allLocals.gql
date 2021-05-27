@@ -1,8 +1,0 @@
-query getAllLocals {
-  winnibook_locals {
-    id
-    name
-    description
-    short_description
-  }
-}

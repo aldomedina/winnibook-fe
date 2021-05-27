@@ -1,5 +1,10 @@
 import { useState, useContext, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
+import { useQuery } from '@apollo/client';
+
+import GET_ALL_MAIN_CATEGORIES from '../../apollo/queries/categories/getAllMainCategories.gql';
+import GET_CITIES_BY_NAME from '../../apollo/queries/address/getAllCitiesByName.gql';
+import GET_TAGS_BY_NAME from '../../apollo/queries/tags/getAllTagsByName.gql';
 
 import { getItemByKey, removeItemById, sortByName } from '../../utils';
 
@@ -22,22 +27,44 @@ const searchbarId = 'text';
 const FilterBars = ({
   open,
   setOpen,
-  filters,
-  setFilters,
   reference,
   headerReference,
-  hidden
+  hidden,
+  onFiltersChange
 }) => {
+  const [filters, setFilters] = useState({});
+  const [activeFilters, setActiveFilters] = useState([]);
 
-  console.log(headerReference);
-  const { locations, categories, hashtags } = mock; // 🚨  MOCK ALERT 🚨
+  const [categories, setCategories] = useState([]);
 
-  const [selectedLocations, setSelectedLocations] = useState([]);
-  const [categoriesDisplayed, setCategoriesDisplayed] = useState([]);
-  const [hashtagsDisplayed, setHashtagsDisplayed] = useState([]);
+  // SEARCH BAR
   const [searchBarValue, setSearchBarValue] = useState('');
 
+  // REGIONS
+  const [regions, setRegions] = useState([]);
+  const [searchRegionsValue, setSearchRegionsValue] = useState('');
+
+  // TAGS
+  const [tags, setTags] = useState([]);
+  const [searchTagsValue, setSearchTagsValue] = useState('');
+
   const { setColorTheme, colorTheme } = useContext(ColorContext);
+
+  let searchTimeout;
+
+  const {data: categoriesQuery, loading: categoriesLoading} = useQuery(GET_ALL_MAIN_CATEGORIES);
+  const {data: regionsQuery, loading: regionsLoading} = useQuery(GET_CITIES_BY_NAME, {
+    variables: {
+      name: "%" + searchRegionsValue + "%",
+      limit: 8
+    }
+  });
+  const {data: tagsQuery, loading: tagsLoading} = useQuery(GET_TAGS_BY_NAME, {
+    variables: {
+      name: "%" + searchTagsValue + "%",
+      limit: 8
+    }
+  });
 
   const openMenuAnimation = useSpring({
     transform: 
@@ -52,86 +79,120 @@ const FilterBars = ({
   });
 
   useEffect(() => {
-    setCategoriesDisplayed(categories);
-    setHashtagsDisplayed(hashtags);
-  }, []);
+    setCategories(categoriesQuery ? categoriesQuery.winnibook_categories : []);
+  }, [categoriesQuery]);
 
-  const addNewFilter = newFilter => {
-    if (newFilter.type === mainCategoryId && newFilter.theme) {
+  useEffect(() => {
+    setRegions(regionsQuery ? regionsQuery.winnibook_cities : []);
+  }, [regionsQuery]);
+
+  useEffect(() => {
+    setTags(tagsQuery ? tagsQuery.winnibook_tags : []);
+  }, [tagsQuery]);
+
+  useEffect(() => {
+    setFilters({
+      ...filters,
+      name: searchBarValue
+    })
+  }, [searchBarValue]);
+
+  useEffect(() => {
+    onFiltersChange(filters);
+  }, [JSON.stringify(filters)]);
+
+  const selectCategory = cat => {
+    const newFilter = { 
+      ...cat, 
+      type: !cat.parent_category_id ? "mainCategory" : "categories"
+    };
+    let tempActiveFilters = activeFilters;
+
+    if (newFilter.type === "mainCategory" && newFilter.theme) {
       setColorTheme(newFilter.theme);
+
+      tempActiveFilters = activeFilters.filter((item) => item.type !== "mainCategory" && item.type !== "categories");
     }
-    setFilters(f => [...f, newFilter]);
+
+    tempActiveFilters.unshift(newFilter);
+
+    setActiveFilters(tempActiveFilters);
+    setFilters({
+      ...filters,
+      mainCategory: newFilter.id
+    });
   };
 
-  const removeFilter = filter => {
+  const selectRegion = region => {
+    const newFilter = { 
+      ...region, 
+      type: "regions"
+    };
+    let tempActiveFilters = activeFilters;
 
-    const newFilterState = removeItemById(filters, filter.id);
-    setFilters(newFilterState);
-    const selectedFilter = getItemByKey(filters, filter.id, 'id');
+    tempActiveFilters.push(newFilter);
 
-    const isLocation = selectedFilter.type === locationId;
-    if (isLocation) {
-      const newLocationState = removeItemById(selectedLocations, filter.id);
-      setSelectedLocations(newLocationState);
-    }
-
-    const isMainCategory = selectedFilter.type === mainCategoryId;
-    
-    if (isMainCategory && selectedFilter.theme) {
-      setColorTheme('base');
-      const copy = [...filters];
-      const removedSubCategories = copy.filter(
-        el => el.type !== subCategoryId && el.type !== mainCategoryId
-      );
-      setFilters(removedSubCategories);
-      setCategoriesDisplayed(categories);
-    }
-
-    if (selectedFilter.type === subCategoryId) {
-      setCategoriesDisplayed([...categoriesDisplayed, filter]);
-    }
-
-    if (selectedFilter.type === hashtagId) {
-      setHashtagsDisplayed([...hashtagsDisplayed, filter]);
-    }
-    if (selectedFilter.type === searchbarId) {
-      setSearchBarValue('');
-    }
+    setActiveFilters(tempActiveFilters);
+    setFilters({
+      ...filters,
+      regions: tempActiveFilters.filter((item) => item.type==="regions").map((item) => item.id)
+    });
   };
 
-  const handleCategoryClick = cat => {
-    addNewFilter({ ...cat, type: cat.isMain ? mainCategoryId : subCategoryId });
-    if (cat.isMain) {
-      setCategoriesDisplayed(cat.subcategories);
-    } else {
-      const removedSubcategory = removeItemById(categoriesDisplayed, cat.id);
-      setCategoriesDisplayed(removedSubcategory);
-    }
-  };
+  const selectTag = region => {
+    const newFilter = { 
+      ...region, 
+      type: "tags"
+    };
+    let tempActiveFilters = activeFilters;
 
-  const handleHashtagClick = hashtag => {
-    addNewFilter({ ...hashtag, type: hashtagId });
-    const removedHashtag = removeItemById(hashtagsDisplayed, hashtag.id);
-    setHashtagsDisplayed(removedHashtag);
-  };
+    tempActiveFilters.push(newFilter);
 
-  const handleLocationChange = (list, item) => {
-    setSelectedLocations(selectedLocations => [...selectedLocations, item.option]);
-    addNewFilter({ ...item.option, type: locationId });
+    setActiveFilters(tempActiveFilters);
+    setFilters({
+      ...filters,
+      tags: tempActiveFilters.filter((item) => item.type==="tags").map((item) => item.id)
+    });
   };
 
   const handleSearchBarChange = e => {
-    const filterIndex = filters.findIndex(f => f.type === searchbarId);
     setSearchBarValue(e);
-    if (filterIndex >= 0) {
-      const copy = [...filters];
-      copy[filterIndex] = { ...copy[filterIndex], name: e };
-      setFilters(copy);
-    } else {
-      const newFilter = { name: e, id: searchbarId, type: searchbarId };
-      setFilters(f => [...f, newFilter]);
-    }
   };
+
+  const searchRegions = (aSearchValue) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      setSearchRegionsValue(aSearchValue);
+    }, 300)
+  }
+
+  const searchTags = (aSearchValue) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      setSearchTagsValue(aSearchValue);
+    }, 300)
+  }
+
+  const removeFilter = (aFilter) => {
+    let tempActiveFilters,
+        tempFilters = filters;
+
+    if (aFilter.type === "mainCategory") {
+      tempActiveFilters = activeFilters.filter((item) => item.id !== aFilter.id && aFilter.type !== 'categories');
+      delete tempFilters[aFilter.type];
+      setColorTheme('base');
+    } else {
+      tempActiveFilters = activeFilters.filter((item) => item.id !== aFilter.id);
+      tempFilters[aFilter.type] = tempFilters[aFilter.type].filter((item) => item !== aFilter.id);
+
+      if (!tempFilters[aFilter.type].length) {
+        delete tempFilters[aFilter.type];
+      }
+    }
+
+    setFilters(tempFilters);
+    setActiveFilters(tempActiveFilters);
+  }
 
   return (
     <animated.div
@@ -177,13 +238,13 @@ const FilterBars = ({
 
         {/* ACTIVE FILTERS TAGS */}
         <div className="flex flex-wrap max-h-32 overflow-y-auto gap-2 md:gap-0.5  justify-self-stretch row-start-2 col-span-full md:row-auto md:col-auto">
-          {filters.map(filter => (
+          {activeFilters.map(filter => (
             <Tag
               key={`selected-${filter.id}`}
               name={filter.name}
-              cat={filter}
+              tagInfo={filter}
               filterTag
-              handleRemoveClick={removeFilter}
+              handleRemoveClick={() => removeFilter(filter)}
             />
           ))}
         </div>
@@ -219,24 +280,25 @@ const FilterBars = ({
       >
 
         <TagsSearch
-          items={locations}
+          items={regions}
           searchPlaceholder="FIND REGION"
           theme={colorTheme}
-          handleHashtagClick={handleHashtagClick}
+          onSearchChange={searchRegions}
+          onTagClick={selectRegion}
         />
 
-        {categoriesDisplayed && categoriesDisplayed.length ? (
+        {categories && categories.length ? (
           <div className="flex-1">
 
             <div className="flex py-3  styled-scrollbar max-h-30vh overflow-x-scroll md:overflow-y-auto md:overflow-x-hidden md:flex-wrap md:justify-center gap-2">
-              {sortByName(categoriesDisplayed).map(cat => (
+              {sortByName(categories).map(cat => (
                 <Tag
                   key={cat.id}
                   name={cat.name}
                   theme={cat.theme}
-                  invertColors={cat.isMain}
-                  onTagCLick={handleCategoryClick}
-                  cat={cat}
+                  invertColors={!cat.parent_category_id}
+                  onTagClick={() => selectCategory(cat)}
+                  tagInfo={cat}
                   big
                 />
               ))}
@@ -245,16 +307,17 @@ const FilterBars = ({
         ) : (
           <div className="flex-1">
             <h3 className="uppercase opacity-30 ml-3 md:ml-0 md:text-center mb-5 self-center">
-              No Categories left...
+              No Categories
             </h3>
           </div>
         )}
 
         <TagsSearch
-          items={hashtagsDisplayed}
+          items={tags}
           searchPlaceholder="FIND TAG"
           theme={colorTheme}
-          handleHashtagClick={handleHashtagClick}
+          onSearchChange={searchTags}
+          onTagClick={selectTag}
         />
       </div>
 

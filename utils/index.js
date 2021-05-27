@@ -5,7 +5,10 @@ export const removeItemById = (array, id) =>
 
 export const getItemByKey = (array, id, key) => array.find(x => x[key] === id);
 
-export const sortByName = array => array.sort((a, b) => a.name.localeCompare(b.name));
+export const sortByName = array => {
+  let tempArray = array.slice();
+  return tempArray.sort((a, b) => a.name.localeCompare(b.name))
+};
 
 export const months = [
   'January',

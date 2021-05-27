@@ -24,11 +24,6 @@ const TopNav = ({ showSearch, hasBG, reference }) => {
   const aboutMenu = useRef();
 
   const BGAnimation = useSpring({
-    // backgroundColor: !hasBG
-    //   ? 'transparent'
-    //   : colorTheme === 'base'
-    //   ? '#ffffff'
-    //   : themeConfig.colors[colorTheme].bg
     backdropFilter: 'blur(1px)',
     position: 'sticky',
     top: 0
@@ -84,11 +79,7 @@ const TopNav = ({ showSearch, hasBG, reference }) => {
           justify-between 
           items-center 
           w-full 
-          z-50 
-          ${
-            // hasBG && 'shadow'
-            ''
-          }
+          z-50
         `}
       >
         <div className="flex flex-1 items-center">

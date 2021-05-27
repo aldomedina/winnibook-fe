@@ -1,5 +1,8 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router'
+import { useQuery } from '@apollo/client';
+
+import GET_LOCAL from '../../apollo/queries/local/localByIdForLocalPage.gql';
 
 import TopNav from '../../components/TopNav';
 import PlaceRow from '../../components/PlaceRow';
@@ -9,19 +12,38 @@ import getPlaceDetails from '../../mock/place';
 const Place = ({ placeData }) => {
   const router = useRouter();
 
-  const { setColorTheme } = useContext(ColorContext);
-
+  const { colorTheme, setColorTheme } = useContext(ColorContext);
   const headerRef = useRef(null);
 
+  const [local, setLocal] = useState({});
+  const {data: localQueryResponse, loading} = useQuery(GET_LOCAL, {
+    variables: {
+      localId: router.query.slug
+    }
+  });
+
   useEffect(() => {
-    placeData?.theme && setColorTheme(placeData.theme);
-  }, []);
+    if (localQueryResponse) {
+      setLocal(localQueryResponse.winnibook_locals[0]);
+    }
+  }, [localQueryResponse]);
+
+  useEffect(async () => {
+    
+    if (placeData) {
+      // setColorTheme(placeData.theme);
+      console.log(placeData.theme, colorTheme);
+    }
+
+  }, [placeData]);
+  
   return (
     <div className="bg-white h-full">
 
       <TopNav
         reference={headerRef} 
         hasBG
+        showSearch
       />
 
       {
@@ -33,7 +55,7 @@ const Place = ({ placeData }) => {
           `}
         >
           <PlaceRow
-            place={placeData}
+            place={local}
             openPlace={true}
             setOpenPlace={() => {}}
             isSingle={true}
@@ -47,11 +69,7 @@ const Place = ({ placeData }) => {
 };
 
 export async function getStaticPaths() {
-  // 🚨  MOCK ALERT 🚨
-  // TODO: create method to fetch all places slugs
-  const paths = [
-    
-  ];
+  const paths = [];
   return {
     paths,
     fallback: true
