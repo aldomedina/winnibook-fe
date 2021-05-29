@@ -98,7 +98,9 @@ const FilterBars = ({
   }, [searchBarValue]);
 
   useEffect(() => {
-    onFiltersChange(filters);
+    if (onFiltersChange) {
+      onFiltersChange(filters);
+    }
   }, [JSON.stringify(filters)]);
 
   const selectCategory = cat => {
