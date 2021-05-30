@@ -2,25 +2,25 @@ import styled from 'styled-components';
 import { Icon } from '../Icon';
 const STag = styled.div`
   background-color: ${({ theme, $t, $invert, $isFilterTag }) =>
-    $isFilterTag ? 'transparent' : $invert ? theme.colors[$t].bg : theme.colors[$t].primary};
+    $isFilterTag ? 'transparent' : $invert ? theme.colors[$t]?.bg : theme.colors[$t]?.primary};
   color: ${({ theme, $t, $invert, $isFilterTag }) =>
-    $isFilterTag ? 'inherit' : $invert ? theme.colors[$t].primary : theme.colors[$t].bg};
+    $isFilterTag ? 'inherit' : $invert ? theme.colors[$t]?.primary : theme.colors[$t]?.bg};
 `;
 
 const Tag = ({
   theme,
   name,
   big,
-  onTagCLick,
+  onTagClick,
   invertColors,
   handleRemoveClick,
-  cat,
+  tagInfo,
   filterTag,
   small
 }) => {
   return (
     <STag
-      onClick={() => onTagCLick && onTagCLick(cat)}
+      onClick={() => onTagClick && onTagClick(tagInfo)}
       $t={theme}
       $isFilterTag={filterTag}
       $invert={invertColors}
@@ -30,7 +30,7 @@ const Tag = ({
           : small
           ? 'text-3xs md:text-2xs'
           : 'text-3xs lg:text-xs '
-      } ${onTagCLick ? 'cursor-pointer hover-interaction' : ''} ${
+      } ${onTagClick ? 'cursor-pointer hover-interaction' : ''} ${
         filterTag ? 'border border-1 flex items-center 	' : ''
       }`}
     >
@@ -40,7 +40,7 @@ const Tag = ({
           className="ml-2 mt-0.5 cursor-pointer"
           onClick={e => {
             e.stopPropagation();
-            handleRemoveClick(cat);
+            handleRemoveClick(tagInfo);
           }}
         >
           <Icon icon="x" w="16px" h="16px" />

@@ -1,0 +1,14 @@
+query search($name: String = "") {
+  winnibook_locals(where: {name: {_ilike: $name}}) {
+    id
+    name
+  }
+  winnibook_stories(where: {title: {_ilike: $name}}) {
+    id
+    title
+  }
+  winnibook_categories(where: {name: {_ilike: $name}}) {
+    id
+    name
+  }
+}

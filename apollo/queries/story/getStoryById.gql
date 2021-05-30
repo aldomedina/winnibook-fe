@@ -1,0 +1,36 @@
+query getStoryById($storyId: uuid = "") {
+  winnibook_stories(where: {id: {_eq: $storyId}}) {
+    id
+    title
+    subtitle
+    images {
+      image {
+        id
+        url
+      }
+    }
+    categories {
+      category {
+        id
+        name
+        theme
+      }
+    }
+    main_category {
+      id
+      name
+      theme
+    }
+    body
+    locals {
+      local {
+        id
+        name
+        main_category {
+          name
+          theme
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+query getAllMainCategories {
+  winnibook_categories(where: {parent_category_id: {_is_null: true}}) {
+    name
+    theme
+    id
+    parent_category_id
+  }
+}

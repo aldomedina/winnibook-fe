@@ -44,7 +44,7 @@ const PlaceMap = ({ location, theme }) => {
 
   return (
     <div className="min-w-90vw md:min-w-40vw px-3 md:px-5 flex items-center justify-center">
-      <div id="map" className="w-full h-50vh" ref={googlemap} />
+      <div id="map" className="w-full h-50vh rounded-3xl" ref={googlemap} />
     </div>
   );
 };

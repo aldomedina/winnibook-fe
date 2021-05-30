@@ -1,14 +1,26 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+
+import TopNav from '../../components/TopNav';
 import DateBox from '../../components/DateBox';
 import Tag from '../../components/Tag';
 import PlaceCard from '../../components/PlaceCard';
+
 import getStoryData from '../../mock/story';
 
 const Story = ({ storyData }) => {
   const { img, title, subtitle, categories, places, createdAt } = storyData;
 
+  const headerRef = useRef(null);
+
   return (
-    <div className="pt-13 bg-white h-full">
+    <div className="bg-white h-full">
+
+      <TopNav
+        reference={headerRef} 
+        hasBG
+        showSearch
+      />
+
       <div className="px-3 md:px-5 pt-5">
         <div className="story-header-grid gap-2 md:gap-3 mb-3 md:mb-6">
           <div
@@ -31,7 +43,7 @@ const Story = ({ storyData }) => {
         <div className="flex flex-col lg:flex-row">
           <div className="block mx-auto lg:mx-none max-w-full lg:mx-0 lg:sticky top-16 self-start">
             <h4 className="opacity-50 mb-3">on this article</h4>
-            <div className="flex flex-row lg:flex-col md:overflow-y-visible overflow-x-auto w-full gap-3 mb-4">
+            <div className="flex flex-row lg:flex-col md:overflow-y-visible overflow-x-auto md:overflow-x-visible w-full gap-3 mb-4">
               {places.map(place => (
                 <div key={place.id} className="w-44 h-36  min-w-44 min-h-36 md:overflow-y-visible">
                   <PlaceCard name={place.name} theme={place.theme} categories={place.categories} />

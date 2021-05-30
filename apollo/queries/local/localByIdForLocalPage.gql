@@ -1,0 +1,58 @@
+query localById($localId: uuid = "") {
+  winnibook_locals(where: {id: {_eq: $localId}}) {
+    name
+    description
+    id
+    categories {
+      category {
+        id
+        name
+        theme
+      }
+    }
+    links {
+      link {
+        id
+        name
+        url
+      }
+    }
+    main_category {
+      id
+      name
+      theme
+    }
+    stories {
+      story {
+        id
+        title
+        subtitle
+        images {
+          image {
+            id
+            url
+            alt
+          }
+        }
+      }
+    }
+    tags {
+      tag {
+        id
+        name
+      }
+    }
+    address {
+      id
+      latitude
+      longitude
+      street_line_1
+      street_line_2
+      postcode
+      region
+      city {
+        name
+      }
+    }
+  }
+}

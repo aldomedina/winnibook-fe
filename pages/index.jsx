@@ -1,26 +1,36 @@
-import { useState, useRef, createContext } from 'react';
-import { useQuery } from '@apollo/client';
-import GET_LOCAL_BY_NAME from '../apollo/queries/getLocalByName.gql';
-
-import BottomNav from '../components/BottomNav';
-import bottomNavItems from '../content/homeBottomNav';
+import { useState, useRef, useEffect, createContext } from 'react';
 import HorizontalScroll from 'react-scroll-horizontal';
+import { client } from '../apollo/client';
+
+import HOME_QUERY from '../apollo/queries/home/allHomeQueries.gql';
+
+import useWindowSize from '../components/Hooks/useWindowSize';
+
+import TopNav from '../components/TopNav';
+import BottomNav from '../components/BottomNav';
 import HomeBackHero from '../components/HomeBackHero';
+
 import SectionWrapper from '../components/Panel/SectionWrapper';
 import FeaturedPlaces from '../components/Panel/FeaturedPlaces';
 import JoinUs from '../components/Panel/JoinUs';
 import Stories from '../components/Panel/Stories';
 import Places from '../components/Panel/Places';
 import Winnimap from '../components/Panel/Winnimap';
-import useWindowSize from '../components/Hooks/useWindowSize';
+
+import bottomNavItems from '../content/homeBottomNav';
 
 export const PanelContext = createContext();
 
-const Home = () => {
+const Home = ({homeQueryResults}) => {
+
+  console.log(homeQueryResults);
+
   const [activeSection, setActiveSection] = useState(0);
   const [scrollValue, setScrollValue] = useState(0);
   const selectActiveSection = i => setActiveSection(i);
   const { isMobile } = useWindowSize();
+
+  const topNavRef = useRef(null);
   const panelRef = useRef(null);
   const dummyRef = useRef(null);
   const featuredRef = useRef(null);
@@ -28,9 +38,11 @@ const Home = () => {
   const topRef = useRef(null);
   const mapRef = useRef(null);
   const joinUsRef = useRef(null);
+
   const handleBottomNav = (i, name) => {
     setActiveSection(i);
     const panelNode = panelRef.current.childNodes[0].childNodes[0];
+
     const goTo = ref => {
       let splitted = panelNode.style.cssText.split('translate3d(');
       const currentPos = splitted[1].split('px')[0];
@@ -38,6 +50,7 @@ const Home = () => {
         ? ref.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
         : setScrollValue(-currentPos - ref.current.offsetLeft);
     };
+
     const allRef = ref =>
       ({
         search: dummyRef,
@@ -50,19 +63,27 @@ const Home = () => {
     goTo(allRef(name));
   };
 
-  const { data, loading } = useQuery(GET_LOCAL_BY_NAME, {
-    variables: {
-      name: 'Test local'
-    }
-  });
-  if (data) {
-    console.log(data);
-  }
   return (
     <PanelContext.Provider value={{ selectActiveSection, activeSection }}>
       <div className="h-full w-screen">
+
+        <TopNav
+          reference={topNavRef}
+          showSearch
+          hasBG
+        />
+
         <HomeBackHero />
-        <div ref={panelRef} className="w-full h-full">
+
+        <div 
+          ref={panelRef} 
+          className="w-full"
+          style={
+            {
+              height: "calc(100vh - " + topNavRef.current?.clientHeight + "px)",
+              marginTop: "-" + topNavRef.current?.clientHeight + "px"
+            }
+          }>
           <HorizontalScroll animValues={scrollValue} reverseScroll>
             <SectionWrapper
               sectionThreshold={0.9}
@@ -71,23 +92,58 @@ const Home = () => {
               customClasses="min-w-100vw md:min-w-50vw h-100vh select-none"
             />
             <div className="flex  h-90vh bg-white rounded-bl-20p shadow-lg">
-              <FeaturedPlaces reference={featuredRef} />
-              <Stories reference={latestRef} />
-              <Places reference={topRef} />
-              <Winnimap reference={mapRef} />
+              <FeaturedPlaces 
+                reference={featuredRef}
+                list={homeQueryResults?.featuredList[0]}
+              />
+              <Stories 
+                reference={latestRef}
+                stories={homeQueryResults ? homeQueryResults.stories : []}
+              />
+              <Places 
+                reference={topRef}
+                places={homeQueryResults ? homeQueryResults.mostVisitedLocals : []}
+              />
+              <Winnimap 
+                reference={mapRef}
+                locals={homeQueryResults ? homeQueryResults.mapLocals : []}
+              />
               <JoinUs reference={joinUsRef} />
             </div>
           </HorizontalScroll>
         </div>
+
         <BottomNav
           active={activeSection}
           items={bottomNavItems}
           handleBottomNav={handleBottomNav}
           onClick={handleBottomNav}
         />
+
       </div>
     </PanelContext.Provider>
   );
 };
+
+export async function getServerSideProps(context) {
+  // const { data: homeQueryResults, loading } = await useQuery(HOME_QUERY, {
+  //   variables: {
+  //     featuredListId: "4ba99eca-ebb8-4e14-86b4-833772b8f74a"
+  //   }
+  // });
+
+  const { data } = await client.query({
+    query: HOME_QUERY,
+    variables: {
+      featuredListId: "4ba99eca-ebb8-4e14-86b4-833772b8f74a"
+    }
+  });
+
+  return {
+    props: {
+      homeQueryResults: data
+    }
+  };
+}
 
 export default Home;

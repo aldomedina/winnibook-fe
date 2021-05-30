@@ -58,7 +58,7 @@ export default [
     elementType: 'geometry.fill',
     stylers: [
       {
-        color: '#ffffff'
+        color: '#fefefe'
       }
     ]
   },
@@ -67,7 +67,7 @@ export default [
     elementType: 'geometry.fill',
     stylers: [
       {
-        color: '#ffffff'
+        color: '#fefefe'
       }
     ]
   },
@@ -115,7 +115,7 @@ export default [
     elementType: 'labels.text.stroke',
     stylers: [
       {
-        color: '#ffffff'
+        color: '#fefefe'
       }
     ]
   },
@@ -181,7 +181,7 @@ export default [
     elementType: 'labels.text.stroke',
     stylers: [
       {
-        color: '#ffffff'
+        color: '#fefefe'
       }
     ]
   }

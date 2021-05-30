@@ -6,10 +6,9 @@ import { animated, useSpring } from 'react-spring';
 import themeConfig from './colors';
 
 const GlobalStyles = createGlobalStyle`
-  html, body, #__next {
-    height: 100%;
-  }
-
+  // html, body, #__next {
+  //   height: 100%;
+  // }
 `;
 
 const ColorParent = styled(animated.div)`
@@ -25,7 +24,7 @@ const Theme = ({ children }) => {
   const colorSchemaProps = useSpring({
     color: themeConfig.colors[colorTheme].primary,
     borderColor: `${themeConfig.colors[colorTheme].primary}`,
-    backgroundColor: themeConfig.colors[colorTheme].bg
+    backgroundColor: themeConfig.colors[colorTheme].bg + "E6"
   });
 
   useEffect(() => {

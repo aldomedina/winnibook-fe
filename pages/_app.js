@@ -10,7 +10,7 @@ import '../styles/fonts.css';
 import Theme from '../components/Theme';
 
 // COMPONENTS
-import TopNav from '../components/TopNav';
+// import TopNav from '../components/TopNav';
 
 const pagesWithSearch = ['/', '/stories/[slug]', '/places/[slug]'];
 const pagesWithNavBG = ['/places', '/stories', '/stories/[slug]', '/join-us'];
@@ -23,7 +23,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <Theme>
       <ApolloProvider client={client}>
-        <TopNav showSearch={showSearch} hasBG={topNavBG} />
         <Component {...pageProps} />
       </ApolloProvider>
     </Theme>

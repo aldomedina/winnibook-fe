@@ -9,7 +9,7 @@ const JoinUs = ({ reference }) => {
       i={5}
       sectionThreshold={0.8}
       reference={reference}
-      customClasses="w-screen md:w-70vw relative  md:rounded-br-50p pt-12 md:pt-40 h-full flex flex-col justify-center"
+      customClasses="w-screen md:w-50vw relative  md:rounded-br-50p pt-12 md:pt-40 h-full flex flex-col justify-center"
       title="Wanna be in the winnibook?"
       titleCenter
     >

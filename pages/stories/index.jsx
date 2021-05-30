@@ -1,19 +1,24 @@
 import { useState, useRef, Fragment, useEffect } from 'react';
 import Link from 'next/link';
 
+import useWindowSize from '../../components/Hooks/useWindowSize';
+
+import TopNav from '../../components/TopNav';
 import FilterBars from '../../components/FiltersBar';
 import StoryCard from '../../components/StoryCard';
-import useWindowSize from '../../components/Hooks/useWindowSize';
-import { featured, latest } from '../../mock/stories';
 import RoundButton from '../../components/Buttons/RoundButton';
 
+import { featured, latest } from '../../mock/stories';
+
 const Stories = () => {
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(true);
   const [activeFilters, setActiveFilters] = useState([]);
   const [sectionsArray, setSectionsArray] = useState([]);
-  const listRef = useRef(null);
+
+  const headerRef = useRef(null);
   const filtersRef = useRef(null);
   const filtersHeaderRef = useRef(null);
+  
   const { height, isMobile } = useWindowSize();
 
   useEffect(() => {
@@ -22,17 +27,35 @@ const Stories = () => {
 
   return (
     <div className="h-full overflow-hidden">
+
+      <TopNav
+        reference={headerRef} 
+        hasBG
+      />
+
       <ul
-        className="container grid grid-cols-2 md:grid-cols-3 auto-rows-min md:auto-rows-stories gap-5 md:gap-8 scrollbar-hide max-width-100w overflow-x-hidden overflow-y-scroll p-3 md:p-10"
-        style={{
-          marginTop: `${isMobile ? 60 : 56}px`,
-          height: height - 52
-        }}
+        className="
+          container 
+          grid 
+          grid-cols-2 
+          md:grid-cols-3 
+          auto-rows-min 
+          md:auto-rows-stories 
+          gap-5 
+          md:gap-8 
+          scrollbar-hide 
+          max-width-100w 
+          overflow-x-hidden 
+          overflow-y-scroll 
+          p-3 
+          md:p-10
+        "
       >
+
         <Link href="/stories/mock-data">
           <div className="col-span-2 md:col-span-3 row-span-1 md:row-span-2 flex flex-col md:flex-row group cursor-pointer">
             <div
-              className="transform transition group-hover:shadow-lg group-hover:-translate-y-0.5 w-full min-h-30vh md:min-h-full md:w-4/6 rounded-20p bg-image mb-3 md:mb-0 md:mr-5"
+              className="transform transition w-full min-h-30vh md:min-h-full md:w-4/6 rounded-20p bg-image mb-3 md:mb-0 md:mr-5"
               style={{ backgroundImage: `url(${featured.img})` }}
             />
             <div className="w-full md:w-2/6">
@@ -48,6 +71,7 @@ const Stories = () => {
           </div>
         </Link>
         <li className="hidden md:block" />
+
         {sectionsArray.map((index, i) => (
           <Fragment key={`story-section-${i}`}>
             <li>
@@ -195,6 +219,8 @@ const Stories = () => {
         </li>
         <li className="col-span-full mb-10 row-span-1">.</li>
       </ul>
+      
+      {/* STORIES FILTERS */}
       <FilterBars
         reference={filtersRef}
         headerReference={filtersHeaderRef}

@@ -1,16 +1,22 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
-import Select from '../Select';
-import useWindowSize from '../Hooks/useWindowSize';
-import { filters as mock } from '../../mock/search';
+import { useQuery } from '@apollo/client';
+
+import GET_ALL_MAIN_CATEGORIES from '../../apollo/queries/categories/getAllMainCategories.gql';
+import GET_CITIES_BY_NAME from '../../apollo/queries/address/getAllCitiesByName.gql';
+import GET_TAGS_BY_NAME from '../../apollo/queries/tags/getAllTagsByName.gql';
+
 import { getItemByKey, removeItemById, sortByName } from '../../utils';
-import SearchBar from '../SearchBar';
-import Tag from '../Tag';
+
 import { ColorContext } from '../Theme';
 import themeConfig from '../Theme/colors';
-import { useEffect } from 'react';
-import SearchByTag from './SearchByTag';
+
+import Tag from '../Tag';
+import SearchBar from '../SearchBar';
+import TagsSearch from '../TagsSearch';
 import FiltersIcon from './FiltersIcon';
+
+import { filters as mock } from '../../mock/search';
 
 const mainCategoryId = 'main-category';
 const subCategoryId = 'sub-category';
@@ -21,109 +27,174 @@ const searchbarId = 'text';
 const FilterBars = ({
   open,
   setOpen,
-  filters,
-  setFilters,
   reference,
   headerReference,
-  hideFilters
+  hidden,
+  onFiltersChange
 }) => {
-  const { locations, categories, hashtags } = mock; // 🚨  MOCK ALERT 🚨
-  const [selectedLocations, setSelectedLocations] = useState([]);
-  const [categoriesDisplayed, setCategoriesDisplayed] = useState([]);
-  const [hashtagsDisplayed, setHashtagsDisplayed] = useState([]);
+  const [filters, setFilters] = useState({});
+  const [activeFilters, setActiveFilters] = useState([]);
+
+  const [categories, setCategories] = useState([]);
+
+  // SEARCH BAR
   const [searchBarValue, setSearchBarValue] = useState('');
 
-  const { height } = useWindowSize();
+  // REGIONS
+  const [regions, setRegions] = useState([]);
+  const [searchRegionsValue, setSearchRegionsValue] = useState('');
+
+  // TAGS
+  const [tags, setTags] = useState([]);
+  const [searchTagsValue, setSearchTagsValue] = useState('');
+
   const { setColorTheme, colorTheme } = useContext(ColorContext);
-  const hideValue = height ? height * 0.5 : 0;
+
+  let searchTimeout;
+
+  const {data: categoriesQuery, loading: categoriesLoading} = useQuery(GET_ALL_MAIN_CATEGORIES);
+  const {data: regionsQuery, loading: regionsLoading} = useQuery(GET_CITIES_BY_NAME, {
+    variables: {
+      name: "%" + searchRegionsValue + "%",
+      limit: 8
+    }
+  });
+  const {data: tagsQuery, loading: tagsLoading} = useQuery(GET_TAGS_BY_NAME, {
+    variables: {
+      name: "%" + searchTagsValue + "%",
+      limit: 8
+    }
+  });
+
   const openMenuAnimation = useSpring({
-    transform: hideFilters
-      ? `translate3d(0px,${height}px,0px)`
-      : open
-      ? `translate3d(0px,0px,0px)`
-      : `translate3d(0px,${hideValue}px,0px)`,
+    transform: 
+      hidden ? 
+        `translate3d(0px,${reference.current?.clientHeight}px,0px)`
+      : 
+      open ? 
+        `translate3d(0px,0px,0px)`
+      : 
+        `translate3d(0px,${(reference.current?.clientHeight - headerReference.current?.clientHeight)}px,0px)`,
     backgroundColor: colorTheme === 'base' ? '#ffffff' : themeConfig.colors[colorTheme].bg
   });
 
   useEffect(() => {
-    setCategoriesDisplayed(categories);
-    setHashtagsDisplayed(hashtags);
-  }, []);
+    setCategories(categoriesQuery ? categoriesQuery.winnibook_categories : []);
+  }, [categoriesQuery]);
 
-  const addNewFilter = newFilter => {
-    if (newFilter.type === mainCategoryId && newFilter.theme) {
+  useEffect(() => {
+    setRegions(regionsQuery ? regionsQuery.winnibook_cities : []);
+  }, [regionsQuery]);
+
+  useEffect(() => {
+    setTags(tagsQuery ? tagsQuery.winnibook_tags : []);
+  }, [tagsQuery]);
+
+  useEffect(() => {
+    setFilters({
+      ...filters,
+      name: searchBarValue
+    })
+  }, [searchBarValue]);
+
+  useEffect(() => {
+    if (onFiltersChange) {
+      onFiltersChange(filters);
+    }
+  }, [JSON.stringify(filters)]);
+
+  const selectCategory = cat => {
+    const newFilter = { 
+      ...cat, 
+      type: !cat.parent_category_id ? "mainCategory" : "categories"
+    };
+    let tempActiveFilters = activeFilters;
+
+    if (newFilter.type === "mainCategory" && newFilter.theme) {
       setColorTheme(newFilter.theme);
+
+      tempActiveFilters = activeFilters.filter((item) => item.type !== "mainCategory" && item.type !== "categories");
     }
-    setFilters(f => [...f, newFilter]);
+
+    tempActiveFilters.unshift(newFilter);
+
+    setActiveFilters(tempActiveFilters);
+    setFilters({
+      ...filters,
+      mainCategory: newFilter.id
+    });
   };
 
-  const removeFilter = filter => {
-    const newFilterState = removeItemById(filters, filter.id);
-    setFilters(newFilterState);
-    const selectedFilter = getItemByKey(filters, filter.id, 'id');
+  const selectRegion = region => {
+    const newFilter = { 
+      ...region, 
+      type: "regions"
+    };
+    let tempActiveFilters = activeFilters;
 
-    const isLocation = selectedFilter.type === locationId;
-    if (isLocation) {
-      const newLocationState = removeItemById(selectedLocations, filter.id);
-      setSelectedLocations(newLocationState);
-    }
+    tempActiveFilters.push(newFilter);
 
-    const isMainCategory = selectedFilter.type === mainCategoryId;
-    if (isMainCategory && selectedFilter.theme) {
-      setColorTheme('base');
-      const copy = [...filters];
-      const removedSubCategories = copy.filter(
-        el => el.type !== subCategoryId && el.type !== mainCategoryId
-      );
-      setFilters(removedSubCategories);
-      setCategoriesDisplayed(categories);
-    }
-
-    if (selectedFilter.type === subCategoryId) {
-      setCategoriesDisplayed([...categoriesDisplayed, filter]);
-    }
-
-    if (selectedFilter.type === hashtagId) {
-      setHashtagsDisplayed([...hashtagsDisplayed, filter]);
-    }
-    if (selectedFilter.type === searchbarId) {
-      setSearchBarValue('');
-    }
+    setActiveFilters(tempActiveFilters);
+    setFilters({
+      ...filters,
+      regions: tempActiveFilters.filter((item) => item.type==="regions").map((item) => item.id)
+    });
   };
 
-  const handleCategoryClick = cat => {
-    addNewFilter({ ...cat, type: cat.isMain ? mainCategoryId : subCategoryId });
-    if (cat.isMain) {
-      setCategoriesDisplayed(cat.subcategories);
-    } else {
-      const removedSubcategory = removeItemById(categoriesDisplayed, cat.id);
-      setCategoriesDisplayed(removedSubcategory);
-    }
-  };
+  const selectTag = region => {
+    const newFilter = { 
+      ...region, 
+      type: "tags"
+    };
+    let tempActiveFilters = activeFilters;
 
-  const handleHashtagClick = hashtag => {
-    addNewFilter({ ...hashtag, type: hashtagId });
-    const removedHashtag = removeItemById(hashtagsDisplayed, hashtag.id);
-    setHashtagsDisplayed(removedHashtag);
-  };
+    tempActiveFilters.push(newFilter);
 
-  const handleLocationChange = (list, item) => {
-    setSelectedLocations(selectedLocations => [...selectedLocations, item.option]);
-    addNewFilter({ ...item.option, type: locationId });
+    setActiveFilters(tempActiveFilters);
+    setFilters({
+      ...filters,
+      tags: tempActiveFilters.filter((item) => item.type==="tags").map((item) => item.id)
+    });
   };
 
   const handleSearchBarChange = e => {
-    const filterIndex = filters.findIndex(f => f.type === searchbarId);
     setSearchBarValue(e);
-    if (filterIndex >= 0) {
-      const copy = [...filters];
-      copy[filterIndex] = { ...copy[filterIndex], name: e };
-      setFilters(copy);
-    } else {
-      const newFilter = { name: e, id: searchbarId, type: searchbarId };
-      setFilters(f => [...f, newFilter]);
-    }
   };
+
+  const searchRegions = (aSearchValue) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      setSearchRegionsValue(aSearchValue);
+    }, 300)
+  }
+
+  const searchTags = (aSearchValue) => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      setSearchTagsValue(aSearchValue);
+    }, 300)
+  }
+
+  const removeFilter = (aFilter) => {
+    let tempActiveFilters,
+        tempFilters = filters;
+
+    if (aFilter.type === "mainCategory") {
+      tempActiveFilters = activeFilters.filter((item) => item.id !== aFilter.id && aFilter.type !== 'categories');
+      delete tempFilters[aFilter.type];
+      setColorTheme('base');
+    } else {
+      tempActiveFilters = activeFilters.filter((item) => item.id !== aFilter.id);
+      tempFilters[aFilter.type] = tempFilters[aFilter.type].filter((item) => item !== aFilter.id);
+
+      if (!tempFilters[aFilter.type].length) {
+        delete tempFilters[aFilter.type];
+      }
+    }
+
+    setFilters(tempFilters);
+    setActiveFilters(tempActiveFilters);
+  }
 
   return (
     <animated.div
@@ -131,75 +202,106 @@ const FilterBars = ({
       style={openMenuAnimation}
       className="w-full shadow-reverse rounded-t-20p md:rounded-t-50p fixed bottom-0 left-0 z-20 flex flex-col"
     >
+
+      {/* FILTERS HEADER */}
       <div
         ref={headerReference}
-        className="w-full min-h-16 gap-3 py-3 px-3 md:px-10 grid-cols-filters-small grid md:grid-cols-filters grid-rows-filters md:grid-rows-1"
+        className="
+          w-full 
+          min-h-16 
+          gap-3
+
+          py-4 
+          px-3 
+          md:px-6
+
+          grid-cols-filters-small 
+          grid 
+          md:grid-cols-filters 
+          grid-rows-filters 
+          md:grid-rows-1
+        "
+        onClick={() => setOpen(open => !open)}
       >
-        <div className="h-full max-h-8 min-w-20vw ">
+
+        {/* SEARCH BAR */}
+        <div 
+          className="h-full min-w-40vw "
+          onClick={(evt) => evt.stopPropagation()}>
           <SearchBar
             noIcon
             placeholder="SEARCH..."
             onChange={handleSearchBarChange}
             theme={colorTheme}
             value={searchBarValue}
+            big
           />
         </div>
 
-        <div className="flex flex-wrap max-h-32 overflow-y-auto gap-2 md:gap-0.5  justify-self-stretch row-start-2 col-span-full md:row-auto md:col-auto	">
-          {filters.map(filter => (
+        {/* ACTIVE FILTERS TAGS */}
+        <div className="flex flex-wrap max-h-32 overflow-y-auto gap-2 md:gap-0.5  justify-self-stretch row-start-2 col-span-full md:row-auto md:col-auto">
+          {activeFilters.map(filter => (
             <Tag
               key={`selected-${filter.id}`}
               name={filter.name}
-              cat={filter}
+              tagInfo={filter}
               filterTag
-              handleRemoveClick={removeFilter}
+              handleRemoveClick={() => removeFilter(filter)}
             />
           ))}
         </div>
-        <button onClick={() => setOpen(open => !open)} className="w-11 self-start relative">
+
+        {/* TOGGLE FILTERS */}
+        <button className="w-11 py-2 self-start relative">
           <FiltersIcon isOpen={open} theme={colorTheme} />
         </button>
-      </div>
-      <div className="container min-h-50vh flex-1 h-full md:py-4 flex flex-col md:flex-row justify-between items-stretch gap-3 md:gap-10 ">
-        <div className="flex-1 pt-5 md:pt-0 ">
-          <div className=" w-72 md:-mt-1.5">
-            <Select
-              isMulti
-              controlShouldRenderValue={false}
-              options={locations}
-              getOptionLabel={el => el.name}
-              getOptionValue={el => el.id}
-              value={selectedLocations}
-              isClearable={false}
-              onChange={handleLocationChange}
-              className="react-select-container"
-              classNamePrefix="react-select"
-              placeholder="SEARCH BY LOCATION"
-              theme={theme => ({
-                ...theme,
-                colors: {
-                  neutral0: themeConfig.colors[colorTheme].bg
-                }
-              })}
-            />
-          </div>
-        </div>
-        {categoriesDisplayed && categoriesDisplayed.length ? (
-          <div className="flex-1">
-            <h3 className="uppercase opacity-30 ml-3 md:ml-0 md:text-center md:mb-5">
-              search by categories
-            </h3>
 
-            <div className="flex py-3  styled-scrollbar max-h-30vh overflow-x-scroll md:overflow-y-auto md:overflow-x-hidden md:flex-wrap md:justify-center md:mt-10 gap-2">
-              {sortByName(categoriesDisplayed).map(cat => (
+      </div>
+
+      {/* ADVANCED FILTERS */}
+      <div 
+        className="
+          min-h-35vh 
+          h-full 
+
+          flex-1 
+          flex 
+          flex-col
+          md:flex-row 
+          justify-between 
+          items-stretch 
+          gap-3 
+          md:gap-10
+
+          px-3 
+          md:px-6
+
+          md:pt-10 
+          md:pb-7 
+        "
+      >
+
+        <TagsSearch
+          items={regions}
+          searchPlaceholder="FIND REGION"
+          theme={colorTheme}
+          onSearchChange={searchRegions}
+          onTagClick={selectRegion}
+        />
+
+        {categories && categories.length ? (
+          <div className="flex-1">
+
+            <div className="flex py-3  styled-scrollbar max-h-30vh overflow-x-scroll md:overflow-y-auto md:overflow-x-hidden md:flex-wrap md:justify-center gap-2">
+              {sortByName(categories).map(cat => (
                 <Tag
                   key={cat.id}
                   name={cat.name}
                   theme={cat.theme}
-                  invertColors={cat.isMain}
-                  onTagCLick={handleCategoryClick}
-                  cat={cat}
-                  big={cat.isMain}
+                  invertColors={!cat.parent_category_id}
+                  onTagClick={() => selectCategory(cat)}
+                  tagInfo={cat}
+                  big
                 />
               ))}
             </div>
@@ -207,16 +309,20 @@ const FilterBars = ({
         ) : (
           <div className="flex-1">
             <h3 className="uppercase opacity-30 ml-3 md:ml-0 md:text-center mb-5 self-center">
-              No Categories left...
+              No Categories
             </h3>
           </div>
         )}
-        <SearchByTag
-          items={hashtagsDisplayed}
+
+        <TagsSearch
+          items={tags}
+          searchPlaceholder="FIND TAG"
           theme={colorTheme}
-          handleHashtagClick={handleHashtagClick}
+          onSearchChange={searchTags}
+          onTagClick={selectTag}
         />
       </div>
+
     </animated.div>
   );
 };

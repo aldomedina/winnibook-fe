@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    scroll-behavior: smooth;
+  }
+
   ::placeholder {
     opacity: 0.5;
   }

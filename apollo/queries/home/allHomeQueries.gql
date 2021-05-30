@@ -1,0 +1,58 @@
+query MyQuery($featuredListId: uuid = "") {
+  featuredList: winnibook_locals_lists(where: {id: {_eq: $featuredListId}}) {
+    id
+    text
+    locals {
+      localByLocal {
+        id
+        name
+        main_category {
+          id
+          name
+          theme
+        }
+      }
+    }
+  }
+
+  stories: winnibook_stories(limit: 4) {
+    id
+    title
+    subtitle
+    images {
+      image {
+        alt
+        url
+      }
+    }
+    main_category {
+      id
+      name
+      theme
+    }
+  }
+
+  mostVisitedLocals: winnibook_locals(order_by: {visits: asc}, limit: 5) {
+    id
+    name
+    main_category {
+      id
+      name
+      theme
+    }
+  }
+
+  mapLocals: winnibook_locals(limit: 50) {
+    id
+    name
+    main_category {
+      id
+      name
+      theme
+    }
+    address {
+      latitude
+      longitude
+    }
+  }
+}
