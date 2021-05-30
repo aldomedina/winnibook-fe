@@ -46,7 +46,7 @@ const Story = ({storyData}) => {
 
               {/* MAIN IMAGE */}
               <div
-                className="rounded-xl bg-image w-full h-55vh grid-item-img "
+                className="rounded-xl bg-image w-full h-70vh grid-item-img mb-10"
                 style={{ backgroundImage: `url(${story?.images[0]?.image.url})` }}
               />
 

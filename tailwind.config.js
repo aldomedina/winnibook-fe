@@ -15,6 +15,9 @@ module.exports = {
       center: true,
       padding: '1rem'
     },
+    borderColor: theme => ({
+      DEFAULT: theme('currentColor')
+    }),
     extend: {
       spacing: {
         13: '3.25rem',

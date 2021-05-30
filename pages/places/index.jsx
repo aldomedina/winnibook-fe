@@ -8,7 +8,7 @@ import GET_LOCALS_BY_NAME from '../../apollo/queries/search/searchByLocalName.gq
 import {mountSearchQuery} from '../../apollo/queries/search/searchQueryHelper';
 
 import TopNav from '../../components/TopNav';
-import FilterBar from '../../components/FiltersBar';
+import FilterBars from '../../components/FiltersBar';
 
 import PlaceRowHeader from '../../components/PlaceRow/PlaceRowHeader';
 
@@ -137,14 +137,14 @@ const Places = () => {
         ))}
       </ul>
 
-      <FilterBar
+      <FilterBars
         reference={filtersRef}
         headerReference={filtersHeaderRef}
         filters={activeFilters}
-        // onFiltersChange={() => {}}
-        setFilters={() => {}}
+        onFiltersChange={searchLocals}
+        setFilters={setActiveFilters}
         open={filtersOpen}
-        setOpen={() => {}}
+        setOpen={setFiltersOpen}
         hidden={filtersHidden}
       />
     </PlacesSearchResults>

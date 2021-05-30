@@ -1,23 +1,41 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLazyQuery } from '@apollo/client';
 
 import SearchBar from '../SearchBar';
 import SearchResultsBox from '../SearchResultsBox';
 
-import { items } from '../../mock/search';
+import SEARCH_QUERY from '../../apollo/queries/search/searchLocalStoryCategoriesByName.gql';
 
 const NavSearch = ({ searchRef, openSearch, setOpenSearch, isMobile }) => {
   const [searchValue, setSearchValue] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState({});
+
+  const [startSearch, {data: searchQuery, loading: searchLoading}] = useLazyQuery(SEARCH_QUERY);
+
+  let searchTimeout;
 
   useEffect(() => {
-    const fetchSearchResults = async value => {
-      // 🚨  MOCK ALERT 🚨 TODO: create dynamic query with value
-      const filtered = items.filter(item => item.name.toLowerCase().includes(value.toLowerCase()));
-      setSearchResults(filtered);
-    };
-    searchValue?.length ? fetchSearchResults(searchValue) : setSearchResults([]);
+    if (openSearch) {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        startSearch({
+          variables: {
+            name: "%" + searchValue+ "%"
+          }
+        });
+      }, 300);
+    }
   }, [searchValue]);
+
+  useEffect(() => {
+    setSearchResults({
+      locals: searchQuery?.winnibook_locals,
+      stories: searchQuery?.winnibook_stories,
+      categories: searchQuery?.winnibook_categories
+    });
+
+    console.log(searchQuery);
+  }, [searchQuery]);
 
   return (
     <div ref={searchRef} className="flex-1 relative md:max-w-40vw w-full md:mr-10 ">

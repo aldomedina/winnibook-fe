@@ -15,6 +15,8 @@ const SearchResultsContainer = styled.div`
 `;
 
 const SearchResultsBox = ({ openSearch, setOpenSearch, results, activeSearch }) => {
+  console.log(results);
+
   return (
     <SearchResultsContainer
       $open={openSearch}
@@ -30,33 +32,69 @@ const SearchResultsBox = ({ openSearch, setOpenSearch, results, activeSearch }) 
             <Icon icon="x" />
           </button>
 
-          <ul className="h-full overflow-y-auto overflow-x-hidden styled-scrollbar list-none">
-            {results.length ? (
-              results.map((el, i) => (
-                <li
-                  key={`${el.id}-${i}`}
-                  className={` text-lg px-5 first:mt-5 py-1  ${
-                    i + 1 === results.length && 'mb-16'
-                  }`}
-                >
-                  <Link href={`/places/${el.slug}`}>
-                    <div
-                      className="uppercase w-full transition-transform transform hover:translate-x-1  cursor-pointer"
-                      onClick={() => setOpenSearch(false)}
-                    >
-                      {el.name}
-                    </div>
-                  </Link>
-                </li>
-              ))
-            ) : (
+          {
+            results?.locals?.length ||
+            results?.stories?.length ? (
+              <>
+                {/* LOCAL RESULTS */}
+                <div className="border-b last:border-0">
+                  {results.locals.length ? <h3 className="text-lg px-5 pt-4">Locals</h3> : ""}
+                  <ul className="overflow-y-auto overflow-x-hidden styled-scrollbar list-none">
+                    {results?.locals?.length ? (
+                      results?.locals?.map((el, i) => (
+                        <li
+                          key={`${el.id}-${i}`}
+                          className={` text-lg px-5 first:my-3 py-1  ${
+                            i + 1 === results.length && 'mb-16'
+                          }`}
+                        >
+                          <Link href={`/place/${el.id}`}>
+                            <div
+                              className="uppercase w-full transition-transform transform hover:translate-x-1  cursor-pointer"
+                              onClick={() => setOpenSearch(false)}
+                            >
+                              {el.name}
+                            </div>
+                          </Link>
+                        </li>
+                      ))
+                    ) : ""}
+                  </ul>
+                </div>
+
+                {/* STORIES RESULTS */}
+                {results.stories?.length ? <h3 className="text-lg px-5 pt-4">Stories</h3> : ""}
+                <ul className="overflow-y-auto overflow-x-hidden styled-scrollbar list-none">
+                  {results?.stories?.length ? (
+                    results?.stories?.map((el, i) => (
+                      <li
+                        key={`${el.id}-${i}`}
+                        className={` text-lg px-5 first:mt-3 py-1  ${
+                          i + 1 === results.length && 'mb-16'
+                        }`}
+                      >
+                        <Link href={`/story/${el.id}`}>
+                          <div
+                            className="uppercase w-full transition-transform transform hover:translate-x-1  cursor-pointer"
+                            onClick={() => setOpenSearch(false)}
+                          >
+                            {el.title}
+                          </div>
+                        </Link>
+                      </li>
+                    ))
+                  ) : ""}
+                </ul>
+              </>
+            )
+            : (
               <div className="w-full h-full flex justify-center items-center">
                 <span className="opacity-50">
                   {activeSearch.length ? 'No results' : 'Search something…'}
                 </span>
               </div>
-            )}
-          </ul>
+            )
+          }
 
           <Link href={`/places?s=${activeSearch}`}>
             <button className="btn btn-outline shadow-md absolute bottom-5 right-5 ">

@@ -1,15 +1,18 @@
 import SectionWrapper from './SectionWrapper';
 import { useState, useEffect, useRef } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
-import { items as places } from '../../mock/search';
+
 import mapstyle from '../../assets/mapstyle';
 import themeConfig from '../Theme/colors';
+
 import PlaceCard from '../PlaceCard';
-const Winnimap = ({ reference }) => {
+
+const Winnimap = ({ reference, locals }) => {
+
   const googlemap = useRef(null);
   const [activePlace, setActivePlace] = useState();
-  useEffect(() => {
 
+  useEffect(() => {
     const loader = new Loader({
       apiKey: process.env.GOOGLE_MAPS_KEY,
       version: 'weekly'
@@ -32,17 +35,20 @@ const Winnimap = ({ reference }) => {
         scaleControl: true
       });
 
-      places.map((item, i) => {
+      locals.map((item, i) => {
         const icon = {
           path: google.maps.SymbolPath.CIRCLE,
-          fillColor: themeConfig.colors[item.theme].bg,
+          fillColor: themeConfig.colors[item.main_category?.theme].primary,
           fillOpacity: 0.6,
           strokeWeight: 0,
           rotation: 0,
           scale: 4
         };
         const marker = new google.maps.Marker({
-          position: item.location,
+          position: { 
+            lat: parseFloat(item.address?.latitude), 
+            lng: parseFloat(item.address?.longitude)
+          },
           icon
         });
         marker.setMap(map);
@@ -85,8 +91,8 @@ const Winnimap = ({ reference }) => {
         >
           <PlaceCard
             name={activePlace.name}
-            categories={activePlace.categories}
-            theme={activePlace.theme}
+            categories={[activePlace.main_category]}
+            theme={activePlace.main_category.theme}
           />
         </div>
       )}

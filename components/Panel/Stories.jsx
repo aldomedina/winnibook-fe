@@ -5,17 +5,14 @@ import SectionWrapper from './SectionWrapper';
 import Tag from '../Tag';
 import StoryCard from '../StoryCard';
 
-import { stories as s } from '../../mock/home';
-
 const BigStoryCard = styled.div`
 
   &:hover .story-image {
-    box-shadow: 4px 4px 0 ${({ theme, $t }) => theme.colors[$t].primary};
+    box-shadow: 4px 4px 0 ${({ theme, $t }) => theme.colors[$t]?.primary};
   }
 `;
 
-const Stories = ({ reference }) => {
-  const { featured, latest } = s;
+const Stories = ({ reference, stories }) => {
 
   return (
     <SectionWrapper reference={reference} i={2} customClasses="w-90vw pt-16 md:pt-20">
@@ -23,7 +20,7 @@ const Stories = ({ reference }) => {
 
         <BigStoryCard 
           className="big-story-card group w-full min-h-50vh md:h-auto md:w-7/12 flex flex-col gap-2 md:gap-5 cursor-pointer md:mr-5"
-          $t={featured.theme}
+          $t={stories[0]?.theme}
         >
           <div
             className="
@@ -38,23 +35,24 @@ const Stories = ({ reference }) => {
               rounded-20p 
               bg-image
             "
-            style={{ backgroundImage: `url(${featured.img})` }}
+            style={{ backgroundImage: `url(${stories[0]?.images[0]?.image.url})` }}
           />
           <div>
-            <h3 className="h-max text-2xl md:text-4xl uppercase mb-1 md:mb-5">{featured.title}</h3>
+            <h3 className="h-max text-2xl md:text-4xl uppercase mb-1 md:mb-5">{stories[0]?.title}</h3>
             <div className="w-max grid gap-4 grid-flow-col auto-cols-auto mb-5">
-              {featured.categories.map((cat, i) => (
+              {/* {stories[0]?.categories.map((cat, i) => (
                 <Tag key={`${i}-${cat.name}`} theme={cat.theme} name={cat.name} />
-              ))}
+              ))} */}
+              <Tag theme={stories[0]?.main_category.theme} name={stories[0]?.main_category.name} />
             </div>
-            <p className="font-serif hidden md:block">{featured.body}</p>
+            <p className="font-serif md:block">{stories[0]?.subtitle}</p>
           </div>
         </BigStoryCard>
 
         <div className="w-full md:w-5/12 flex flex-col gap-4 md:gap-5">
-          {latest.map((s, i) => (
+          {stories.filter((el, i, ar) => i > 0).map((s, i) => (
             <div key={`${i}-${s.title}`} className="flex-1 ">
-              <StoryCard title={s.title} image={s.img} categories={s.categories} />
+              <StoryCard title={s.title} image={s.images[0]?.image.url} categories={[s.main_category]} />
             </div>
           ))}
         </div>
