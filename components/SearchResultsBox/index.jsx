@@ -15,7 +15,6 @@ const SearchResultsContainer = styled.div`
 `;
 
 const SearchResultsBox = ({ openSearch, setOpenSearch, results, activeSearch }) => {
-  console.log(results);
 
   return (
     <SearchResultsContainer

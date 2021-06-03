@@ -20,7 +20,6 @@ const Winnimap = ({ reference, locals }) => {
     let map;
 
     loader.load().then(() => {
-      console.log('google maps loaded');
       const google = window.google;
 
       map = new google.maps.Map(googlemap.current, {

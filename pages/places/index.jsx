@@ -93,7 +93,7 @@ const Places = () => {
 
     // after all transitions
     setTimeout(async () => {
-      await router.push("place/" + i);
+      await router.push("/place/" + i);
     }, 600);
   }
 
@@ -123,14 +123,14 @@ const Places = () => {
               maxHeight: rowRef.current?.clientHeight + "px"
             }}
             className={"block " + (openPlace !== false && openPlace !== item.id ? "hidden-place" : "")}
-            href={"place/" + i}
+            href={"/place/" + item.id}
             onClick={(e) => handlePlaceClick(e, item.id)}
           >
             <PlaceRowHeader
               reference={rowRef}
               name={item.name}
               city={item.address.city.name}
-              categories={sortByName(item.categories.slice(0, 2))}
+              categories={sortByName(item.categories.slice(0, 1))}
               isOpen={openPlace === item.id}
             />
           </a>

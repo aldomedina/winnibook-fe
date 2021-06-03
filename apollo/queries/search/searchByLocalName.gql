@@ -1,5 +1,6 @@
 query MyQuery($name: String, $tagIds: [uuid!], $mainCategoryId: uuid, $categoryIds: [uuid!]) {
   winnibook_locals(
+      order_by: {name: asc, visits: desc}
       where: {
         _and: [
           {

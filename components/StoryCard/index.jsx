@@ -24,10 +24,12 @@ const StoryCard = ({
   invertColors = true,
   imgBigger
 }) => {
+  
   const { colorTheme } = useContext(ColorContext);
+
   return (
     <div
-      className={`group relative md:h-full flex cursor-pointer ${
+      className={`group min-w-1/2 relative md:h-full flex cursor-pointer ${
         vertical ? 'flex-col' : 'flex-row'
       }`}
     >
@@ -40,7 +42,7 @@ const StoryCard = ({
           style={{ backgroundImage: `url(${image})` }}
         />
       )}
-      <div className={` ${imgBigger ? '' : 'flex-1 flex flex-col justify-between'}`}>
+      <div className={` ${imgBigger ? '' : 'flex-1 flex flex-col'}`}>
         <div>
           {categories && (
             <div className="flex flex-wrap gap-2">

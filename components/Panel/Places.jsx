@@ -6,8 +6,6 @@ const Places = ({ reference, places }) => {
     return "";
   }
 
-  console.log(places)
-
   return (
     <SectionWrapper
       i={3}

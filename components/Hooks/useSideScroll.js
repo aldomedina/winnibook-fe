@@ -18,7 +18,6 @@ export function useHorizontalScroll() {
         if (toLeft || toRight) {
           e.preventDefault();
           const delta = isFirefox ? e.deltaY * 40 : e.deltaY * 2;
-          console.log(e.deltaY);
           el.scrollTo({
             left: el.scrollLeft + delta,
             behavior: 'smooth'

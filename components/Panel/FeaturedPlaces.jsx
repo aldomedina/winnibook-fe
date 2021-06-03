@@ -4,7 +4,6 @@ import PlaceCard from '../PlaceCard';
 import SectionWrapper from './SectionWrapper';
 
 const FeaturedPlaces = ({ reference, list }) => {
-  console.log(list)
   return (
     <SectionWrapper
       i={1}
@@ -21,7 +20,7 @@ const FeaturedPlaces = ({ reference, list }) => {
           >
             <PlaceCard 
               name={p.localByLocal.name} 
-              categories={[p.localByLocal.main_category]} 
+              categories={p.localByLocal.categories.map((cat) => cat.category).concat([p.localByLocal?.main_category]).splice(0, 3)}
               theme={p.localByLocal.main_category.theme} 
               big={true}
             />

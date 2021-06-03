@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, createContext } from 'react';
+import { useState, useRef, useEffect, useContext, createContext } from 'react';
 import HorizontalScroll from 'react-scroll-horizontal';
 import { client } from '../apollo/client';
 
@@ -19,11 +19,12 @@ import Winnimap from '../components/Panel/Winnimap';
 
 import bottomNavItems from '../content/homeBottomNav';
 
+import { ColorContext } from '../components/Theme';
 export const PanelContext = createContext();
 
 const Home = ({homeQueryResults}) => {
 
-  console.log(homeQueryResults);
+  const { colorTheme, setColorTheme } = useContext(ColorContext);
 
   const [activeSection, setActiveSection] = useState(0);
   const [scrollValue, setScrollValue] = useState(0);
@@ -38,6 +39,10 @@ const Home = ({homeQueryResults}) => {
   const topRef = useRef(null);
   const mapRef = useRef(null);
   const joinUsRef = useRef(null);
+
+  useEffect(() => {
+    setColorTheme('base');
+  }, [])
 
   const handleBottomNav = (i, name) => {
     setActiveSection(i);
@@ -126,11 +131,6 @@ const Home = ({homeQueryResults}) => {
 };
 
 export async function getServerSideProps(context) {
-  // const { data: homeQueryResults, loading } = await useQuery(HOME_QUERY, {
-  //   variables: {
-  //     featuredListId: "4ba99eca-ebb8-4e14-86b4-833772b8f74a"
-  //   }
-  // });
 
   const { data } = await client.query({
     query: HOME_QUERY,

@@ -50,7 +50,6 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { slug } }) {
   // 🚨  MOCK ALERT 🚨
   // TODO: create method to fetch story by slug
-  console.log(slug);
   const placeData = getPlaceDetails(slug);
   return {
     props: {

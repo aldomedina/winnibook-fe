@@ -1,7 +1,5 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
-console.log(process.env.NEXT_PUBLIC_REACT_APP_FAUNA_SECRET);
-
 export const client = new ApolloClient({
   uri: "https://winnibook.hasura.app/v1/graphql",
   headers: {

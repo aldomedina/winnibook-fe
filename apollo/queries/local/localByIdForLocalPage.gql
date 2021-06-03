@@ -21,12 +21,40 @@ query localById($localId: uuid = "") {
       id
       name
       theme
+      locals_as_main_category(limit: 2, where: {id: {_neq: $localId}}) {
+        id
+        name
+        main_category {
+          id
+          name
+          theme
+        }
+        categories {
+          category {
+            id
+            name
+            theme
+          }
+        }
+      }
     }
     stories {
       story {
         id
         title
         subtitle
+        main_category {
+          id
+          name
+          theme
+        }
+        categories {
+          category {
+            id
+            name
+            theme
+          }
+        }
         images {
           image {
             id
@@ -55,4 +83,5 @@ query localById($localId: uuid = "") {
       }
     }
   }
+
 }

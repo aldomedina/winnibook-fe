@@ -13,10 +13,12 @@ const PlaceMap = ({ location, theme }) => {
     });
     let map;
     loader.load().then(() => {
-      console.log('google maps loaded');
       const google = window.google;
       map = new google.maps.Map(googlemap.current, {
-        center: location,
+        center: { 
+          lat: parseFloat(location?.latitude), 
+          lng: parseFloat(location?.longitude)
+        },
         zoom: 13,
         styles: mapstyle,
         scrollwheel: false,
@@ -28,14 +30,17 @@ const PlaceMap = ({ location, theme }) => {
 
       const icon = {
         path: google.maps.SymbolPath.CIRCLE,
-        fillColor: themeConfig.colors[theme].bg,
+        fillColor: themeConfig.colors[theme].primary,
         fillOpacity: 0.6,
         strokeWeight: 0,
         rotation: 0,
         scale: 7
       };
       const marker = new google.maps.Marker({
-        position: location,
+        position: { 
+          lat: parseFloat(location?.latitude), 
+          lng: parseFloat(location?.longitude)
+        },
         icon
       });
       marker.setMap(map);
@@ -43,8 +48,19 @@ const PlaceMap = ({ location, theme }) => {
   }, []);
 
   return (
-    <div className="min-w-90vw md:min-w-40vw px-3 md:px-5 flex items-center justify-center">
-      <div id="map" className="w-full h-50vh rounded-3xl" ref={googlemap} />
+    <div 
+      className="
+        min-w-90vw 
+        md:min-w-40vw 
+
+        py-32
+        pl-32
+        
+        flex 
+        justify-center
+      "
+    >
+      <div id="map" className="w-full max-h-full rounded-3xl" ref={googlemap} />
     </div>
   );
 };

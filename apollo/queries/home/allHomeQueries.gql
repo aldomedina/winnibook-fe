@@ -11,6 +11,13 @@ query MyQuery($featuredListId: uuid = "") {
           name
           theme
         }
+        categories {
+          category {
+            id
+            name
+            theme
+          }
+        }
       }
     }
   }

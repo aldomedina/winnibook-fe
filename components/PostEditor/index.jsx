@@ -68,7 +68,6 @@ const PostEditor = ({onChange}) => {
   const insertImage = async ( url ) => {
     const base64Image = await imageToBase64(url);
     handleEditorChange(imagePlugin.addImage(editorState, "data:image;base64," + base64Image));
-    console.log("data:image;base64," + base64Image);
   };
 
   return (

@@ -41,7 +41,7 @@ const NewPost = () => {
         border-b
         border-gray-50
       ">
-        <h1>aslkdjasdjlaskdj</h1>
+        {/* <h1>aslkdjasdjlaskdj</h1> */}
       </div>
 
       <div className="flex flex-grow">

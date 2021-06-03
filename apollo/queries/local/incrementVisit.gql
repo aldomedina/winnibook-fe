@@ -1,0 +1,7 @@
+mutation MyMutation($localId: uuid = "") {
+  update_winnibook_locals(where: {id: {_eq: $localId}}, _inc: {visits: 1}) {
+    returning {
+      visits
+    }
+  }
+}

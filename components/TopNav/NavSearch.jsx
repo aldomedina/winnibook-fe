@@ -34,7 +34,6 @@ const NavSearch = ({ searchRef, openSearch, setOpenSearch, isMobile }) => {
       categories: searchQuery?.winnibook_categories
     });
 
-    console.log(searchQuery);
   }, [searchQuery]);
 
   return (

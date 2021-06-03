@@ -27,9 +27,9 @@ const Theme = ({ children }) => {
     backgroundColor: themeConfig.colors[colorTheme].bg + "E6"
   });
 
-  useEffect(() => {
-    setColorTheme('base');
-  }, [pathname]);
+  // useEffect(() => {
+  //   setColorTheme('base');
+  // }, [pathname]);
 
   return (
     <ThemeProvider theme={themeConfig}>

@@ -11,22 +11,30 @@ const PlaceDetailsPanel = ({ data }) => {
     tags,
     description,
     address,
+    links,
+    main_category,
     stories,
-    location,
     theme
   } = data;
 
   return (
     <HorizontalScroll reverseScroll>
       <GeneralDetails
-        categories={categories}
+        categories={categories.concat([{category: main_category}])}
         tags={tags}
         description={description}
         address={address}
+        links={links}
       />
-      {/* <PlaceMap location={location} theme={theme} />
-      <SimilarStories stories={stories} /> */}
-      {/* <SimilarPlaces similar={similar} /> */}
+      <PlaceMap location={address} theme={main_category?.theme} />
+      
+      {
+        stories.length ? <SimilarStories stories={stories} /> : ""
+      }
+
+      {
+        main_category.locals_as_main_category.length ? <SimilarPlaces similar={main_category.locals_as_main_category} main_category={main_category.id}/> : ""
+      }
     </HorizontalScroll>
   );
 };

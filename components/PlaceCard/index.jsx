@@ -47,7 +47,13 @@ const PlaceCard = ({ name, theme, onClick, categories, big, extraBig }) => {
           trimRight
         />
       </h3>
-      {categories && <Tag theme={theme} name={categories[0].name} />}
+      <div className="categories flex flex-col">
+        { 
+          categories.map((cat) => (
+            <Tag theme={cat.theme} name={cat.name} />
+          )) 
+        }
+      </div>
     </SPlaceCard>
   );
 };

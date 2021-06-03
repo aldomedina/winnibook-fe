@@ -5,6 +5,7 @@ export const mountSearchQuery = (hasName, hasTags, hasMainCategory, hasCategory,
   const SEARCH_QUERY = gql`
     query MyQuery($name: String, $tagIds: [uuid!], $mainCategoryId: uuid, $categoryIds: [uuid!], $cityIds: [uuid!]) {
       winnibook_locals(
+          order_by: {name: asc, visits: desc}
           where: {
             _and: [
               ${
