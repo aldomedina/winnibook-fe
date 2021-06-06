@@ -66,9 +66,7 @@ const Places = () => {
   useEffect(() => {
     setOpenPlace(false);
     setFiltersHidden(false);
-    setColorTheme('base');   
-    
-    console.log(router); 
+    setColorTheme(router.query.theme ? router.query.theme : 'base')
   }, []);
 
   const searchLocals = (aFilters) => {

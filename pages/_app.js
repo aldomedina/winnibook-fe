@@ -12,8 +12,8 @@ import Theme from '../components/Theme';
 // COMPONENTS
 // import TopNav from '../components/TopNav';
 
-const pagesWithSearch = ['/', '/stories/[slug]', '/places/[slug]'];
-const pagesWithNavBG = ['/places', '/stories', '/stories/[slug]', '/join-us'];
+const pagesWithSearch = ['/', '/story/[slug]', '/place/[slug]'];
+const pagesWithNavBG = ['/places', '/stories', '/story/[slug]', '/join-us'];
 
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter();

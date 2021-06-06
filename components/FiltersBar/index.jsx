@@ -105,7 +105,7 @@ const FilterBars = ({
   const setQuery = (filters) => {
     router.push(
       {
-        pathname: '/places',
+        pathname: router.pathname,
         query: filters
       }, 
       undefined, 
@@ -272,11 +272,15 @@ const FilterBars = ({
   };
 
   const handleSearchBarChange = e => {
+    let tempQuery = router.query;
+
+    if (!e || e === '') {
+      delete tempQuery["name"]
+    } else {
+      tempQuery.name = e;
+    }
     
-    setQuery({
-      ...router.query,
-      name: e
-    })
+    setQuery(tempQuery)
   };
 
   const searchRegions = (aSearchValue) => {
@@ -300,6 +304,8 @@ const FilterBars = ({
     if (aFilter.type === "mainCategory") {
       tempActiveFilters = activeFilters.filter((item) => item.id !== aFilter.id && aFilter.type !== 'categories');
       delete tempFilters[aFilter.type];
+      delete tempFilters[aFilter.type + "Name"];
+      delete tempFilters["theme"];
       setColorTheme('base');
     } else {
 
@@ -359,7 +365,7 @@ const FilterBars = ({
             placeholder="SEARCH..."
             onChange={handleSearchBarChange}
             theme={colorTheme}
-            value={router.query.name}
+            value={router.query.name ? router.query.name : ''}
             big
           />
         </div>

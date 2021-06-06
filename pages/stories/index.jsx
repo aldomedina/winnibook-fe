@@ -1,4 +1,5 @@
 import { useState, useRef, Fragment, useEffect, useContext } from 'react';
+import { useRouter } from 'next/router';
 import { useLazyQuery } from '@apollo/client';
 import Link from 'next/link';
 
@@ -16,6 +17,8 @@ import { ColorContext } from '../../components/Theme';
 import { featured, latest } from '../../mock/stories';
 
 const Stories = () => {
+  const router = useRouter();
+  
   const [sectionsArray, setSectionsArray] = useState(false);
 
   const headerRef = useRef(null);
@@ -45,7 +48,7 @@ const Stories = () => {
 
   useEffect(() => {
     setFiltersHidden(false);
-    setColorTheme('base');
+    setColorTheme(router.query.theme ? router.query.theme : 'base');
 
     searchQuery(
       {
@@ -93,12 +96,18 @@ const Stories = () => {
             md:grid-cols-3 
             auto-rows-min 
             md:auto-rows-stories 
+
             gap-5 
             md:gap-8 
+
             scrollbar-hide 
+
+            min-h-100vh
             max-width-100w 
+
             overflow-x-hidden 
             overflow-y-scroll 
+
             p-3 
             md:p-10
           "
@@ -132,21 +141,23 @@ const Stories = () => {
 
           {sectionsArray && sectionsArray.map((index, i) => (
             <Fragment key={`story-section-${i}`}>
-              <li>
-                <Link href={"/story/" + stories[index * i]}>
-                  <a>
-                    <StoryCard
-                      image={stories[index * i].images[0]?.image.url}
-                      title={stories[index * i].title}
-                      categories={stories[index * i].categories.map((cat) => cat.category).concat([stories[index * i]?.main_category]).splice(0, 3)}
-                      content={stories[index * i].subtitle}
-                      vertical
-                      growWithSpace
-                      imgBigger
-                    />
-                  </a>
-                </Link>
-              </li>
+              {stories[index * i] && (
+                <li>
+                  <Link href={"/story/" + stories[index * i]}>
+                    <a>
+                      <StoryCard
+                        image={stories[index * i].images[0]?.image.url}
+                        title={stories[index * i].title}
+                        categories={stories[index * i].categories.map((cat) => cat.category).concat([stories[index * i]?.main_category]).splice(0, 3)}
+                        content={stories[index * i].subtitle}
+                        vertical
+                        growWithSpace
+                        imgBigger
+                      />
+                    </a>
+                  </Link>
+                </li>
+              )}
               {stories[index * i + 1] && (
                 <li>
                   <Link href={"/story/" + stories[index * i + 1]}>
@@ -278,7 +289,8 @@ const Stories = () => {
           </li>
           <li className="col-span-full mb-10 row-span-1">.</li> */}
         </ul>
-        : ""
+        : 
+        <div className="w-full min-h-100vh"></div>
       }
       
       {/* STORIES FILTERS */}
