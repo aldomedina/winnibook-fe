@@ -1,0 +1,6 @@
+query MyQuery {
+  winnibook_tags {
+    id
+    name
+  }
+}

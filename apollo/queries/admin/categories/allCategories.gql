@@ -1,0 +1,12 @@
+query MyQuery {
+  winnibook_categories {
+    id
+    name
+    theme
+    parent_category {
+      id
+      name
+      theme
+    }
+  }
+}

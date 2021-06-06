@@ -1,23 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { useRouter } from 'next/router';
 
-import AddLocalForm from '../../components/AddLocalForm';
+const Admin = ({ lists }) => {
+  const router = useRouter();
+  
+  useEffect(() => {
+    router.push("/admin/locals");
+  }, []);
 
-const Admin = () => {
-
-  return (
-    <div className="">
-      
-      <div className="container">
-        <AddLocalForm
-          formDetails={{}}
-          setFormDetails={()=>{}}
-          setErrors={()=>{}}
-          errors={{}}
-        />
-      </div>
-
-    </div>
-  );
+  return false;
 };
 
 export default Admin;

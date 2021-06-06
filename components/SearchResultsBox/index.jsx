@@ -95,7 +95,7 @@ const SearchResultsBox = ({ openSearch, setOpenSearch, results, activeSearch }) 
             )
           }
 
-          <Link href={`/places?s=${activeSearch}`}>
+          <Link href={`/places?name=${activeSearch}`}>
             <button className="btn btn-outline shadow-md absolute bottom-5 right-5 ">
               advanced search
             </button>

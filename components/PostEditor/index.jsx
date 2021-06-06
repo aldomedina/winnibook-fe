@@ -42,6 +42,7 @@ const PostEditorWrapper = styled.div`
 const PostEditor = ({onChange}) => {
 
   const editorRef = useRef();
+  const imageInputRef = useRef();
 
   const [editorReady, setEditorReady] = useState(undefined);
   const [editorState, setEditorState] = useState(undefined);
@@ -65,9 +66,21 @@ const PostEditor = ({onChange}) => {
     editorRef?.current?.focus()
   }
 
-  const insertImage = async ( url ) => {
-    const base64Image = await imageToBase64(url);
-    handleEditorChange(imagePlugin.addImage(editorState, "data:image;base64," + base64Image));
+  const insertImage = async ( file ) => {
+
+    if (file && file.size > 5242880) {
+      console.log("Image size exceeds 5mb");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      handleEditorChange(imagePlugin.addImage(editorState, reader.result));
+    };
+    reader.readAsDataURL(file);
+
+    // const base64Image = await imageToBase64(url);
+    // handleEditorChange(imagePlugin.addImage(editorState, "data:image;base64," + base64Image));
   };
 
   return (
@@ -79,7 +92,7 @@ const PostEditor = ({onChange}) => {
         <>
           
           <div 
-            className="toolbar-wrapper"
+            className="toolbar-wrapper text-black"
             onClick={(e) => e.stopPropagation()}
           >
             <Toolbar>
@@ -99,9 +112,19 @@ const PostEditor = ({onChange}) => {
                     <OrderedListButton {...externalProps} />
                     <BlockquoteButton {...externalProps} />
 
-                    <button onClick={() => insertImage('https://media-cdn.tripadvisor.com/media/photo-s/18/45/7c/f0/blue-restaurant-bar.jpg')}>
-                      Add image
-                    </button>
+                    <div className="inline-block flex items-center">
+                      <input 
+                        ref={imageInputRef} 
+                        className="hidden" 
+                        type="file" 
+                        accept=".png,.jpeg,.jpg"
+                        onChange={(e) => {insertImage(e.target.files[0])}} 
+                      />
+                      {/* <button onClick={() => insertImage('https://media-cdn.tripadvisor.com/media/photo-s/18/45/7c/f0/blue-restaurant-bar.jpg')}> */}
+                      <button onClick={() => imageInputRef.current.click()}>
+                        Add image
+                      </button>
+                    </div>
                   </div>
                 )
               }

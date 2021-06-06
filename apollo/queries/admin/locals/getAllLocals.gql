@@ -1,0 +1,29 @@
+query MyQuery {
+  winnibook_locals {
+    id
+    name
+    short_description
+    description
+    visits
+    main_category {
+      id
+      name
+      theme
+    }
+    categories {
+      category {
+        id
+        name
+        theme
+      }
+    }
+    is_active
+    is_confirmed
+    tags {
+      tag {
+        id
+        name
+      }
+    }
+  }
+}

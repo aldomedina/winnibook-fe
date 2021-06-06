@@ -1,0 +1,12 @@
+query MyQuery {
+  winnibook_locals_lists {
+    id
+    description
+    text
+    locals_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}

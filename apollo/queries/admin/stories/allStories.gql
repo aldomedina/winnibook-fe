@@ -1,0 +1,20 @@
+query MyQuery {
+  winnibook_stories {
+    id
+    published_on
+    title
+    subtitle
+    main_category {
+      id
+      name
+      theme
+    }
+    categories {
+      category {
+        id
+        name
+        theme
+      }
+    }
+  }
+}
