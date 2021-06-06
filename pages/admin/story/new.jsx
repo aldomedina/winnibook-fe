@@ -87,31 +87,6 @@ const NewStory = () => {
           </div>
 
         </div>
-
-        <div className="w-full flex flex-wrap py-4 justify-between">
-
-          <div className="w-full rounded-xl overflow-hidden mb-4">
-            <input 
-              className="w-full border-0 text-black" 
-              type="text" 
-              placeholder="Story title"
-              value={postTitle}
-              onChange={(e) => setPostTitle(e.target.value)}
-
-            />
-          </div>
-
-          <div className="w-full h-32 rounded-xl overflow-hidden">
-            <textarea 
-              className="w-full h-full border-0 text-black" 
-              type="text" 
-              placeholder="Story subtitle"
-              value={postSubtitle}
-              onChange={(e) => setPostSubtitle(e.target.value)}
-            />
-          </div>
-
-        </div>
         
         <div class="flex-grow flex border rounded-3xl overflow-hidden">
 
@@ -127,22 +102,6 @@ const NewStory = () => {
                 text-black
               "
             >
-              <PostEditor
-                onChange={setPostState}
-              />
-
-            </div>
-
-            <div 
-              className="
-                preview-wrapper
-                w-1/2
-                bg-white
-                p-10
-                text-black
-              "
-            >
-              <h2 className="text-xl font-bold mb-4">Preview story</h2>
 
               <div
                 onClick={() => mainImageInputRef.current.click()}
@@ -154,7 +113,7 @@ const NewStory = () => {
                   bg-center
 
                   w-full 
-                  h-40vh 
+                  min-h-20vh 
 
                   grid-item-img 
                   mb-10
@@ -170,13 +129,82 @@ const NewStory = () => {
                   className="hidden" 
                   type="file" 
                   accept=".png,.jpeg,.jpg" 
-                  onChange={(e) => {insertImage(e.target.files[0])}} 
+                  onChange={(e) => {if (e.target?.files[0]) {insertImage(e.target.files[0])}}} 
                 />
                 
                 {
                   !mainImage && <span>Add main image</span>
                 }
               </div>
+
+              <div className="w-full flex flex-wrap justify-between">
+
+                <div className="w-full rounded-xl border overflow-hidden mb-4">
+                  <input 
+                    className="w-full border-0 text-black" 
+                    type="text" 
+                    placeholder="Story title"
+                    value={postTitle}
+                    onChange={(e) => setPostTitle(e.target.value)}
+
+                  />
+                </div>
+
+                <div className="w-full h-24 rounded-xl border overflow-hidden mb-4">
+                  <textarea 
+                    className="w-full h-full border-0 text-black" 
+                    type="text" 
+                    placeholder="Story subtitle"
+                    value={postSubtitle}
+                    onChange={(e) => setPostSubtitle(e.target.value)}
+                  />
+                </div>
+
+              </div>
+
+              <div className="min-h-30vh rounded-xl border overflow-hidden pb-16">
+                <PostEditor
+                  onChange={setPostState}
+                />
+              </div>
+
+            </div>
+
+            <div 
+              className="
+                preview-wrapper
+                w-1/2
+                bg-white
+                p-10
+                text-black
+              "
+            >
+              <h2 className="text-xl font-bold mb-4">Preview story</h2>
+
+              {
+                mainImage &&
+                <div
+                  onClick={() => mainImageInputRef.current.click()}
+                  className="
+                    rounded-xl 
+
+                    bg-image
+                    bg-gray-300 
+                    bg-center
+
+                    w-full 
+                    min-h-40vh 
+
+                    grid-item-img 
+                    mb-10
+
+                    flex
+                    justify-center
+                    items-center
+                  "
+                  style={{ backgroundImage: `url(${mainImage})` }}
+                />
+              }
 
               <div>
                 <h1 className="uppercase text-2xl md:text-4xl mb-2 md:mb-4">{postTitle}</h1>
