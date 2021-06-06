@@ -1,0 +1,7 @@
+query MyQuery {
+  winnibook_misc(where: {type: {_eq: "TERMS_OF_USE"}}) {
+    id
+    type
+    content
+  }
+}

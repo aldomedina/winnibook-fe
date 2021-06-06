@@ -34,7 +34,24 @@ const Locals = ({ locals }) => {
           <div className="actions">
 
             <Button 
-              title="New place"
+              title="New local"
+              onClick={() => router.push("/admin/local/new")}
+            />
+
+          </div>
+
+        </div>
+
+        <div className="w-full flex justify-between items-center border rounded-3xl p-4 mb-4">
+
+          <div>
+            <h2 className="font-bold">1 review pending</h2>
+          </div>
+
+          <div className="actions">
+
+            <Button 
+              title="Review locals"
               onClick={() => router.push("/admin/new-place")}
             />
 
