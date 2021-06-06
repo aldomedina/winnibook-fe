@@ -5,7 +5,7 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}'
   ],
   darkMode: false,
-  important: true,
+  important: false,
   theme: {
     fontFamily: {
       sans: ['Lexend', 'sans-serif'],

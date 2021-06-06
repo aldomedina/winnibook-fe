@@ -39,7 +39,7 @@ query MyQuery($featuredListId: uuid = "") {
     }
   }
 
-  mostVisitedLocals: winnibook_locals(order_by: {visits: asc}, limit: 5) {
+  mostVisitedLocals: winnibook_locals(order_by: {visits: desc}, limit: 5) {
     id
     name
     main_category {

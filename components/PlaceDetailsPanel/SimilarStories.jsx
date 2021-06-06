@@ -11,7 +11,7 @@ const SimilarStories = ({ stories }) => {
         md:min-w-30vw 
 
         py-32
-        pl-32 
+        pr-32 
 
         flex 
         justify-center

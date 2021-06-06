@@ -7,6 +7,8 @@ import GET_STORY_BY_ID from '../../apollo/queries/story/getStoryById.gql';
 import TopNav from '../../components/TopNav';
 import PlaceCard from '../../components/PlaceCard';
 import PostBody from '../../components/Post/PostBody';
+import DateBox from '../../components/DateBox';
+import Tag from '../../components/Tag';
 
 import { ColorContext } from '../../components/Theme';
 
@@ -50,20 +52,20 @@ const Story = ({storyData}) => {
               />
 
               {/* STORY DATE */}
-              {/* <div className="grid-item-date">
-                <DateBox ts={createdAt} />
-              </div> */}
+              <div className="grid-item-date">
+                <DateBox ts={story?.published_on} />
+              </div>
 
               <div className="grid-item-titles justify-self-center max-w-152">
                 <h1 className="uppercase text-2xl md:text-4xl mb-2 md:mb-4">{story?.title}</h1>
                 <h3 className="font-serif md:text-xl">{story?.subtitle}</h3>
               </div>
 
-              {/* <div className="flex lg:flex-col justify-end lg:justify-start items-end grid-item-categories gap-1  md:gap-2 flex-wrap">
-                {categories?.map(el => (
+              <div className="flex lg:flex-col justify-end lg:justify-start items-end grid-item-categories gap-1  md:gap-2 flex-wrap">
+                {story.categories.map((cat) => cat.category).concat([story?.main_category]).splice(0, 3)?.map(el => (
                   <Tag key={el.id} name={el.name} theme={el.theme} />
                 ))}
-              </div> */}
+              </div>
 
             </div>
 

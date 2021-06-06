@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { useSpring, animated } from 'react-spring';
 import { useQuery } from '@apollo/client';
 
@@ -30,15 +31,14 @@ const FilterBars = ({
   reference,
   headerReference,
   hidden,
-  onFiltersChange
+  onFiltersChange,
+  availableFilters
 }) => {
-  const [filters, setFilters] = useState({});
+  const router = useRouter();
+
   const [activeFilters, setActiveFilters] = useState([]);
 
   const [categories, setCategories] = useState([]);
-
-  // SEARCH BAR
-  const [searchBarValue, setSearchBarValue] = useState('');
 
   // REGIONS
   const [regions, setRegions] = useState([]);
@@ -91,74 +91,192 @@ const FilterBars = ({
   }, [tagsQuery]);
 
   useEffect(() => {
-    setFilters({
-      ...filters,
-      name: searchBarValue
-    })
-  }, [searchBarValue]);
-
-  useEffect(() => {
     if (onFiltersChange) {
-      onFiltersChange(filters);
-    }
-  }, [JSON.stringify(filters)]);
-
-  const selectCategory = cat => {
-    const newFilter = { 
-      ...cat, 
-      type: !cat.parent_category_id ? "mainCategory" : "categories"
-    };
-    let tempActiveFilters = activeFilters;
-
-    if (newFilter.type === "mainCategory" && newFilter.theme) {
-      setColorTheme(newFilter.theme);
-
-      tempActiveFilters = activeFilters.filter((item) => item.type !== "mainCategory" && item.type !== "categories");
+      onFiltersChange(router.query);
     }
 
-    tempActiveFilters.unshift(newFilter);
+    if (router.query.theme) {
+      setColorTheme(router.query.theme);
+    }
+
+    mountActiveFilters();
+  }, [router.query]);
+
+  const setQuery = (filters) => {
+    router.push(
+      {
+        pathname: '/places',
+        query: filters
+      }, 
+      undefined, 
+      { 
+        shallow: true
+      }
+    );
+  }
+
+  const mountActiveFilters = () => {
+
+    let tempActiveFilters = [];
+
+    if (router.query.mainCategory) {
+      tempActiveFilters.push({
+        id: router.query.mainCategory,
+        name: router.query.mainCategoryName,
+        type: "mainCategory"
+      })
+    }
+
+    if (router.query.categories) {
+
+      for (let index = 0; index < router.query.categoriesName.length; index++) {
+        const element = router.query.categoriesName[index];
+
+        tempActiveFilters.push({
+          id: router.query.categories[index],
+          name: element,
+          type: "category"
+        })
+        
+      }
+    }
+
+    if (router.query.tags) {
+      
+      if (Array.isArray(router.query.tags)) {
+        for (let index = 0; index < router.query.tagsName.length; index++) {
+          const element = router.query.tagsName[index];
+  
+          tempActiveFilters.push({
+            id: router.query.tags[index],
+            name: element,
+            type: "tags"
+          })
+          
+        }
+      } else {
+        tempActiveFilters.push({
+          id: router.query.tags,
+          name: router.query.tagsName,
+          type: "tags"
+        })
+      }
+    }
+
+    if (router.query.regions) {
+      
+      if (Array.isArray(router.query.regions)) {
+        for (let index = 0; index < router.query.regionsName.length; index++) {
+          const element = router.query.regionsName[index];
+  
+          tempActiveFilters.push({
+            id: router.query.regions[index],
+            name: element,
+            type: "regions"
+          })
+          
+        }
+      } else {
+        tempActiveFilters.push({
+          id: router.query.regions,
+          name: router.query.regionsName,
+          type: "regions"
+        })
+      }
+    }
 
     setActiveFilters(tempActiveFilters);
-    setFilters({
-      ...filters,
-      mainCategory: newFilter.id
+  }
+
+  const selectCategory = cat => {
+
+    if (router.query.categories?.includes(cat.id) || router.query.categories === cat.id) {
+      removeFilter({
+        ...cat,
+        type: "categories"
+      });
+      return;
+    }
+
+    setQuery({
+      ...router.query,
+      mainCategory: cat.id,
+      mainCategoryName: cat.name,
+      categories: !cat.parent_category_id ? [] : router.query.categories,
+      categoriesName: !cat.parent_category_id ? [] : router.query.categoriesName,
+      theme: cat.theme
     });
   };
 
   const selectRegion = region => {
-    const newFilter = { 
-      ...region, 
-      type: "regions"
-    };
-    let tempActiveFilters = activeFilters;
+    let tempRegions = [],
+        tempRegionsName = [];
 
-    tempActiveFilters.push(newFilter);
+    if (router.query.regions?.includes(region.id) || router.query.regions === region.id) {
+      removeFilter({
+        ...region,
+        type: "regions"
+      });
+      return;
+    }
+    
 
-    setActiveFilters(tempActiveFilters);
-    setFilters({
-      ...filters,
-      regions: tempActiveFilters.filter((item) => item.type==="regions").map((item) => item.id)
+    if (Array.isArray(router.query.regions)) {
+      tempRegions = tempRegions.concat(router.query.regions);
+      tempRegionsName = tempRegionsName.concat(router.query.regionsName);
+    } else if (!!router.query.regions) {
+      tempRegions.push(router.query.regions);
+      tempRegionsName.push(router.query.regionsName);
+    }
+
+    tempRegions.push(region.id);
+    tempRegionsName.push(region.name);
+
+    setQuery({
+      ...router.query,
+      regions: tempRegions,
+      regionsName: tempRegionsName,
     });
   };
 
-  const selectTag = region => {
-    const newFilter = { 
-      ...region, 
-      type: "tags"
-    };
-    let tempActiveFilters = activeFilters;
+  const selectTag = tag => {
+    let tempTags = [],
+        tempTagsName = [];
 
-    tempActiveFilters.push(newFilter);
+    if (router.query.tags?.includes(tag.id) || router.query.tags === tag.id) {
+      removeFilter({
+        ...tag,
+        type: "tags"
+      });
+      return;
+    }
 
-    setActiveFilters(tempActiveFilters);
-    setFilters({
-      ...filters,
-      tags: tempActiveFilters.filter((item) => item.type==="tags").map((item) => item.id)
+    if (Array.isArray(router.query.tags)) {
+      tempTags = tempTags.concat(router.query.tags);
+      tempTagsName = tempTagsName.concat(router.query.tagsName);
+    } else if (!!router.query.tags) {
+      tempTags.push(router.query.tags);
+      tempTagsName.push(router.query.tagsName);
+    }
+
+    tempTags.push(tag.id);
+    tempTagsName.push(tag.name);
+
+    console.log(tempTags);
+
+    setQuery({
+      ...router.query,
+      tags: tempTags,
+      tagsName: tempTagsName,
     });
   };
 
   const handleSearchBarChange = e => {
-    setSearchBarValue(e);
+    
+    setQuery({
+      ...router.query,
+      name: e
+    })
   };
 
   const searchRegions = (aSearchValue) => {
@@ -177,22 +295,30 @@ const FilterBars = ({
 
   const removeFilter = (aFilter) => {
     let tempActiveFilters,
-        tempFilters = filters;
+        tempFilters = router.query;
 
     if (aFilter.type === "mainCategory") {
       tempActiveFilters = activeFilters.filter((item) => item.id !== aFilter.id && aFilter.type !== 'categories');
       delete tempFilters[aFilter.type];
       setColorTheme('base');
     } else {
+
       tempActiveFilters = activeFilters.filter((item) => item.id !== aFilter.id);
-      tempFilters[aFilter.type] = tempFilters[aFilter.type].filter((item) => item !== aFilter.id);
+
+      if (Array.isArray(tempFilters[aFilter.type])) {
+        tempFilters[aFilter.type] = tempFilters[aFilter.type].filter((item) => item !== aFilter.id);
+        tempFilters[aFilter.type + "Name"] = tempFilters[aFilter.type + "Name"].filter((item) => item !== aFilter.name);
+      } else {
+        tempFilters[aFilter.type] = [];
+        tempFilters[aFilter.type + "Name"] = [];
+      }
 
       if (!tempFilters[aFilter.type].length) {
         delete tempFilters[aFilter.type];
       }
     }
 
-    setFilters(tempFilters);
+    setQuery(tempFilters);
     setActiveFilters(tempActiveFilters);
   }
 
@@ -233,13 +359,29 @@ const FilterBars = ({
             placeholder="SEARCH..."
             onChange={handleSearchBarChange}
             theme={colorTheme}
-            value={searchBarValue}
+            value={router.query.name}
             big
           />
         </div>
 
         {/* ACTIVE FILTERS TAGS */}
-        <div className="flex flex-wrap max-h-32 overflow-y-auto gap-2 md:gap-0.5  justify-self-stretch row-start-2 col-span-full md:row-auto md:col-auto">
+        <div className="
+          justify-self-stretch 
+
+          flex 
+          flex-wrap 
+        
+          max-h-32 
+          overflow-y-auto 
+          gap-2 
+          md:gap-0.5 
+          
+          row-start-2 
+          col-span-full 
+          
+          md:row-auto 
+          md:col-auto
+        ">
           {activeFilters.map(filter => (
             <Tag
               key={`selected-${filter.id}`}
@@ -281,46 +423,69 @@ const FilterBars = ({
         "
       >
 
-        <TagsSearch
-          items={regions}
-          searchPlaceholder="FIND REGION"
-          theme={colorTheme}
-          onSearchChange={searchRegions}
-          onTagClick={selectRegion}
-        />
+        {
+          !availableFilters || availableFilters.includes('region') ?
+            <TagsSearch
+              items={regions}
+              searchPlaceholder="FIND REGION"
+              theme={colorTheme}
+              onSearchChange={searchRegions}
+              onTagClick={selectRegion}
+            ></TagsSearch>
+          : ""
+        }
 
-        {categories && categories.length ? (
-          <div className="flex-1">
+        {
+          !availableFilters || availableFilters.includes('categories') ?
+          (
+            categories && categories.length ? (
+              <div className="
+                flex-1
 
-            <div className="flex py-3  styled-scrollbar max-h-30vh overflow-x-scroll md:overflow-y-auto md:overflow-x-hidden md:flex-wrap md:justify-center gap-2">
-              {sortByName(categories).map(cat => (
-                <Tag
-                  key={cat.id}
-                  name={cat.name}
-                  theme={cat.theme}
-                  invertColors={!cat.parent_category_id}
-                  onTagClick={() => selectCategory(cat)}
-                  tagInfo={cat}
-                  big
-                />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className="flex-1">
-            <h3 className="uppercase opacity-30 ml-3 md:ml-0 md:text-center mb-5 self-center">
-              No Categories
-            </h3>
-          </div>
-        )}
+                mt-2
+                md:mt-0 
 
-        <TagsSearch
-          items={tags}
-          searchPlaceholder="FIND TAG"
-          theme={colorTheme}
-          onSearchChange={searchTags}
-          onTagClick={selectTag}
-        />
+                border-b
+                md:border-0
+              ">
+
+                <div className="flex py-3 flex-wrap justify-center gap-2">
+                  {sortByName(categories).map(cat => (
+                    <Tag
+                      key={cat.id}
+                      name={cat.name}
+                      theme={cat.theme}
+                      invertColors={!cat.parent_category_id}
+                      onTagClick={() => selectCategory(cat)}
+                      tagInfo={cat}
+                      big
+                    />
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="flex-1">
+                <h3 className="uppercase opacity-30 ml-3 md:ml-0 md:text-center mb-5 self-center">
+                  No Categories
+                </h3>
+              </div>
+            )
+          )
+          : ""
+        }
+        
+        {
+          !availableFilters || availableFilters.includes('tags') ?
+            <TagsSearch
+              items={tags}
+              searchPlaceholder="FIND TAG"
+              theme={colorTheme}
+              onSearchChange={searchTags}
+              onTagClick={selectTag}
+            ></TagsSearch>
+          : ""
+        }
+        
       </div>
 
     </animated.div>

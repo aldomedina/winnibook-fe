@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Icon } from '../Icon';
+
 const STag = styled.div`
   background-color: ${({ theme, $t, $invert, $isFilterTag }) =>
     $isFilterTag ? 'transparent' : $invert ? theme.colors[$t]?.bg : theme.colors[$t]?.primary};
@@ -26,7 +27,7 @@ const Tag = ({
       $invert={invertColors}
       className={`tag ${
         big
-          ? 'text-xs md:text-md lg:text-lg'
+          ? 'text-md lg:text-lg'
           : small
           ? 'text-3xs md:text-2xs'
           : 'text-3xs lg:text-xs '

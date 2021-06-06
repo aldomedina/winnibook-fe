@@ -3,6 +3,7 @@ query getStoryById($storyId: uuid = "") {
     id
     title
     subtitle
+    published_on
     images {
       image {
         id

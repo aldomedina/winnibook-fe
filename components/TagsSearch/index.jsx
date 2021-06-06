@@ -35,20 +35,25 @@ const TagsSearch = ({ items, theme, onTagClick, searchPlaceholder, onSearchChang
       <div 
         className="
           flex 
-          py-3 
-          styled-scrollbar 
-          max-h-30vh 
-          overflow-x-scroll 
-          md:overflow-y-auto 
-          md:overflow-x-hidden 
-          md:flex-wrap 
-          md:justify-center
+          flex-wrap 
+          justify-center
+
+          py-3
+          mt-2
+          md:mt-0 
+
+          overflow-y-auto 
+          overflow-x-hidden 
+          
           gap-2
+
+          border-b
+          md:border-0
         "
       >
         {filteredItems &&
           sortByName(filteredItems).map(el => (
-            <Tag key={el.id} filterTag name={el.name} onTagClick={onTagClick} tagInfo={el} />
+            <Tag key={el.id} filterTag name={el.name} onTagClick={onTagClick} tagInfo={el} big/>
           ))}
       </div>
     </div>

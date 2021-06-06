@@ -19,7 +19,7 @@ const PlaceMap = ({ location, theme }) => {
           lat: parseFloat(location?.latitude), 
           lng: parseFloat(location?.longitude)
         },
-        zoom: 13,
+        zoom: 15,
         styles: mapstyle,
         scrollwheel: false,
         streetViewControl: false,
@@ -31,10 +31,10 @@ const PlaceMap = ({ location, theme }) => {
       const icon = {
         path: google.maps.SymbolPath.CIRCLE,
         fillColor: themeConfig.colors[theme].primary,
-        fillOpacity: 0.6,
+        fillOpacity: 1,
         strokeWeight: 0,
         rotation: 0,
-        scale: 7
+        scale: 6
       };
       const marker = new google.maps.Marker({
         position: { 
@@ -54,7 +54,7 @@ const PlaceMap = ({ location, theme }) => {
         md:min-w-40vw 
 
         py-32
-        pl-32
+        pr-32
         
         flex 
         justify-center

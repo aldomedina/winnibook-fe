@@ -9,7 +9,7 @@ const SimilarPlaces = ({ similar, main_category }) => {
         md:max-w-60vw
 
         py-32
-        px-32 
+        pr-32 
 
         flex 
         justify-center
@@ -29,7 +29,7 @@ const SimilarPlaces = ({ similar, main_category }) => {
                   theme={main_category === item?.main_category.id && item?.categories[0] ? item?.categories[0].category.theme : item?.main_category.theme}
                   onClick={() => console.log(item?.name)}
                   categories={item.categories.map((cat) => cat.category).concat([item?.main_category])}
-                  big
+                  extraBig
                 />
               </a>
             </div>

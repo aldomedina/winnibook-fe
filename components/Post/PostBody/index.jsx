@@ -16,6 +16,10 @@ const PostBodyContent = styled.div`
     width: 100%;
     margin: 45px 0;
     transform: scale(1.05) translateX(18px);
+
+    @media (max-width: 768px) {
+      transform: none;
+    }
   }
 
   img {
@@ -75,6 +79,18 @@ const PostBodyContent = styled.div`
       right: -40px;
 
       font: normal normal bold 80px/97px Lexend, serif;
+    }
+
+    @media (max-width: 768px) {
+      width: 70%;
+
+      font: normal normal bold 24px/32px Lexend, serif;
+      transform: translateX(35%);
+
+      &:before,
+      &:after {
+        display: none;
+      }
     }
   }
 

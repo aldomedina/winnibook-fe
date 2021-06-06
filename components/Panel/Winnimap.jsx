@@ -38,10 +38,10 @@ const Winnimap = ({ reference, locals }) => {
         const icon = {
           path: google.maps.SymbolPath.CIRCLE,
           fillColor: themeConfig.colors[item.main_category?.theme].primary,
-          fillOpacity: 0.6,
+          fillOpacity: 1,
           strokeWeight: 0,
           rotation: 0,
-          scale: 4
+          scale: 6
         };
         const marker = new google.maps.Marker({
           position: { 
@@ -62,7 +62,8 @@ const Winnimap = ({ reference, locals }) => {
       i={4}
       reference={reference}
       customClasses="
-        w-60vw 
+        md:w-60vw
+        w-100vw 
         flex 
         gap-5 
         pt-14 
@@ -73,7 +74,7 @@ const Winnimap = ({ reference, locals }) => {
         id="map" 
         className={`
           bg-yellow-200 
-          h-full
+          h-70vh
           rounded-3xl
           transition-all
           ${activePlace?.name ? "w-10/12" : "w-full"}
@@ -88,11 +89,15 @@ const Winnimap = ({ reference, locals }) => {
             max-h-44
           "
         >
-          <PlaceCard
-            name={activePlace.name}
-            categories={[activePlace.main_category]}
-            theme={activePlace.main_category.theme}
-          />
+          <a
+            href={"/place/" + activePlace.id}
+          >
+            <PlaceCard
+              name={activePlace.name}
+              categories={[activePlace.main_category]}
+              theme={activePlace.main_category.theme}
+            />
+          </a>
         </div>
       )}
     </SectionWrapper>

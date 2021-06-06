@@ -12,6 +12,8 @@ import FilterBars from '../../components/FiltersBar';
 
 import PlaceRowHeader from '../../components/PlaceRow/PlaceRowHeader';
 
+import { ColorContext } from '../../components/Theme';
+
 import { sortByName } from '../../utils';
 
 const PlacesSearchResults = styled.div`
@@ -21,6 +23,10 @@ const PlacesSearchResults = styled.div`
     max-height: 56px;
     opacity: 1;
     transition: max-height .4s .4s, opacity .3s;
+
+    @media (max-width: 768px) {
+      max-height: 100px;
+    }
 
     &.hidden-place {
       overflow: hidden;
@@ -43,8 +49,9 @@ const Places = () => {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [filtersHidden, setFiltersHidden] = useState(false);
   const [activeFilters, setActiveFilters] = useState([]);
-
   const [openPlace, setOpenPlace] = useState(false);
+  
+  const { colorTheme, setColorTheme } = useContext(ColorContext);
 
   let searchTimeout;
 
@@ -59,6 +66,9 @@ const Places = () => {
   useEffect(() => {
     setOpenPlace(false);
     setFiltersHidden(false);
+    setColorTheme('base');   
+    
+    console.log(router); 
   }, []);
 
   const searchLocals = (aFilters) => {
@@ -94,7 +104,7 @@ const Places = () => {
     // after all transitions
     setTimeout(async () => {
       await router.push("/place/" + i);
-    }, 600);
+    }, 400);
   }
 
   return (
@@ -111,17 +121,10 @@ const Places = () => {
         hasBG
       />
 
-      <ul
-        className={`
-          scrollbar-hide
-        `}
-      >
+      <div className="w-full">
         {locals.map((item, i) => (
           <a
-            key={i} 
-            style={{
-              maxHeight: rowRef.current?.clientHeight + "px"
-            }}
+            key={i}
             className={"block " + (openPlace !== false && openPlace !== item.id ? "hidden-place" : "")}
             href={"/place/" + item.id}
             onClick={(e) => handlePlaceClick(e, item.id)}
@@ -135,7 +138,7 @@ const Places = () => {
             />
           </a>
         ))}
-      </ul>
+      </div>
 
       <FilterBars
         reference={filtersRef}

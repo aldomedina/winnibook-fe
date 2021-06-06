@@ -6,7 +6,7 @@ import items from './items';
 const Menu = ({ isOpen, setIsOpen, aboutMenu, openMenu, setOpenMenu, isMobile }) => {
   const slideFadeTransition = useSpring({
     transform: isOpen || !isMobile ? `translateY(0)` : `translateY(-100%)`,
-    opacity: isOpen || !isMobile ? 1 : 0
+    opacity: isOpen || !isMobile ? 1 : 0,
   });
 
   const aboutAnimation = useSpring({
@@ -16,7 +16,39 @@ const Menu = ({ isOpen, setIsOpen, aboutMenu, openMenu, setOpenMenu, isMobile })
 
   return (
     <animated.ul
-      className="flex flex-col md:flex-row md:items-center min-w-0 gap-5 md:justify-end fixed md:static bg-white md:bg-transparent top-0 left-0  w-full h-full md:h-auto md:w-auto p-5 py-10 md:py-0 md:p-1 md:pd-0"
+      className="
+        flex 
+        flex-col 
+        md:flex-row
+        md:items-center 
+
+        gap-5 
+        md:justify-end 
+        
+        bg-white 
+        md:bg-transparent
+        opacity-0
+        list-none
+
+        md:static 
+        fixed 
+        top-0 
+        left-0  
+
+        min-w-0 
+        w-full 
+        h-100vh
+        md:h-full 
+        md:h-auto 
+        md:w-auto 
+
+        p-5 
+        py-10 
+        md:py-0 
+        md:p-1 
+        md:pd-0
+        mt-0  
+      "
       style={slideFadeTransition}
     >
       {items.map((el, i) =>
@@ -25,11 +57,20 @@ const Menu = ({ isOpen, setIsOpen, aboutMenu, openMenu, setOpenMenu, isMobile })
             ref={aboutMenu}
             key={i}
             onClick={() => setOpenMenu(true)}
-            className="uppercase px-2 text-left md:text-center whitespace-nowrap	md:text-sm relative"
+            className="uppercase px-2 text-left md:text-center whitespace-nowrap	md:text-sm relative cursor-pointer"
           >
             <span className="opacity-30 md:opacity-100	">{el.name}</span>
             <animated.ul
-              className="md:absolute -left-11 rounded-lg w-max p-5 pt-3 top-10 md-bg-glass"
+              className="
+                md:absolute 
+                -left-11 
+                rounded-lg 
+                w-max 
+                p-5 
+                pt-3 
+                top-10
+                bg-white
+                md:shadow-lg"
               style={aboutAnimation}
             >
               {el.subItems.map((sub, i) => (
@@ -43,7 +84,7 @@ const Menu = ({ isOpen, setIsOpen, aboutMenu, openMenu, setOpenMenu, isMobile })
           <li
             onClick={() => setIsOpen(false)}
             key={i}
-            className={`uppercase px-2 md:text-center whitespace-nowrap	md:text-sm`}
+            className={`uppercase px-2 md:text-center whitespace-nowrap	md:text-sm list-none`}
           >
             <Link href={`/${el.slug}`}>{el.name}</Link>
           </li>

@@ -74,7 +74,7 @@ const GeneralDetails = ({
               {
                 links?.map((item) => (
                   <li className="mb-2">
-                    <a href={item.link.url}>{item.link.name}</a>
+                    <a href={item.link.url} target="_blank">{item.link.name}</a>
                   </li>
                 ))
               }
