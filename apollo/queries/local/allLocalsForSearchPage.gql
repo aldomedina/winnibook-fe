@@ -1,5 +1,5 @@
 query getAllLocalsForSearchPage {
-  winnibook_locals {
+  winnibook_locals(where: {_and: {is_active: {_eq: true}, is_confirmed: {_eq: true}}}) {
     id
     name
     categories {

@@ -43,7 +43,7 @@ const Categories = ({ lists }) => {
         </div>
         
         <div class="flex-grow flex border rounded-3xl py-4">
-          <table class="table-auto flex-grow">
+          <table class="table-auto flex-grow h-fit">
             <thead>
               <tr className="border-b">
                 <th className="pb-4 px-4 max-w-1/4 text-left">ID</th>

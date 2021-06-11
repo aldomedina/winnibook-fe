@@ -8,6 +8,16 @@ export const mountSearchQuery = (hasName, hasTags, hasMainCategory, hasCategory,
           order_by: {name: asc, visits: desc}
           where: {
             _and: [
+              {
+                is_active: {
+                  _eq: true
+                }
+              }, 
+              { 
+                is_confirmed: {
+                  _eq: true
+                }
+              },
               ${
                 hasName ? 
                 `{

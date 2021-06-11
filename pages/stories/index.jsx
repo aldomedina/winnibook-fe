@@ -38,7 +38,7 @@ const Stories = () => {
   let searchTimeout;
 
   const [searchQuery, {data: storiesQueryResponse, loading, refetch}] =  useLazyQuery(mountSearchQuery(!!filters.name, !!filters.mainCategory, !!filters.categories));
-
+  
   useEffect(() => {
     if (storiesQueryResponse) {
       console.log(storiesQueryResponse);

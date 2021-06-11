@@ -74,6 +74,9 @@ module.exports = {
         '90vw': '90vw',
         '100vw': '100vw'
       },
+      height: {
+        'fit': 'fit-content'
+      },
       minHeight: {
         '1p': '1px',
         14: '3.5rem',

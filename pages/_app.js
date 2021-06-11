@@ -1,6 +1,7 @@
 // GRAPHQL RELATED
 import { ApolloProvider } from '@apollo/client';
 import { client } from '../apollo/client';
+import { UserProvider } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router';
 
 // STYLE RELATED
@@ -22,9 +23,11 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <Theme>
+      <UserProvider>
       <ApolloProvider client={client}>
         <Component {...pageProps} />
       </ApolloProvider>
+      </UserProvider>
     </Theme>
   );
 }

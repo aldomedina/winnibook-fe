@@ -1,0 +1,7 @@
+query MyQuery($name: String = "") {
+  winnibook_categories(where: {name: {_ilike: $name}}) {
+    id
+    name
+    theme
+  }
+}

@@ -2,7 +2,7 @@ query MyQuery($featuredListId: uuid = "") {
   featuredList: winnibook_locals_lists(where: {id: {_eq: $featuredListId}}) {
     id
     text
-    locals {
+    locals (where: {localByLocal: {is_active: {_eq: true}, is_confirmed: {_eq: true}}}) {
       localByLocal {
         id
         name
@@ -39,7 +39,7 @@ query MyQuery($featuredListId: uuid = "") {
     }
   }
 
-  mostVisitedLocals: winnibook_locals(order_by: {visits: desc}, limit: 5) {
+  mostVisitedLocals: winnibook_locals(order_by: {visits: desc}, limit: 5, where: {_and: {is_active: {_eq: true}, is_confirmed: {_eq: true}}}) {
     id
     name
     main_category {
@@ -49,7 +49,7 @@ query MyQuery($featuredListId: uuid = "") {
     }
   }
 
-  mapLocals: winnibook_locals(limit: 50) {
+  mapLocals: winnibook_locals(limit: 50, where: {_and: {is_active: {_eq: true}, is_confirmed: {_eq: true}}}) {
     id
     name
     main_category {

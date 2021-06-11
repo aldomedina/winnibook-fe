@@ -2,7 +2,7 @@ query MyQuery(listId: uuid = "") {
   winnibook_locals_lists(where: {id: {_eq: listId}}) {
     id
     text
-    locals {
+    locals (where: {localByLocal: {is_active: {_eq: true}, is_confirmed: {_eq: true}}}) {
       localByLocal {
         id
         name

@@ -1,5 +1,5 @@
 query localById($localId: uuid = "") {
-  winnibook_locals(where: {id: {_eq: $localId}}) {
+  winnibook_locals(where: {_and: {id: {_eq: $localId}, is_active: {_eq: true}, is_confirmed: {_eq: true}}}) {
     name
     description
     id
@@ -83,5 +83,4 @@ query localById($localId: uuid = "") {
       }
     }
   }
-
 }
