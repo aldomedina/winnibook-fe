@@ -1,7 +1,12 @@
-query MyQuery($name: String = "") {
-  winnibook_categories(where: {name: {_ilike: $name}}) {
+query MyQuery($id: uuid = "") {
+  winnibook_categories(where: {id: {_eq: $id}}) {
     id
     name
     theme
+    parent_category {
+      id
+      name
+      theme
+    }
   }
 }

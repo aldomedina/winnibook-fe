@@ -1,8 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
+import { client } from '../../../apollo/client';
 
-import ADD_CATEGORY from '../../../apollo/mutations/category/insert.gql';
+import GET_CATEGORY_BY_ID from '../../../apollo/queries/categories/getCategoryById.gql';
+import UPDATE_CATEGORY from '../../../apollo/mutations/category/update.gql';
 
 import AdminHeader from '../../../components/AdminHeader';
 import Button from '../../../components/Button';
@@ -48,17 +50,19 @@ const availableThemes = [
   },
 ]
 
-const NewCategory = () => {
+const EditCategory = ({ category }) => {
   const router = useRouter();
   const { colorTheme, setColorTheme } = useContext(ColorContext);
 
   const [newCategoryValues, setNewCategoryValues] = useState({});
   const [isSearchCategoryOpen, setIsSearchCategoryOpen] = useState(false);
 
-  const [addCategoryMutation, { data }] = useMutation(ADD_CATEGORY);
+  const [updateCategoryMutation, { data }] = useMutation(UPDATE_CATEGORY);
 
   useEffect(() => {
     setColorTheme('dark');
+
+    setNewCategoryValues(category);
   }, []);
 
   const selectCategory = category => {
@@ -71,15 +75,16 @@ const NewCategory = () => {
 
   };
 
-  const addCategory = async () => {
+  const updateCategory = async () => {
 
     if (
       (newCategoryValues.name && newCategoryValues.name !== "") &&
       (newCategoryValues.theme && newCategoryValues.theme !== "")
     ) {
-      await addCategoryMutation(
+      await updateCategoryMutation(
         { 
           variables: { 
+            id: newCategoryValues.id,
             name: newCategoryValues.name,
             theme: newCategoryValues.theme,
             parent_category_id: newCategoryValues.parent_category ? newCategoryValues.parent_category.id : null
@@ -101,14 +106,14 @@ const NewCategory = () => {
         <div className="w-full flex p-4 justify-between">
 
           <div>
-            <h2 className="text-2xl font-bold">New category</h2>
+            <h2 className="text-2xl font-bold">Edit category</h2>
           </div>
 
           <div className="actions">
 
             <Button 
               title="Save"
-              onClick={() => addCategory()}
+              onClick={() => updateCategory()}
             />
 
           </div>
@@ -118,7 +123,23 @@ const NewCategory = () => {
         <div className="flex-grow flex border rounded-3xl p-4">
 
           <div
-            className="px-4 w-1/3"
+            className="px-4 w-1/4"
+          >
+            <h4
+              className="mb-2 px-4"
+            >
+              Category ID
+            </h4>
+            <Input
+              customClasses="min-h-40p"
+              value={newCategoryValues.id}
+              placeholder="Category id"
+              disabled
+            />
+          </div>
+
+          <div
+            className="px-4 w-1/4"
           >
             <h4
               className="mb-2 px-4"
@@ -134,7 +155,7 @@ const NewCategory = () => {
           </div>
 
           <div
-            className="px-4 w-1/3"
+            className="px-4 w-1/4"
           >
             <h4
               className="mb-2 px-4"
@@ -144,11 +165,12 @@ const NewCategory = () => {
             <CustomSelect
               options={availableThemes}
               placeholder="Category theme"
+              value={newCategoryValues.theme}
               onChange={(value) => setNewCategoryValues({...newCategoryValues, theme: value})}
             />
           </div>
           
-          <div className="px-4 w-1/3">
+          <div className="px-4 w-1/4">
 
             <h4
               className="mb-2 px-4"
@@ -197,4 +219,19 @@ const NewCategory = () => {
   );
 };
 
-export default NewCategory;
+export async function getServerSideProps({ params: { id } }) {
+  const { data } = await client.query({
+    query: GET_CATEGORY_BY_ID,
+    variables: {
+      id: id
+    }
+  });
+
+  return {
+    props: {
+      category: data.winnibook_categories[0]
+    }
+  };
+}
+
+export default EditCategory;

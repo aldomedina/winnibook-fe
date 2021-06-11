@@ -59,7 +59,7 @@ const Stories = ({ stories }) => {
             <tbody>
               {
                 stories && stories.map((item) => (
-                  <tr className="border-b">
+                  <tr className="border-b cursor-pointer hover:bg-white hover:bg-opacity-25">
                     <td className="p-4">{item.id}</td>
                     <td className="p-4">{`${getDayNumFromTS(item.published_on)} ${getMonthNameFromTS(item.published_on)}, ${getYearFromTS(item.published_on)}`}</td>
                     <td className="p-4">{item.title}</td>

@@ -56,7 +56,10 @@ const Categories = ({ categories }) => {
             <tbody>
               {
                 categories && categories.map((item) => (
-                  <tr className="border-b">
+                  <tr 
+                    className="border-b cursor-pointer hover:bg-white hover:bg-opacity-25"
+                    onClick={() => router.push("/admin/category/" + item.id)}
+                  >
                     <td className="p-4">{item.id}</td>
                     <td className="p-4 flex">
                       <span className="mr-3">{item.name}</span>

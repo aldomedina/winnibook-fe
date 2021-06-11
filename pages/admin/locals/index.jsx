@@ -77,7 +77,7 @@ const Locals = ({ locals }) => {
             <tbody>
               {
                 locals && locals.map((item) => (
-                  <tr className="border-b">
+                  <tr className="border-b cursor-pointer hover:bg-white hover:bg-opacity-25">
                     <td className="p-4">{item.id}</td>
                     <td className="p-4">{item.name}</td>
                     <td className="p-4">

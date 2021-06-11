@@ -1,10 +1,10 @@
-const Input = ({
+const CustomSelect = ({
   reference,
   onChange,
+  options,
   value,
   customClasses,
   placeholder,
-  disabled,
   big = false
 }) => {
   return (
@@ -21,7 +21,7 @@ const Input = ({
         ${customClasses}
       `}
     >
-      <input
+      <select
         className={`
           flex-1 
           w-full
@@ -36,14 +36,20 @@ const Input = ({
           border-none
           ${big ? 'text-xl' : ''}
         `}
-        type="text"
         placeholder={placeholder}
         value={value}
         onChange={e => onChange(e.target.value)}
-        disabled={disabled}
-      />
+      >
+
+        {
+          options.map((item, index) => (
+            <option key={index} value={item.value}>{item.name}</option>
+          ))
+        }
+
+      </select>
     </div>
   );
 };
 
-export default Input;
+export default CustomSelect;
