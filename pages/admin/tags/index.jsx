@@ -35,7 +35,7 @@ const Tags = ({ tags }) => {
 
             <Button 
               title="New tag"
-              onClick={() => router.push("/admin/new-tag")}
+              onClick={() => router.push("/admin/tag/new")}
             />
 
           </div>
@@ -54,7 +54,10 @@ const Tags = ({ tags }) => {
             <tbody>
               {
                 tags && tags.map((item) => (
-                  <tr className="border-b cursor-pointer hover:bg-white hover:bg-opacity-25">
+                  <tr 
+                    className="border-b cursor-pointer hover:bg-white hover:bg-opacity-25"
+                    onClick={() => router.push("/admin/tag/" + item.id)}
+                  >
                     <td className="p-4">{item.id}</td>
                     <td className="p-4">{item.name}</td>
                   </tr>
@@ -73,11 +76,8 @@ const Tags = ({ tags }) => {
 
 export async function getServerSideProps() {
   const { data } = await client.query({
-    query: GET_ALL_TAGS
+    query: GET_ALL_TAGS,
   });
-
-  // const { colorTheme, setColorTheme } = useContext(ColorContext);
-  // setColorTheme(data.winnibook_categories[0].main_category.theme);
 
   return {
     props: {

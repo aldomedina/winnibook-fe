@@ -8,6 +8,7 @@ import GET_ALL_CATEGORIES from '../../../apollo/queries/admin/categories/allCate
 import AdminHeader from '../../../components/AdminHeader';
 import Button from '../../../components/Button';
 import Tag from '../../../components/Tag';
+import CategoryFinder from '../../../components/CategoryFinder';
 
 import PostEditor from '../../../components/PostEditor';
 import PostBody from '../../../components/Post/PostBody';
@@ -21,11 +22,15 @@ const NewStory = () => {
 
   const { colorTheme, setColorTheme } = useContext(ColorContext);
 
+  const [postCategories, setPostCategories] = useState([]);
   const [mainImage, setMainImage] = useState(undefined);
   const [postTitle, setPostTitle] = useState("");
   const [postSubtitle, setPostSubtitle] = useState("");
   const [postState, setPostState] = useState(undefined);
   const [convertedContent, setConvertedContent] = useState(null);
+
+  const [showCategoriesSelector, setShowCategoriesSelector] = useState(true);
+  const [showPreview, setShowPreview] = useState(false);
 
   useEffect(() => {
     setColorTheme('dark');
@@ -63,6 +68,13 @@ const NewStory = () => {
     reader.readAsDataURL(file);
     
   };
+  
+  const selectCategory = (category) => {
+    if (!postCategories.filter((item) => item.id === category.id).length) {
+      setPostCategories([...postCategories, category]);
+      setShowCategoriesSelector(false);
+    }
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -77,12 +89,21 @@ const NewStory = () => {
             <h2 className="text-2xl font-bold">New story</h2>
           </div>
 
-          <div className="actions">
+          <div className="actions flex">
 
-            <Button 
-              title="Save"
-              onClick={() => {}}
-            />
+            <div className="action mr-4">
+              <Button 
+                title={showPreview ? "Hide preview" : "Show preview"}
+                onClick={() => setShowPreview(!showPreview)}
+              />
+            </div>
+
+            <div className="action">
+              <Button 
+                title="Save"
+                onClick={() => {}}
+              />
+            </div>
 
           </div>
 
@@ -94,13 +115,20 @@ const NewStory = () => {
             <div 
               className="
                 editor-wrapper
-                w-1/2
+                max-w-1/2
+                flex-grow
                 p-10
                 border-r
                 border-gray-50
                 bg-white
                 text-black
               "
+              style={
+                {
+                  maxWidth: showPreview ? '' : '100%',
+                  borderColor: showPreview ? 'inherit' : 'transparent'
+                }
+              }
             >
 
               <div
@@ -162,10 +190,61 @@ const NewStory = () => {
 
               </div>
 
-              <div className="min-h-30vh rounded-xl border overflow-hidden pb-16">
+              <div className="min-h-30vh rounded-xl border overflow-hidden mb-4">
                 <PostEditor
                   onChange={setPostState}
                 />
+              </div>
+
+              <div className="w-full flex flex-wrap justify-between">
+                
+                <div className="w-2/3">
+                  <div className="w-full flex flex-wrap mb-4">
+                    {
+                      postCategories.map((item, index) => (
+
+                        <div
+                          onClick={() => setPostCategories(postCategories.filter((cat) => cat.id !== item.id))}
+                        >
+                          <Tag
+                            name={item?.name}
+                            tagInfo={item}
+                            theme={item?.theme}
+                            big
+                          />
+                        </div>
+
+                      ))
+                    }
+
+                    {
+                      !showCategoriesSelector &&
+                      <div
+                        onClick={() => setShowCategoriesSelector(true)}
+                      >
+                        <Tag
+                          name="Add more"
+                          filterTag
+                          big
+                        />
+                      </div>
+                    }
+                  </div>
+                  
+                  {
+                    showCategoriesSelector &&
+                    <CategoryFinder
+                      onSelectCategory={selectCategory}
+                    />
+                  }
+                </div>
+
+                <div className="w-1/3">
+
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero illum vel reiciendis, delectus hic doloremque nisi provident officia deleniti a culpa! Quas illo neque delectus fugiat, architecto dolorem laborum tempore!
+
+                </div>
+
               </div>
 
             </div>
@@ -173,11 +252,17 @@ const NewStory = () => {
             <div 
               className="
                 preview-wrapper
-                w-1/2
+                max-w-1/2
+                flex-grow
                 bg-white
                 p-10
                 text-black
               "
+              style={
+                {
+                  display: showPreview ? 'inherit' : 'none'
+                }
+              }
             >
               <h2 className="text-xl font-bold mb-4">Preview story</h2>
 

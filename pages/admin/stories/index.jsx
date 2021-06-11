@@ -48,11 +48,13 @@ const Stories = ({ stories }) => {
             <thead>
               <tr className="border-b">
                 <th className="pb-4 px-4 max-w-1/4 text-left">ID</th>
-                <th className="pb-4 px-4 text-left">Published on</th>
+                <th className="pb-4 px-4 text-left">Created on</th>
                 <th className="pb-4 px-4 text-left">Title</th>
                 <th className="pb-4 px-4 text-left">Subtitle</th>
                 <th className="pb-4 px-4 text-left">Main Category</th>
                 <th className="pb-4 px-4 text-left">Categories</th>
+                <th className="pb-4 px-4 text-left">Published</th>
+                <th className="pb-4 px-4 text-left">Featured</th>
               </tr>
             </thead>
 
@@ -78,6 +80,8 @@ const Stories = ({ stories }) => {
                         }
                       </div>
                     </td>
+                    <td className="p-4">{item.is_published ? "Yes" : "No"}</td>
+                    <td className="p-4">{item.is_featured ? "Yes" : "No"}</td>
                   </tr>
                 ))
               }

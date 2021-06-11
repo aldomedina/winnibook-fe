@@ -42,7 +42,7 @@ const Locals = ({ locals }) => {
 
         </div>
 
-        <div className="w-full flex justify-between items-center border rounded-3xl p-4 mb-4">
+        <div className="w-full flex justify-between items-center border-4 rounded-3xl p-4 mb-4 bg-white bg-opacity-25">
 
           <div>
             <h2 className="font-bold">1 review pending</h2>
