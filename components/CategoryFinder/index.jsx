@@ -5,7 +5,7 @@ import GET_CATEGORY_BY_NAME from '../../apollo/queries/categories/getCategoryByN
 
 import TagsSearch from '../TagsSearch';
 
-const Categories = ({onSelectCategory}) => {
+const Categories = ({hasParent = false, onSelectCategory}) => {
 
   const [searchCategoriesValue, setSearchCategoriesValue] = useState('');
   const [categories, setCategories] = useState([]);
@@ -13,6 +13,10 @@ const Categories = ({onSelectCategory}) => {
   const [searchCategory, {data: categoriesQueryResults, loading, refetch}] = useLazyQuery(GET_CATEGORY_BY_NAME);
 
   let searchTimeout;
+
+  useEffect(() => {
+    console.log(hasParent);
+  }, [])
 
   useEffect(() => {
     setCategories(categoriesQueryResults?.winnibook_categories ? categoriesQueryResults.winnibook_categories : []);
@@ -23,7 +27,8 @@ const Categories = ({onSelectCategory}) => {
     searchTimeout = setTimeout(() => {
       searchCategory({
         variables: {
-          name: "%" + searchCategoriesValue + "%"
+          name: "%" + searchCategoriesValue + "%",
+          hasParent: hasParent
         }
       });
     }, 300)

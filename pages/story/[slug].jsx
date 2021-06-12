@@ -56,7 +56,7 @@ const Story = ({storyData}) => {
                 <DateBox ts={story?.published_on} />
               </div>
 
-              <div className="grid-item-titles justify-self-center max-w-152">
+              <div className="grid-item-titles max-w-152">
                 <h1 className="uppercase text-2xl md:text-4xl mb-2 md:mb-4">{story?.title}</h1>
                 <h3 className="font-serif md:text-xl">{story?.subtitle}</h3>
               </div>

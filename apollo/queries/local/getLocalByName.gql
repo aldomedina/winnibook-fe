@@ -1,0 +1,18 @@
+query MyQuery($name: String = "") {
+  winnibook_locals(where: {name: {_ilike: $name}}, limit: 3) {
+    id
+    name
+    main_category {
+      id
+      name
+      theme
+    }
+    categories(limit: 2) {
+      category {
+        id
+        name
+        theme
+      }
+    }
+  }
+}
