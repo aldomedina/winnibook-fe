@@ -13,5 +13,8 @@ module.exports = withImages({
   },
   env: {
     GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY
+  },
+  future: {
+    webpack5: true
   }
 });

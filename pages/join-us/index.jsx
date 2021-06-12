@@ -79,7 +79,7 @@ const JoinUs = () => {
       }
 
       // Validate address with Google Maps API
-      const validAddress = city.name && geocode();
+      const validAddress = city?.name && geocode();
       if (!validAddress) errors['address1'] = 'Invalid address';
       // Mandatory fields
       if (!name?.length) errors['name'] = 'Mandatory Field';
