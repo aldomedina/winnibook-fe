@@ -6,11 +6,11 @@ import items from './items';
 const Menu = ({ isOpen, setIsOpen, aboutMenu, openMenu, setOpenMenu, isMobile }) => {
   const slideFadeTransition = useSpring({
     transform: isOpen || !isMobile ? `translateY(0)` : `translateY(-100%)`,
-    opacity: isOpen || !isMobile ? 1 : 0,
+    opacity: isOpen || !isMobile ? 1 : 0
   });
 
   const aboutAnimation = useSpring({
-    transform: openMenu || isMobile ? `translateY(0)` : `translateY(-100%)`,
+    transform: openMenu || isMobile ? `translateY(0)` : `translateY(-200%)`,
     opacity: openMenu || isMobile ? 1 : 0
   });
 

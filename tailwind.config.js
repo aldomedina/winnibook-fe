@@ -75,7 +75,7 @@ module.exports = {
         '100vw': '100vw'
       },
       height: {
-        'fit': 'fit-content'
+        fit: 'fit-content'
       },
       minHeight: {
         '1p': '1px',
@@ -102,6 +102,7 @@ module.exports = {
       maxHeight: {
         28: '7rem',
         44: '11rem',
+        136: '34rem',
         '1p': '1px',
         '10vh': '10vh',
         '20vh': '20vh',
@@ -114,7 +115,7 @@ module.exports = {
         '75vh': '75vh',
         '80vh': '80vh',
         '90vh': '90vh',
-        '100vh': '100vh',
+        '100vh': '100vh'
       },
       maxWidth: {
         28: '7rem',
@@ -173,9 +174,9 @@ module.exports = {
     }
   },
   plugins: [
-    require('@tailwindcss/typography'), 
+    require('@tailwindcss/typography'),
     require('tailwind-scrollbar-hide'),
-    require('@tailwindcss/forms'),
+    require('@tailwindcss/forms')
   ],
   corePlugins: {
     borderColor: false

@@ -29,14 +29,20 @@ const PlaceCard = ({ name, theme, onClick, categories, big, extraBig }) => {
         justify-between 
         cursor-pointer
         transition
-        ${big || extraBig ? 'p-4 md:p-6' : 'p-2 md:p-3'}
+        ${big || extraBig ? 'py-2 px-4 md:p-6' : 'p-2 md:p-3'}
       `}
       onClick={onClick}
     >
       <h3
         className={`
-          uppercase leading-5 
-          ${big ? 'md:text-3xl text-2xl' : extraBig ? 'md:text-6xl text-3xl' : 'text-md md:text-xl'}
+          uppercase 
+          ${
+            big
+              ? 'md:text-3xl text-xl leading-normal leading-6 '
+              : extraBig
+              ? 'md:text-6xl text-3xl leading-normal'
+              : 'text-md md:text-xl leading-5 '
+          }
         `}
       >
         <ResponsiveEllipsis
@@ -48,11 +54,9 @@ const PlaceCard = ({ name, theme, onClick, categories, big, extraBig }) => {
         />
       </h3>
       <div className="categories flex flex-col">
-        { 
-          categories.map((cat) => (
-            <Tag theme={cat.theme} name={cat.name} />
-          )) 
-        }
+        {categories.map(cat => (
+          <Tag theme={cat.theme} name={cat.name} />
+        ))}
       </div>
     </SPlaceCard>
   );

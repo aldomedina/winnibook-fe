@@ -22,8 +22,7 @@ import bottomNavItems from '../content/homeBottomNav';
 import { ColorContext } from '../components/Theme';
 export const PanelContext = createContext();
 
-const Home = ({homeQueryResults}) => {
-
+const Home = ({ homeQueryResults }) => {
   const { colorTheme, setColorTheme } = useContext(ColorContext);
 
   const [activeSection, setActiveSection] = useState(0);
@@ -42,7 +41,7 @@ const Home = ({homeQueryResults}) => {
 
   useEffect(() => {
     setColorTheme('base');
-  }, [])
+  }, []);
 
   const handleBottomNav = (i, name) => {
     setActiveSection(i);
@@ -68,27 +67,25 @@ const Home = ({homeQueryResults}) => {
     goTo(allRef(name));
   };
 
+  const panelHeight = isMobile
+    ? topNavRef.current?.clientHeight + 50
+    : topNavRef.current?.clientHeight;
+
   return (
     <PanelContext.Provider value={{ selectActiveSection, activeSection }}>
       <div className="h-full w-screen">
-
-        <TopNav
-          reference={topNavRef}
-          showSearch
-          hasBG
-        />
+        <TopNav reference={topNavRef} showSearch hasBG />
 
         <HomeBackHero />
 
-        <div 
-          ref={panelRef} 
+        <div
+          ref={panelRef}
           className="w-full"
-          style={
-            {
-              height: "calc(100vh - " + topNavRef.current?.clientHeight + "px)",
-              marginTop: "-" + topNavRef.current?.clientHeight + "px"
-            }
-          }>
+          style={{
+            height: 'calc(100vh - ' + panelHeight + 'px)',
+            marginTop: '-' + topNavRef.current?.clientHeight + 'px'
+          }}
+        >
           <HorizontalScroll animValues={scrollValue} reverseScroll>
             <SectionWrapper
               sectionThreshold={0.9}
@@ -96,20 +93,17 @@ const Home = ({homeQueryResults}) => {
               reference={dummyRef}
               customClasses="min-w-100vw md:min-w-50vw h-100vh select-none"
             />
-            <div className="flex  h-90vh bg-white rounded-bl-20p shadow-lg">
-              <FeaturedPlaces 
-                reference={featuredRef}
-                list={homeQueryResults?.featuredList[0]}
-              />
-              <Stories 
+            <div className="flex  h-85hv md:h-90vh bg-white rounded-bl-20p shadow-lg">
+              <FeaturedPlaces reference={featuredRef} list={homeQueryResults?.featuredList[0]} />
+              <Stories
                 reference={latestRef}
                 stories={homeQueryResults ? homeQueryResults.stories : []}
               />
-              <Places 
+              <Places
                 reference={topRef}
                 places={homeQueryResults ? homeQueryResults.mostVisitedLocals : []}
               />
-              <Winnimap 
+              <Winnimap
                 reference={mapRef}
                 locals={homeQueryResults ? homeQueryResults.mapLocals : []}
               />
@@ -124,18 +118,16 @@ const Home = ({homeQueryResults}) => {
           handleBottomNav={handleBottomNav}
           onClick={handleBottomNav}
         />
-
       </div>
     </PanelContext.Provider>
   );
 };
 
 export async function getServerSideProps(context) {
-
   const { data } = await client.query({
     query: HOME_QUERY,
     variables: {
-      featuredListId: "4ba99eca-ebb8-4e14-86b4-833772b8f74a"
+      featuredListId: '4ba99eca-ebb8-4e14-86b4-833772b8f74a'
     }
   });
 

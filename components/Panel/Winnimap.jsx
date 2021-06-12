@@ -8,7 +8,6 @@ import themeConfig from '../Theme/colors';
 import PlaceCard from '../PlaceCard';
 
 const Winnimap = ({ reference, locals }) => {
-
   const googlemap = useRef(null);
   const [activePlace, setActivePlace] = useState();
 
@@ -31,7 +30,8 @@ const Winnimap = ({ reference, locals }) => {
         mapTypeControl: false,
         zoomControl: true,
         fullscreenControl: false,
-        scaleControl: true
+        scaleControl: true,
+        gestureHandling: 'cooperative'
       });
 
       locals.map((item, i) => {
@@ -44,8 +44,8 @@ const Winnimap = ({ reference, locals }) => {
           scale: 6
         };
         const marker = new google.maps.Marker({
-          position: { 
-            lat: parseFloat(item.address?.latitude), 
+          position: {
+            lat: parseFloat(item.address?.latitude),
             lng: parseFloat(item.address?.longitude)
           },
           icon
@@ -53,7 +53,6 @@ const Winnimap = ({ reference, locals }) => {
         marker.setMap(map);
         marker.addListener('click', () => setActivePlace(item));
       });
-
     });
   }, []);
 
@@ -66,32 +65,36 @@ const Winnimap = ({ reference, locals }) => {
         w-100vw 
         flex 
         gap-5 
-        pt-14 
+        pt-16 
+        pb-14 
         md:pt-40
+        flex-col-reverse
+        md:flex-row
       "
     >
-      <div 
-        id="map" 
+      <div
+        id="map"
         className={`
           bg-yellow-200 
-          h-70vh
+          h-full
           rounded-3xl
           transition-all
-          ${activePlace?.name ? "w-10/12" : "w-full"}
+          ${activePlace?.name ? 'w-10/12' : 'w-full'}
+          
         `}
         ref={googlemap}
       />
 
       {activePlace?.name && (
-        <div 
+        <div
           className="
             w-2/12 
             max-h-44
+            min-w-44
+            min-h-32
           "
         >
-          <a
-            href={"/place/" + activePlace.id}
-          >
+          <a href={'/place/' + activePlace.id}>
             <PlaceCard
               name={activePlace.name}
               categories={[activePlace.main_category]}

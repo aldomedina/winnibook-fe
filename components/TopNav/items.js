@@ -8,8 +8,7 @@ export default [
     name: 'About',
     subItems: [
       { key: 'about-us', slug: 'about-us', name: 'Who we are' },
-      { key: 'Terms', slug: 'terms', name: 'Terms & conditions' },
-      { key: 'Privacy', slug: 'privacy', name: 'Privacy Policy' }
+      { key: 'Terms', slug: 'terms-of-use', name: 'Terms of Use' }
     ]
   }
 ];
