@@ -9,11 +9,34 @@ import AdminHeader from '../../../components/AdminHeader';
 import Button from '../../../components/Button';
 import Tag from '../../../components/Tag';
 import CategoryFinder from '../../../components/CategoryFinder';
+import CustomSelect from '../../../components/CustomSelect';
 
 import PostEditor from '../../../components/PostEditor';
 import PostBody from '../../../components/Post/PostBody';
 
 import { ColorContext } from '../../../components/Theme';
+
+const isPublishedOptions = [
+  {
+    name: "Published",
+    value: true
+  },
+  {
+    name: "Unpublished",
+    value: false
+  }
+];
+
+const isFeaturedOptions = [
+  {
+    name: "Featured",
+    value: true
+  },
+  {
+    name: "Not featured",
+    value: false
+  }
+];
 
 const NewStory = () => {
   const router = useRouter();
@@ -23,12 +46,14 @@ const NewStory = () => {
   const { colorTheme, setColorTheme } = useContext(ColorContext);
 
   const [postCategories, setPostCategories] = useState([]);
+  const [postIsPublished, setPostIsPublished] = useState(false);
+  const [postIsFeatured, setPostIsFeatured] = useState(false);
   const [mainImage, setMainImage] = useState(undefined);
   const [postTitle, setPostTitle] = useState("");
   const [postSubtitle, setPostSubtitle] = useState("");
   const [postState, setPostState] = useState(undefined);
-  const [convertedContent, setConvertedContent] = useState(null);
 
+  const [convertedContent, setConvertedContent] = useState(null);
   const [showCategoriesSelector, setShowCategoriesSelector] = useState(true);
   const [showPreview, setShowPreview] = useState(false);
 
@@ -64,6 +89,7 @@ const NewStory = () => {
     const reader = new FileReader();
     reader.onloadend = () => {
       setMainImage(reader.result);
+      console.log(reader.result);
     };
     reader.readAsDataURL(file);
     
@@ -125,80 +151,51 @@ const NewStory = () => {
               "
               style={
                 {
-                  maxWidth: showPreview ? '' : '100%',
+                  maxWidth: showPreview ? '66.6%' : '100%',
                   borderColor: showPreview ? 'inherit' : 'transparent'
                 }
               }
             >
 
-              <div
-                onClick={() => mainImageInputRef.current.click()}
-                className="
-                  rounded-xl 
-
-                  bg-image
-                  bg-gray-300 
-                  bg-center
-
-                  w-full 
-                  min-h-20vh 
-
-                  grid-item-img 
-                  mb-10
-
-                  flex
-                  justify-center
-                  items-center
-                "
-                style={{ backgroundImage: `url(${mainImage})` }}
-              >
-                <input 
-                  ref={mainImageInputRef} 
-                  className="hidden" 
-                  type="file" 
-                  accept=".png,.jpeg,.jpg" 
-                  onChange={(e) => {if (e.target?.files[0]) {insertImage(e.target.files[0])}}} 
-                />
-                
-                {
-                  !mainImage && <span>Add main image</span>
-                }
-              </div>
-
               <div className="w-full flex flex-wrap justify-between">
 
-                <div className="w-full rounded-xl border overflow-hidden mb-4">
-                  <input 
-                    className="w-full border-0 text-black" 
-                    type="text" 
-                    placeholder="Story title"
-                    value={postTitle}
-                    onChange={(e) => setPostTitle(e.target.value)}
+                <div className="w-1/3 py-4 pr-4">
+                  <div
+                    onClick={() => mainImageInputRef.current.click()}
+                    className="
+                      rounded-xl 
 
-                  />
+                      bg-image
+                      bg-gray-300 
+                      bg-center
+
+                      w-full 
+                      min-h-20vh 
+
+                      grid-item-img 
+                      mb-10
+
+                      flex
+                      justify-center
+                      items-center
+                    "
+                    style={{ backgroundImage: `url(${mainImage})` }}
+                  >
+                    <input 
+                      ref={mainImageInputRef} 
+                      className="hidden" 
+                      type="file" 
+                      accept=".png,.jpeg,.jpg" 
+                      onChange={(e) => {if (e.target?.files[0]) {insertImage(e.target.files[0])}}} 
+                    />
+                    
+                    {
+                      !mainImage && <span>Add main image</span>
+                    }
+                  </div>
                 </div>
 
-                <div className="w-full h-24 rounded-xl border overflow-hidden mb-4">
-                  <textarea 
-                    className="w-full h-full border-0 text-black" 
-                    type="text" 
-                    placeholder="Story subtitle"
-                    value={postSubtitle}
-                    onChange={(e) => setPostSubtitle(e.target.value)}
-                  />
-                </div>
-
-              </div>
-
-              <div className="min-h-30vh rounded-xl border overflow-hidden mb-4">
-                <PostEditor
-                  onChange={setPostState}
-                />
-              </div>
-
-              <div className="w-full flex flex-wrap justify-between">
-                
-                <div className="w-2/3">
+                <div className="w-1/3 py-4">
                   <div className="w-full flex flex-wrap mb-4">
                     {
                       postCategories.map((item, index) => (
@@ -239,12 +236,59 @@ const NewStory = () => {
                   }
                 </div>
 
-                <div className="w-1/3">
+                <div className="w-1/3 p-4 pr-0">
 
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero illum vel reiciendis, delectus hic doloremque nisi provident officia deleniti a culpa! Quas illo neque delectus fugiat, architecto dolorem laborum tempore!
+                  <div className="mb-4">
+                    <CustomSelect
+                      options={isPublishedOptions}
+                      placeholder="Publish story"
+                      value={postIsPublished}
+                      onChange={(value) => setPostIsPublished(value)}
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <CustomSelect
+                      options={isFeaturedOptions}
+                      placeholder="Featured story"
+                      value={postIsFeatured}
+                      onChange={(value) => setPostIsFeatured(value)}
+                    />
+                  </div>
 
                 </div>
 
+              </div>
+
+              <div className="w-full flex flex-wrap justify-between">
+
+                <div className="w-full rounded-xl border overflow-hidden mb-4">
+                  <input 
+                    className="w-full border-0 text-black" 
+                    type="text" 
+                    placeholder="Story title"
+                    value={postTitle}
+                    onChange={(e) => setPostTitle(e.target.value)}
+
+                  />
+                </div>
+
+                <div className="w-full h-24 rounded-xl border overflow-hidden mb-4">
+                  <textarea 
+                    className="w-full h-full border-0 text-black" 
+                    type="text" 
+                    placeholder="Story subtitle"
+                    value={postSubtitle}
+                    onChange={(e) => setPostSubtitle(e.target.value)}
+                  />
+                </div>
+
+              </div>
+
+              <div className="min-h-30vh rounded-xl border overflow-hidden mb-4">
+                <PostEditor
+                  onChange={setPostState}
+                />
               </div>
 
             </div>
@@ -252,15 +296,16 @@ const NewStory = () => {
             <div 
               className="
                 preview-wrapper
-                max-w-1/2
+                max-w-1/3
                 flex-grow
+                flex
                 bg-white
                 p-10
                 text-black
               "
               style={
                 {
-                  display: showPreview ? 'inherit' : 'none'
+                  display: showPreview ? 'block' : 'none'
                 }
               }
             >
