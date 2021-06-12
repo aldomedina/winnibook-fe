@@ -37,8 +37,13 @@ export const mountSearchQuery = (hasName, hasMainCategory, hasCategory) => {
                       }
                     }
                   }` : ``
+              },
+              {
+                is_published: {
+                  _eq: true
+                }
               }
-            ],
+            ]
           }
         ) 
       {

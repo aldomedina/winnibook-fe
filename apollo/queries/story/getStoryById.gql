@@ -1,5 +1,5 @@
 query getStoryById($storyId: uuid = "") {
-  winnibook_stories(where: {id: {_eq: $storyId}}) {
+  winnibook_stories(where: {id: {_eq: $storyId}, is_published: {_eq: true}}) {
     id
     title
     subtitle

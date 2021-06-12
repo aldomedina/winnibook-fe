@@ -38,7 +38,7 @@ query localById($localId: uuid = "") {
         }
       }
     }
-    stories {
+    stories (where: {story: {is_featured: {_eq: true}}}) {
       story {
         id
         title
