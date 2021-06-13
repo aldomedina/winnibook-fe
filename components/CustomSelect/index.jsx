@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 const CustomSelect = ({
   reference,
   onChange,
@@ -8,6 +10,13 @@ const CustomSelect = ({
   disabled,
   big = false
 }) => {
+
+  useEffect(() => {
+    if (options && options[0] && onChange) {
+      onChange(options[0].value);
+    }
+  }, [options])
+
   return (
     <div
       ref={reference}

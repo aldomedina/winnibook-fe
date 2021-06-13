@@ -48,6 +48,7 @@ const ContactsEditor = ({initialContacts, onContactsChange}) => {
     })
 
     setContacts(tempContacts);
+    onContactsChange(tempContacts);
 
     setNewContactName("");
     setNewContactType("");

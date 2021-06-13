@@ -32,6 +32,7 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
     })
 
     setLinks(tempLinks);
+    onLinksChange(tempLinks);
 
     setNewLinkName("");
     setNewLinkUrl("");

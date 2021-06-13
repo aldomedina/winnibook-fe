@@ -1,0 +1,54 @@
+mutation MyMutation(
+  $name: String = "", 
+  $short_description: String = "", 
+  $description: String = "",
+  $is_active: Boolean = false, 
+  $street_line_1: String = "",
+  $street_line_2: String = "",  
+  $region: String = "",  
+  $postcode: String = "",  
+  $latitude: String = "",  
+  $longitude: String = "",  
+  $city_id: uuid = "",  
+  $main_category_id: uuid = ""
+  $categories_ids: [winnibook_local_categories_insert_input!]!, 
+  $tags_ids: [winnibook_local_tags_insert_input!]!,
+  $links: [winnibook_local_links_insert_input!]!,
+  $contacts: [winnibook_local_contacts_insert_input!]!
+) {
+  insert_winnibook_locals_one(
+    object: {
+      name: $name, 
+      short_description: $short_description, 
+      description: $description, 
+      is_active: $is_active, 
+      is_confirmed: true, 
+      address: {
+        data: {
+          street_line_1: $street_line_1, 
+          street_line_2: $street_line_2, 
+          region: $region, 
+          postcode: $postcode, 
+          latitude: $latitude, 
+          longitude: $longitude, 
+          city_id: $city_id
+        }
+      }, 
+      categories: {
+        data: $categories_ids
+      }, 
+      main_category_id: $main_category_id, 
+      tags: {
+        data: $tags_ids
+      }, 
+      links: {
+        data: $links
+      }, 
+      contacts: {
+        data: $contacts
+      }
+    }
+  ) {
+    id
+  }
+}

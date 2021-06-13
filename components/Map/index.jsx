@@ -12,7 +12,7 @@ const Map = ({ location, theme }) => {
 
   useEffect(() => {
     mountMap();
-  }, [location]);
+  }, [location.latitude, location.longitude]);
 
   const mountMap = () => {
     const loader = new Loader({

@@ -12,6 +12,7 @@ const PlaceDetailsPanel = ({ data }) => {
     description,
     address,
     links,
+    contacts,
     main_category,
     stories,
     theme
@@ -25,6 +26,7 @@ const PlaceDetailsPanel = ({ data }) => {
         description={description}
         address={address}
         links={links}
+        contacts={contacts}
       />
       <PlaceMap location={address} theme={main_category?.theme} />
       

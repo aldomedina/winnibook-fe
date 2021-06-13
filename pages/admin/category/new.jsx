@@ -182,6 +182,7 @@ const NewCategory = () => {
               isSearchCategoryOpen &&
               <div className="mt-8">
                 <CategoryFinder
+                  hasParent={true}
                   onSelectCategory={selectCategory}
                 />
               </div>

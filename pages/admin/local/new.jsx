@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useQuery, useMutation } from '@apollo/client';
 import axios from 'axios';
 
-import ADD_CATEGORY from '../../../apollo/mutations/category/insert.gql';
+import ADD_LOCAL from '../../../apollo/mutations/local/insert.gql';
 import GET_ALL_CITIES from '../../../apollo/queries/address/getAllCities.gql';
 
 import AdminHeader from '../../../components/AdminHeader';
@@ -60,12 +60,12 @@ const dropdownOptions = [
     value: true
   },
   {
-    name: "Unactive",
+    name: "Inactive",
     value: false
   }
 ];
 
-const NewCategory = () => {
+const NewLocal = () => {
   const router = useRouter();
   const { colorTheme, setColorTheme } = useContext(ColorContext);
 
@@ -75,6 +75,8 @@ const NewCategory = () => {
   const [newLocalTheme, setNewLocalTheme] = useState('base');
   const [newLocalCategories, setNewLocalCategories] = useState([]);
   const [newLocalTags, setNewLocalTags] = useState([]);
+  const [newLocalLinks, setNewLocalLinks] = useState([]);
+  const [newLocalContacts, setNewLocalContacts] = useState([]);
   const [newLocalIsActive, setNewLocalIsActive] = useState(false);
   const [newLocalAddress, setNewLocalAddress] = useState({
     street_line_1: '',
@@ -86,13 +88,11 @@ const NewCategory = () => {
     longitude: ''
   });
 
-  const [isSearchCategoryOpen, setIsSearchCategoryOpen] = useState(false);
-
   const [showCategoriesSelector, setShowCategoriesSelector] = useState(true);
   const [showTagsSelector, setShowTagsSelector] = useState(true);
   const [allCities, setAllCities] = useState([]);
 
-  const [addCategoryMutation, { data }] = useMutation(ADD_CATEGORY);
+  const [addLocalMutation, { data }] = useMutation(ADD_LOCAL);
   const {data: allCitiesResults, loading, refetch} = useQuery(GET_ALL_CITIES);
 
   useEffect(() => {
@@ -100,7 +100,7 @@ const NewCategory = () => {
   }, []);
 
   useEffect(() => {
-    setAllCities(allCitiesResults?.winnibook_cities.reduce((obj, item) => [...obj, { value: item, name: item.name }], []));
+    setAllCities(allCitiesResults?.winnibook_cities.reduce((obj, item) => [...obj, { value: item.id, name: item.name }], []));
   }, [allCitiesResults]);
 
   useEffect(() => {
@@ -109,21 +109,43 @@ const NewCategory = () => {
 
   const addCategory = async () => {
 
+    let variables = {
+      name: newLocalName,
+      short_description: newLocalShortDescription,
+      description: newLocalDescription,
+      is_active: newLocalIsActive,
+      street_line_1: newLocalAddress.street_line_1,
+      street_line_2: newLocalAddress.street_line_2,
+      region: newLocalAddress.region,
+      postcode: newLocalAddress.postcode,
+      latitude: newLocalAddress.latitude.toString(),
+      longitude: newLocalAddress.longitude.toString(),
+      city_id: newLocalAddress.city,
+      main_category_id: newLocalCategories.filter((item) => !item.parent_category_id || item.parent_category_id === '')[0].id,
+      categories_ids: newLocalCategories.filter((item) => item.parent_category_id && item.parent_category_id !== '').reduce((obj, item) => [...obj, {categories_id: item.id}], []),
+      tags_ids: newLocalTags.reduce((obj, item) => [...obj, {tags_id: item.id}], []),
+      links: newLocalLinks.reduce((obj, item) => [...obj, {link: { data: { name: item.name, url: item.url } }}], []),
+      contacts: newLocalContacts.reduce((obj, item) => [...obj, {contact: { data: { name: item.name, type: item.type, value: item.value, is_public: item.is_public } }}], []),
+    }
+
+    console.log(variables)
+
     if (
-      (newLocalValues.name && newLocalValues.name !== "") &&
-      (newLocalValues.theme && newLocalValues.theme !== "")
+      (variables.name && variables.name !== "") &&
+      (variables.main_category_id && variables.main_category_id !== "") &&
+      (variables.street_line_1 && variables.street_line_1 !== "") &&
+      (variables.postcode && variables.postcode !== "") &&
+      (variables.city_id && variables.city_id !== "") &&
+      (variables.latitude && variables.latitude !== "") &&
+      (variables.longitude && variables.longitude !== "")
     ) {
-      await addCategoryMutation(
+      await addLocalMutation(
         { 
-          variables: { 
-            name: newLocalValues.name,
-            theme: newLocalValues.theme,
-            parent_category_id: newLocalValues.parent_category ? newLocalValues.parent_category.id : null
-          } 
+          variables: variables 
         }
       ); 
 
-      router.push("/admin/categories");
+      router.push("/admin/locals");
     }
   }
 
@@ -326,7 +348,7 @@ const NewCategory = () => {
             -
             -
           */}
-          <div className="py-8 flex-grow flex">
+          <div className="py-8 w-full flex-grow flex">
             <div className="px-4 w-1/3">
               <h4
                 className="mb-2 px-4"
@@ -529,7 +551,7 @@ const NewCategory = () => {
               </h4>
               <LinksEditor
                 initialLinks={[]}
-                onLinksChange={() => {}}
+                onLinksChange={(value) => setNewLocalLinks(value)}
               />
             </div>
 
@@ -541,7 +563,7 @@ const NewCategory = () => {
               </h4>
               <ContactsEditor
                 initialLinks={[]}
-                onContactsChange={() => {}}
+                onContactsChange={(value) => setNewLocalContacts(value)}
               />
             </div>
           </div>
@@ -554,4 +576,4 @@ const NewCategory = () => {
   );
 };
 
-export default NewCategory;
+export default NewLocal;
