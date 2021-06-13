@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 const CustomSelect = ({
   reference,
   onChange,
@@ -5,8 +7,16 @@ const CustomSelect = ({
   value,
   customClasses,
   placeholder,
+  disabled,
   big = false
 }) => {
+
+  useEffect(() => {
+    if (options && options[0] && onChange) {
+      onChange(options[0].value);
+    }
+  }, [options])
+
   return (
     <div
       ref={reference}
@@ -39,10 +49,11 @@ const CustomSelect = ({
         placeholder={placeholder}
         value={value}
         onChange={e => onChange(e.target.value)}
+        disabled={disabled}
       >
 
         {
-          options.map((item, index) => (
+          Array.isArray(options) && options.map((item, index) => (
             <option key={index} value={item.value}>{item.name}</option>
           ))
         }

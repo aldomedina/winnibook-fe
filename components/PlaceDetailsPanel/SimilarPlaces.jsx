@@ -15,11 +15,11 @@ const SimilarPlaces = ({ similar, main_category }) => {
         justify-center
       "
     >
-      <div className="min-h-50vh max-h-full gap-3 flex flex-col w-full">
+      <div className="min-h-50vh max-h-full gap-3 flex flex-col min-w-100vw md:min-w-min md:w-full">
         <h3 className="uppercase mb-3 font-medium">Similar places</h3>
         <div className="flex flex-row h-full gap-3 md:gap-10">
           {similar?.map((item, i) => (
-            <div key={`${item?.id}-${i}`} className="w-1/2 min-w-20vw">
+            <div key={`${item?.id}-${i}`} className="min-w-50vw md:w-1/2 md:min-w-20vw">
               <a
                 key={i}
                 href={"/place/" + item.id}

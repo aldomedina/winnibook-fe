@@ -1,0 +1,6 @@
+query MyQuery {
+  winnibook_cities {
+    id
+    name
+  }
+}

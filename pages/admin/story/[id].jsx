@@ -211,7 +211,7 @@ const EditStory = ({ story }) => {
         <div className="w-full flex p-4 justify-between">
 
           <div>
-            <h2 className="text-2xl font-bold">New story</h2>
+            <h2 className="text-2xl font-bold">Edit story</h2>
           </div>
 
           <div className="actions flex">

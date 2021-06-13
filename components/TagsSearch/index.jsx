@@ -53,7 +53,7 @@ const TagsSearch = ({ items, theme, onTagClick, searchPlaceholder, onSearchChang
       >
         {filteredItems &&
           sortByName(filteredItems).map(el => (
-            <Tag key={el.id} filterTag name={el.name} onTagClick={onTagClick} tagInfo={el} big/>
+            <Tag key={el.id} name={el.name} theme={el.theme?el.theme:undefined} filterTag={el.theme?false:true} onTagClick={onTagClick} tagInfo={el} big/>
           ))}
       </div>
     </div>

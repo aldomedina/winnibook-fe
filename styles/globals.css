@@ -41,13 +41,13 @@
     @apply uppercase;
     @apply font-medium;
     color: currentColor;
-    -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+    -webkit-text-fill-color: transparent !important; /* Will override color (regardless of order) */
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: currentColor;
     transition: all 0.3s ease;
   }
   .outline-title:hover {
-    -webkit-text-fill-color: currentColor; /* Will override color (regardless of order) */
+    -webkit-text-fill-color: currentColor !important; /* Will override color (regardless of order) */
   }
   .bg-image {
     @apply bg-center;

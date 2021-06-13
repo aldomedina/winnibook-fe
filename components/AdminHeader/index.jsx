@@ -62,12 +62,12 @@ const AdminHeader = () => {
         Lists
       </a>
 
-      <a 
+      {/* <a 
         className="mr-8"
         href="/admin/misc"
       >
         Misc
-      </a>
+      </a> */}
 
     </div>
   );

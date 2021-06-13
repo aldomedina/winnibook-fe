@@ -21,7 +21,7 @@ query localById($localId: uuid = "") {
       id
       name
       theme
-      locals_as_main_category(limit: 2, where: {id: {_neq: $localId}}) {
+      locals_as_main_category(limit: 2, where: {id: {_neq: $localId}, is_active: {_eq: true}, is_confirmed: {_eq: true}}) {
         id
         name
         main_category {
@@ -80,6 +80,14 @@ query localById($localId: uuid = "") {
       region
       city {
         name
+      }
+    }
+    contacts(where: {contact: {is_public: {_eq: true}}}) {
+      contact {
+        id
+        name
+        type
+        value
       }
     }
   }
