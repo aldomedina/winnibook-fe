@@ -5,6 +5,7 @@ const CustomSelect = ({
   value,
   customClasses,
   placeholder,
+  disabled,
   big = false
 }) => {
   return (
@@ -39,6 +40,7 @@ const CustomSelect = ({
         placeholder={placeholder}
         value={value}
         onChange={e => onChange(e.target.value)}
+        disabled={disabled}
       >
 
         {

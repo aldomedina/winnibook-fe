@@ -16,6 +16,8 @@ import TagsFinder from '../../../components/TagsFinder';
 import Map from '../../../components/Map';
 
 import { ColorContext } from '../../../components/Theme';
+import LinksEditor from '../../../components/LinksEditor';
+import ContactsEditor from '../../../components/ContactsEditor';
 
 const availableThemes = [
   {
@@ -54,11 +56,11 @@ const availableThemes = [
 
 const dropdownOptions = [
   {
-    name: "Yes",
+    name: "Active",
     value: true
   },
   {
-    name: "No",
+    name: "Unactive",
     value: false
   }
 ];
@@ -207,7 +209,7 @@ const NewCategory = () => {
             -
           */}
           <div
-            className="px-4 mb-4 w-full"
+            className="px-4 mb-4 w-2/3"
           >
             <h4
               className="mb-2 px-4"
@@ -217,8 +219,28 @@ const NewCategory = () => {
             <Input
               customClasses="min-h-40p"
               value={newLocalName}
-              placeholder="Category name"
+              placeholder="Local name"
               onChange={(value) => setNewLocalName(value)}
+            />
+          </div>
+
+          {/* 
+            -
+            IS ACTIVE
+            -
+            -
+          */}
+          <div className="px-4 w-1/3">
+            <h4
+              className="mb-2 px-4"
+            >
+              Status
+            </h4>
+            <CustomSelect
+              options={dropdownOptions}
+              placeholder="Active local"
+              value={newLocalIsActive}
+              onChange={(value) => setNewLocalIsActive(value)}
             />
           </div>
 
@@ -277,7 +299,7 @@ const NewCategory = () => {
             <div 
               className="
                 w-full 
-                h-24 
+                h-32 
                 rounded-xl 
                 bg-black 
                 bg-opacity-5 
@@ -304,214 +326,224 @@ const NewCategory = () => {
             -
             -
           */}
-          <div className="px-4 w-1/3">
-            <h4
-              className="mb-2 px-4"
-            >
-              Street address
-            </h4>
-            <Input
-              customClasses="min-h-40p mb-4"
-              value={newLocalAddress.street_line_1}
-              placeholder="Address line 1"
-              onChange={(value) => setNewLocalAddress({...newLocalAddress, street_line_1: value})}
-            />
-            <Input
-              customClasses="min-h-40p mb-4"
-              value={newLocalAddress.street_line_2}
-              placeholder="Address line 2"
-              onChange={(value) => setNewLocalAddress({...newLocalAddress, street_line_2: value})}
-            />
-            <Input
-              customClasses="min-h-40p mb-4"
-              value={newLocalAddress.postcode}
-              placeholder="Postcode"
-              onChange={(value) => setNewLocalAddress({...newLocalAddress, postcode: value})}
-            />
-          </div>
+          <div className="py-8 flex-grow flex">
+            <div className="px-4 w-1/3">
+              <h4
+                className="mb-2 px-4"
+              >
+                Street address
+              </h4>
+              <Input
+                customClasses="min-h-40p mb-4"
+                value={newLocalAddress.street_line_1}
+                placeholder="Address line 1"
+                onChange={(value) => setNewLocalAddress({...newLocalAddress, street_line_1: value})}
+              />
+              <Input
+                customClasses="min-h-40p mb-4"
+                value={newLocalAddress.street_line_2}
+                placeholder="Address line 2"
+                onChange={(value) => setNewLocalAddress({...newLocalAddress, street_line_2: value})}
+              />
+              <Input
+                customClasses="min-h-40p mb-4"
+                value={newLocalAddress.postcode}
+                placeholder="Postcode"
+                onChange={(value) => setNewLocalAddress({...newLocalAddress, postcode: value})}
+              />
+            </div>
 
-          <div className="px-4 w-1/3">
-            <h4
-              className="mb-2 px-4"
-            >
-              Region/City
-            </h4>
-            <Input
-              customClasses="min-h-40p mb-4"
-              value={newLocalAddress.region}
-              placeholder="Region"
-              onChange={(value) => setNewLocalAddress({...newLocalAddress, region: value})}
-            />
-            <CustomSelect
-              options={allCities}
-              placeholder="City"
-              value={newLocalAddress.city}
-              onChange={(value) => setNewLocalAddress({...newLocalAddress, city: value})}
-            />
-          </div>
+            <div className="px-4 w-1/3">
+              <h4
+                className="mb-2 px-4"
+              >
+                Region/City
+              </h4>
+              <Input
+                customClasses="min-h-40p mb-4"
+                value={newLocalAddress.region}
+                placeholder="Region"
+                onChange={(value) => setNewLocalAddress({...newLocalAddress, region: value})}
+              />
+              <CustomSelect
+                options={allCities}
+                placeholder="City"
+                value={newLocalAddress.city}
+                onChange={(value) => setNewLocalAddress({...newLocalAddress, city: value})}
+              />
+            </div>
 
-          <div className="px-4 w-1/3 h-30vh mb-16">
-            <Map
-              location={
-                {
-                  latitude: newLocalAddress.latitude,
-                  longitude: newLocalAddress.longitude,
+            <div className="px-4 w-1/3 h-30vh">
+              <Map
+                location={
+                  {
+                    latitude: newLocalAddress.latitude,
+                    longitude: newLocalAddress.longitude,
+                  }
                 }
-              }
-              theme={newLocalTheme}
-            />
+                theme={newLocalTheme}
+              />
+            </div>
           </div>
           
-          {/* 
-            -
-            THEME
-            -
-            -
-          */}
-          <div
-            className="px-4 w-1/4"
-          >
-            <h4
-              className="mb-2 px-4"
+          <div className="py-8 flex-grow flex">
+            {/* 
+              -
+              THEME
+              -
+              -
+            */}
+            <div
+              className="px-4 w-1/3"
             >
-              Theme
-            </h4>
-            <CustomSelect
-              options={availableThemes}
-              placeholder="Category theme"
-              onChange={(value) => setNewLocalTheme(value)}
-            />
-          </div>
-          
-          {/* 
-            -
-            CATEGEORIES
-            -
-            -
-          */}
-          <div className="px-4 w-1/4">
-
-            <h4
-              className="mb-2 px-4"
-            >
-              Categories
-            </h4>
+              <h4
+                className="mb-2 px-4"
+              >
+                Theme
+              </h4>
+              <CustomSelect
+                options={availableThemes}
+                placeholder="Category theme"
+                onChange={(value) => setNewLocalTheme(value)}
+              />
+            </div>
             
-            {
-              (!showCategoriesSelector && newLocalCategories?.length > 0) &&
-              <div className="w-full flex flex-wrap mb-4">
-                {
-                  newLocalCategories.map((item, index) => (
+            {/* 
+              -
+              CATEGEORIES
+              -
+              -
+            */}
+            <div className="px-4 w-1/3">
 
-                    <div
-                      onClick={() => setNewLocalCategories(newLocalCategories.filter((cat) => cat.id !== item.id))}
-                    >
-                      <Tag
-                        name={item?.name}
-                        tagInfo={item}
-                        theme={item?.theme}
-                        big
-                      />
-                    </div>
+              <h4
+                className="mb-2 px-4"
+              >
+                Categories
+              </h4>
+              
+              {
+                (!showCategoriesSelector && newLocalCategories?.length > 0) &&
+                <div className="w-full flex flex-wrap mb-4">
+                  {
+                    newLocalCategories.map((item, index) => (
 
-                  ))
-                }
+                      <div
+                        onClick={() => setNewLocalCategories(newLocalCategories.filter((cat) => cat.id !== item.id))}
+                      >
+                        <Tag
+                          name={item?.name}
+                          tagInfo={item}
+                          theme={item?.theme}
+                          big
+                        />
+                      </div>
 
-                <div
-                  onClick={() => setShowCategoriesSelector(true)}
-                >
-                  <Tag
-                    name="Add more"
-                    filterTag
-                    big
-                  />
+                    ))
+                  }
+
+                  <div
+                    onClick={() => setShowCategoriesSelector(true)}
+                  >
+                    <Tag
+                      name="Add more"
+                      filterTag
+                      big
+                    />
+                  </div>
                 </div>
-              </div>
-            }
+              }
 
-            {
-              (showCategoriesSelector || newLocalCategories?.length <= 0) &&
-              <CategoryFinder
-                hasParent={checkHasParentCategory()}
-                onSelectCategory={selectCategory}
-              />
-            }
+              {
+                (showCategoriesSelector || newLocalCategories?.length <= 0) &&
+                <CategoryFinder
+                  hasParent={checkHasParentCategory()}
+                  onSelectCategory={selectCategory}
+                />
+              }
 
+            </div>
+
+            {/* 
+              -
+              TAGS
+              -
+              -
+            */}
+            <div className="px-4 w-1/3">
+
+              <h4
+                className="mb-2 px-4"
+              >
+                Tags
+              </h4>
+
+              {
+                (!showTagsSelector && newLocalTags?.length > 0) &&
+                <div className="w-full flex flex-wrap mb-4">
+                  {
+                    newLocalTags.map((item, index) => (
+
+                      <div
+                        onClick={() => setNewLocalTags(newLocalTags.filter((cat) => cat.id !== item.id))}
+                      >
+                        <Tag
+                          name={item?.name}
+                          tagInfo={item}
+                          filterTag
+                          big
+                        />
+                      </div>
+
+                    ))
+                  }
+
+                  <div
+                    onClick={() => setShowTagsSelector(true)}
+                  >
+                    <Tag
+                      name="Add more"
+                      filterTag
+                      big
+                    />
+                  </div>
+                </div>
+              }
+
+              {
+                (showTagsSelector || newLocalTags?.length <= 0) &&
+                <TagsFinder
+                  onSelectTag={selectTag}
+                />
+              }
+
+            </div>
           </div>
 
-          {/* 
-            -
-            TAGS
-            -
-            -
-          */}
-          <div className="px-4 w-1/4">
-
-            <h4
-              className="mb-2 px-4"
-            >
-              Tags
-            </h4>
-
-            {
-              (!showTagsSelector && newLocalTags?.length > 0) &&
-              <div className="w-full flex flex-wrap mb-4">
-                {
-                  newLocalTags.map((item, index) => (
-
-                    <div
-                      onClick={() => setNewLocalTags(newLocalTags.filter((cat) => cat.id !== item.id))}
-                    >
-                      <Tag
-                        name={item?.name}
-                        tagInfo={item}
-                        filterTag
-                        big
-                      />
-                    </div>
-
-                  ))
-                }
-
-                <div
-                  onClick={() => setShowTagsSelector(true)}
-                >
-                  <Tag
-                    name="Add more"
-                    filterTag
-                    big
-                  />
-                </div>
-              </div>
-            }
-
-            {
-              (showTagsSelector || newLocalTags?.length <= 0) &&
-              <TagsFinder
-                onSelectTag={selectTag}
+          <div className="py-8 flex-grow flex">
+            <div className="px-4 w-1/3">
+              <h4
+                className="mb-2 px-4"
+              >
+                Links
+              </h4>
+              <LinksEditor
+                initialLinks={[]}
+                onLinksChange={() => {}}
               />
-            }
+            </div>
 
-          </div>
-
-          {/* 
-            -
-            IS ACTIVE
-            -
-            -
-          */}
-          <div className="px-4 w-1/4">
-            <h4
-              className="mb-2 px-4"
-            >
-              Active local
-            </h4>
-            <CustomSelect
-              options={dropdownOptions}
-              placeholder="Active local"
-              value={newLocalIsActive}
-              onChange={(value) => setNewLocalIsActive(value)}
-            />
+            <div className="px-4 w-2/3">
+              <h4
+                className="mb-2 px-4"
+              >
+                Contacts
+              </h4>
+              <ContactsEditor
+                initialLinks={[]}
+                onContactsChange={() => {}}
+              />
+            </div>
           </div>
 
         </div>
