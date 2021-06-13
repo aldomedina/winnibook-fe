@@ -148,7 +148,8 @@ module.exports = {
       },
       fontSize: {
         '2xs': '.6rem',
-        '3xs': '.5rem'
+        '3xs': '.5rem',
+        '10xl': '10rem'
       },
       boxShadow: {
         reverse: '0 -1px 3px 0 rgba(0, 0, 0, 0.1)'

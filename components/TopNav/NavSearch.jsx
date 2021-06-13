@@ -6,11 +6,11 @@ import SearchResultsBox from '../SearchResultsBox';
 
 import SEARCH_QUERY from '../../apollo/queries/search/searchLocalStoryCategoriesByName.gql';
 
-const NavSearch = ({ searchRef, openSearch, setOpenSearch, isMobile }) => {
+const NavSearch = ({ searchRef, openSearch, setOpenSearch, isMobile, colorTheme }) => {
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState({});
 
-  const [startSearch, {data: searchQuery, loading: searchLoading}] = useLazyQuery(SEARCH_QUERY);
+  const [startSearch, { data: searchQuery, loading: searchLoading }] = useLazyQuery(SEARCH_QUERY);
 
   let searchTimeout;
 
@@ -20,7 +20,7 @@ const NavSearch = ({ searchRef, openSearch, setOpenSearch, isMobile }) => {
       searchTimeout = setTimeout(() => {
         startSearch({
           variables: {
-            name: "%" + searchValue+ "%"
+            name: '%' + searchValue + '%'
           }
         });
       }, 300);
@@ -33,12 +33,16 @@ const NavSearch = ({ searchRef, openSearch, setOpenSearch, isMobile }) => {
       stories: searchQuery?.winnibook_stories,
       categories: searchQuery?.winnibook_categories
     });
-
   }, [searchQuery]);
 
   return (
     <div ref={searchRef} className="flex-1 relative md:max-w-40vw w-full md:mr-10 ">
-      <SearchBar buttonIcon={isMobile} value={searchValue} onChange={setSearchValue} />
+      <SearchBar
+        buttonIcon={isMobile}
+        value={searchValue}
+        onChange={setSearchValue}
+        theme={colorTheme}
+      />
 
       <SearchResultsBox
         openSearch={openSearch}

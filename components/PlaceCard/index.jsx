@@ -47,7 +47,7 @@ const PlaceCard = ({ name, theme, onClick, categories, big, extraBig }) => {
       >
         <ResponsiveEllipsis
           text={name}
-          maxLine={big || extraBig ? '2' : '3'}
+          maxLine={big || extraBig ? '3' : '4'}
           ellipsis="..."
           basedOn="letters"
           trimRight
