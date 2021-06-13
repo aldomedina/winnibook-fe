@@ -26,7 +26,7 @@ const STag = styled.div`
   }
 `;
 const BgOpacity = styled.div`
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.6);
 `;
 
 const AboutUs = ({ data }) => {
@@ -165,78 +165,88 @@ const AboutUs = ({ data }) => {
           <div className="transform rotate-180 md:mt-1.5">W</div>INNIBOOK
         </div>
       </div>
+      <div className="flex justify-center">
+        <div
+          className="flex flex-col md:flex-row gap-12 mx-3 md:mx-12 mb-12"
+          style={{ maxWidth: '1200px' }}
+        >
+          <div>
+            <h1 className="text-2xl md:text-4xl font-medium mb-8">SHOWCASE YOUR BUSINESS! 💡</h1>
 
-      <div
-        className="flex flex-col md:flex-row gap-12 mx-3 md:mx-12 mb-12"
-        style={{ maxWidth: '1200px' }}
-      >
-        <div>
-          <h1 className="text-2xl md:text-4xl font-medium mb-8">SHOWCASE YOUR BUSINESS! 💡</h1>
-
-          <p className="max-w-152 text-lg mb-6">
-            Whether you are in retail, self-employed offering a service or an independent business,
-            a listing with Winibooks will help your next customer find you. We help customers find
-            businesses essential information like hours, locations, website, and social media.
-          </p>
+            <p className="max-w-152 text-lg mb-6">
+              Whether you are in retail, self-employed offering a service or an independent
+              business,{' '}
+              <span className="font-bold">
+                a listing with Winibooks will help your next customer find you.
+              </span>
+              We help customers find businesses essential information like hours, locations,
+              website, and social media.
+            </p>
+          </div>
+          <BgOpacity className="p-6 rounded-20p min-h-60vh md:min-h-full grid grid-cols-2 md:grid-cols-3 grid-rows-3 md:grid-rows-none md:auto-rows-auto-dense gap-2 md:gap-5">
+            {featuredList[0].locals.map(p => (
+              <a href={'place/' + p.localByLocal.id} key={p.localByLocal.id}>
+                <PlaceCard
+                  name={p.localByLocal.name}
+                  categories={p.localByLocal.categories
+                    .map(cat => cat.category)
+                    .concat([p.localByLocal?.main_category])
+                    .splice(0, 3)}
+                  theme={p.localByLocal.main_category.theme}
+                />
+              </a>
+            ))}
+          </BgOpacity>
         </div>
-        <BgOpacity className="p-6 rounded-20p min-h-60vh md:min-h-full grid grid-cols-2 md:grid-cols-3 grid-rows-3 md:grid-rows-none md:auto-rows-auto-dense gap-2 md:gap-5">
-          {featuredList[0].locals.map(p => (
-            <a href={'place/' + p.localByLocal.id} key={p.localByLocal.id}>
-              <PlaceCard
-                name={p.localByLocal.name}
-                categories={p.localByLocal.categories
-                  .map(cat => cat.category)
-                  .concat([p.localByLocal?.main_category])
-                  .splice(0, 3)}
-                theme={p.localByLocal.main_category.theme}
-              />
-            </a>
-          ))}
-        </BgOpacity>
       </div>
-
-      <div
-        className="flex flex-col-reverse md:flex-row gap-12 mx-3 md:mx-12 mb-12"
-        style={{ maxWidth: '1200px' }}
-      >
-        <div className="flex min-w-50vw">
+      <div className="flex justify-center">
+        <div
+          className="w-full flex flex-col-reverse md:flex-row gap-12 mx-3 md:mx-12 mb-12"
+          style={{ maxWidth: '1200px' }}
+        >
           <div
             id="map"
             className={`
-          bg-yellow-200           
-          min-h-50vh          
-          md:min-h-70vh          
-          rounded-3xl
-          transition-all
-          w-full
-          mr-5
-          
-        `}
+                bg-yellow-200           
+                min-h-50vh          
+                md:min-h-70vh          
+                rounded-3xl
+                transition-all
+                w-full    
+                md:w-7/12          
+                mr-5              
+              `}
             ref={googlemap}
           />
-        </div>
-        <div>
-          <h1 className="text-2xl md:text-4xl font-medium mb-8">HAND-REVIEWED LISTING</h1>
-          <p className="max-w-152 text-lg mb-6">
-            We offer a spam-free experience for users with a hand-reviewed listing. Stand from the
-            crowd in today’s online marketplace with a strong online presence. As part of Winnibooks
-            listing we also offer blog posts and advertising within the website to reach your
-            targeted audience.
-          </p>
-          <div
-            className={`              
+
+          <div className="md:w-5/12     ">
+            <h1 className="text-2xl md:text-4xl font-medium mb-8">HAND-REVIEWED LISTING</h1>
+            <p className="max-w-152 text-lg mb-6">
+              We offer a spam-free experience for users with a hand-reviewed listing.{' '}
+              <span className="font-bold">Stand from the crowd</span> in today’s online marketplace
+              with a strong online presence. As part of Winnibooks listing we also offer blog posts
+              and advertising within the website to reach your targeted audience.
+            </p>
+            <div
+              className={`              
               transition-all    
               h-44
               ${activePlace?.name ? 'w-44' : 'w-0'}`}
-          >
-            {activePlace?.name && (
-              <a href={'/place/' + activePlace.id}>
-                <PlaceCard
-                  name={activePlace.name}
-                  categories={[activePlace.main_category]}
-                  theme={activePlace.main_category.theme}
-                />
-              </a>
+            >
+              {activePlace?.name && (
+                <a href={'/place/' + activePlace.id}>
+                  <PlaceCard
+                    name={activePlace.name}
+                    categories={[activePlace.main_category]}
+                    theme={activePlace.main_category.theme}
+                  />
+                </a>
+              )}
+            </div>
+            {!activePlace?.name && (
+              <div className="border border-dashed rounded py-8 px-8 w-44">
+                Select a place from the Winnimap
+              </div>
             )}
           </div>
         </div>
