@@ -42,7 +42,7 @@ const CustomSelect = ({
       >
 
         {
-          options.map((item, index) => (
+          Array.isArray(options) && options.map((item, index) => (
             <option key={index} value={item.value}>{item.name}</option>
           ))
         }

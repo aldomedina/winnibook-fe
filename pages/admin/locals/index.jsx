@@ -52,7 +52,7 @@ const Locals = ({ locals }) => {
 
             <Button 
               title="Review locals"
-              onClick={() => router.push("/admin/new-place")}
+              onClick={() => router.push("/admin/local/new")}
             />
 
           </div>
