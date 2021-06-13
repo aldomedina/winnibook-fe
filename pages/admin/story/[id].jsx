@@ -1,10 +1,11 @@
 import { useState, useEffect, useContext, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { client } from '../../../apollo/client';
-import { convertToHTML } from 'draft-convert';
+import { convertToHTML, convertFromHTML } from 'draft-convert';
 import { useMutation } from '@apollo/client';
+import { client } from '../../../apollo/client';
 
-import ADD_STORY from '../../../apollo/mutations/story/insert.gql';
+import GET_STORY_BY_ID from '../../../apollo/queries/stories/getStoryById.gql';
+import UPDATE_STORY from '../../../apollo/mutations/story/update.gql';
 
 import AdminHeader from '../../../components/AdminHeader';
 import Button from '../../../components/Button';
@@ -42,13 +43,14 @@ const isFeaturedOptions = [
   }
 ];
 
-const NewStory = () => {
+const EditStory = ({ story }) => {
   const router = useRouter();
 
   const mainImageInputRef = useRef();
 
   const { colorTheme, setColorTheme } = useContext(ColorContext);
 
+  const [postId, setPostId] = useState('');
   const [postCategories, setPostCategories] = useState([]);
   const [postLocals, setPostLocals] = useState([]);
   const [postIsPublished, setPostIsPublished] = useState(false);
@@ -59,14 +61,34 @@ const NewStory = () => {
   const [postState, setPostState] = useState(undefined);
 
   const [convertedContent, setConvertedContent] = useState(null);
-  const [showCategoriesSelector, setShowCategoriesSelector] = useState(true);
-  const [showLocalsSelector, setShowLocalsSelector] = useState(true);
+  const [showCategoriesSelector, setShowCategoriesSelector] = useState(false);
+  const [showLocalsSelector, setShowLocalsSelector] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
 
-  const [addStoryMutation, { data }] = useMutation(ADD_STORY);
+  const [addStoryMutation, { data }] = useMutation(UPDATE_STORY);
 
   useEffect(() => {
     setColorTheme('dark');
+
+    console.log(story);
+
+    setPostId(story.id);
+    setPostTitle(story.title);
+    setPostSubtitle(story.subtitle);
+
+    let allCategories = story.categories.reduce((obj, item) => {return [...obj, item.category]}, []);
+    allCategories.unshift(story.main_category);
+    console.log(allCategories);
+    setPostCategories(allCategories);
+    setPostLocals(story.locals.reduce((obj, item) => {return [...obj, item.local]}, []));
+
+    setMainImage(story.images[0]?.image.url);
+
+    setPostIsPublished(story.is_published);
+    setPostIsFeatured(story.is_featured);
+
+    setConvertedContent(story.body);
+    convertContentFromHTML(story.body);
   }, []);
 
   useEffect(() => {
@@ -83,16 +105,20 @@ const NewStory = () => {
       postCategories.filter((item) => !item.parent_category_id || item.parent_category_id === '').length > 0
     ) {
       let variables = { 
+        id: story.id,
         title: postTitle,
         subtitle: postSubtitle,
         body: convertedContent,
         main_category_id: postCategories.filter((item) => !item.parent_category_id || item.parent_category_id === '')[0].id,
-        categories_ids: postCategories.filter((item) => item.parent_category_id && item.parent_category_id !== '').reduce((obj, item) => [...obj, {categories_id: item.id}], []),
-        locals_ids: postLocals.reduce((obj, item) => [...obj, {locals_id: item.id}], []),
+        categories: postCategories.filter((item) => item.parent_category_id && item.parent_category_id !== '').reduce((obj, item) => [...obj, {stories_id: story.id, categories_id: item.id}], []),
+        locals: postLocals.reduce((obj, item) => [...obj, {stories_id: story.id, locals_id: item.id}], []),
         mainImage: mainImage,
-        is_features: postIsFeatured,
+        imageId: story.images[0]?.image.id,
+        is_featured: postIsFeatured,
         is_published: postIsPublished
       };
+
+      console.log(variables);
   
       try {
         await addStoryMutation(
@@ -118,6 +144,21 @@ const NewStory = () => {
       }
     })(postState);
     setConvertedContent(currentContentAsHTML);
+  }
+
+  const convertContentFromHTML = (content) => {
+    let currentContentFromHTML = convertFromHTML({
+      htmlToEntity: (nodeName, node, createEntity) => {
+        if (nodeName === 'img') {
+            return createEntity(
+                'IMAGE',
+                {src: node.href}
+            )
+        }
+      },
+    })(content);
+
+    setPostState(currentContentFromHTML);
   }
 
   const insertImage = async ( file ) => {
@@ -382,9 +423,13 @@ const NewStory = () => {
               </div>
 
               <div className="min-h-70vh rounded-xl border overflow-hidden mb-4">
-                <PostEditor
-                  onChange={setPostState}
-                />
+                {
+                  postState &&
+                  <PostEditor
+                    initialContent={postState}
+                    onChange={setPostState}
+                  />
+                }
               </div>
 
             </div>
@@ -455,4 +500,20 @@ const NewStory = () => {
   );
 };
 
-export default NewStory;
+export async function getServerSideProps({ params: { id } }) {
+
+  const { data } = await client.query({
+    query: GET_STORY_BY_ID,
+    variables: {
+      storyId: id
+    }
+  });
+
+  return {
+    props: {
+      story: data.winnibook_stories[0] ? data.winnibook_stories[0] : {}
+    }
+  };
+}
+
+export default EditStory;

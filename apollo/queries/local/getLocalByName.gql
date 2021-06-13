@@ -1,17 +1,13 @@
-query MyQuery {
-  winnibook_stories {
+query MyQuery($name: String = "") {
+  winnibook_locals(where: {name: {_ilike: $name}}, limit: 3) {
     id
-    published_on
-    title
-    subtitle
-    is_published
-    is_featured
+    name
     main_category {
       id
       name
       theme
     }
-    categories {
+    categories(limit: 2) {
       category {
         id
         name

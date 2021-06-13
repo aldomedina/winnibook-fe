@@ -143,7 +143,7 @@ const Stories = () => {
             <Fragment key={`story-section-${i}`}>
               {stories[index * i] && (
                 <li>
-                  <Link href={"/story/" + stories[index * i]}>
+                  <Link href={"/story/" + stories[index * i].id}>
                     <a>
                       <StoryCard
                         image={stories[index * i].images[0]?.image.url}
@@ -160,7 +160,7 @@ const Stories = () => {
               )}
               {stories[index * i + 1] && (
                 <li>
-                  <Link href={"/story/" + stories[index * i + 1]}>
+                  <Link href={"/story/" + stories[index * i + 1].id}>
                     <a>
                       <StoryCard
                         vertical
@@ -177,7 +177,7 @@ const Stories = () => {
               )}
               {stories[index * i + 2] && (
                 <li>
-                  <Link href={"/story/" + stories[index * i + 2]}>
+                  <Link href={"/story/" + stories[index * i + 2].id}>
                     <a>
                       <StoryCard
                         vertical
@@ -194,7 +194,7 @@ const Stories = () => {
               )}
               {stories[index * i + 3] && (
                 <li className="md:col-span-2 md:row-span-2">
-                  <Link href={"/story/" + stories[index * i + 3]}>
+                  <Link href={"/story/" + stories[index * i + 3].id}>
                     <a>
                       <StoryCard
                         image={stories[index * i + 3].images[0]?.image.url}
@@ -212,7 +212,7 @@ const Stories = () => {
               <li className="hidden md:block" />
               {stories[index * i + 4] && (
                 <li>
-                  <Link href={"/story/" + stories[index * i + 4]}>
+                  <Link href={"/story/" + stories[index * i + 4].id}>
                     <a>
                       <StoryCard
                         vertical
@@ -229,7 +229,7 @@ const Stories = () => {
               )}
               {stories[index * i + 5] && (
                 <li>
-                  <Link href={"/story/" + stories[index * i + 5]}>
+                  <Link href={"/story/" + stories[index * i + 5].id}>
                     <a>
                       <StoryCard
                         vertical
@@ -247,7 +247,7 @@ const Stories = () => {
               <li className="hidden md:block" />
               {stories[index * i + 6] && (
                 <li className="md:col-span-2 md:row-span-2">
-                  <Link href={"/story/" + stories[index * i + 6]}>
+                  <Link href={"/story/" + stories[index * i + 6].id}>
                     <a>
                       <StoryCard
                         image={stories[index * i + 6].images[0]?.image.url}
@@ -264,7 +264,7 @@ const Stories = () => {
               )}
               {stories[index * i + 7] && (
                 <li>
-                  <Link href={"/story/" + stories[index * i + 7]}>
+                  <Link href={"/story/" + stories[index * i + 7].id}>
                     <a>
                       <StoryCard
                         vertical

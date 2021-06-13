@@ -1,0 +1,38 @@
+mutation MyMutation(
+  $title: String = "", 
+  $subtitle: String = "", 
+  $body: String = "", 
+  $main_category_id: uuid = ""
+  $categories_ids: [winnibook_story_categories_insert_input!]!, 
+  $locals_ids: [winnibook_story_locals_insert_input!]!, 
+  $mainImage: String = "", 
+  $is_featured: Boolean = false, 
+  $is_published: Boolean = false, 
+) {
+  insert_winnibook_stories_one(
+    object: {
+      title: $title, 
+      subtitle: $subtitle, 
+      body: $body,
+      main_category_id: $main_category_id, 
+      categories: {
+        data: $categories_ids
+      }, 
+      locals: {
+        data: $locals_ids
+      }, 
+      is_published: $is_published, 
+      is_featured: $is_featured, 
+      images: {
+        data: {
+          image: {
+            data: {
+              url: $mainImage
+            }
+          }
+        }
+      }
+    }) {
+    id
+  }
+}

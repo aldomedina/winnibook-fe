@@ -1,0 +1,106 @@
+mutation MyMutation(
+  $id: uuid = "", 
+  $title: String = "", 
+  $subtitle: String = "", 
+  $body: String = "", 
+  $main_category_id: uuid = "", 
+  $categories: [winnibook_story_categories_insert_input!]!,
+  $locals: [winnibook_story_locals_insert_input!]!,
+  $imageId: uuid = "",
+  $mainImage: String = "", 
+  $is_featured: Boolean = false, 
+  $is_published: Boolean = false
+) {
+
+  update_winnibook_stories(
+    where: {
+      id: {
+        _eq: $id
+      }
+    }, 
+    _set: {
+      title: $title, 
+      subtitle: $subtitle, 
+      main_category_id: $main_category_id, 
+      is_published: $is_published, 
+      is_featured: $is_featured, 
+      body: $body
+    }
+  ) {
+    returning {
+      id
+    }
+  }
+
+  delete_winnibook_story_categories(
+    where: {
+      stories_id: {
+        _eq: $id
+      }
+    }
+  ) {
+    returning {
+      stories_id
+    }
+  }
+
+  insert_winnibook_story_categories(
+    objects: $categories
+  ) {
+    returning {
+      stories_id
+    }
+  }
+
+  delete_winnibook_story_locals(
+    where: {
+      stories_id: {
+        _eq: $id
+      }
+    }
+  ) {
+    returning {
+      stories_id
+    }
+  }
+
+  insert_winnibook_story_locals(
+    objects: $locals
+  ) {
+    returning {
+      stories_id
+    }
+  }
+
+  update_winnibook_images(
+    where: {
+      id: {
+        _eq: $imageId
+      }
+    }, 
+    _set: {
+      url: $mainImage
+    }
+  ) {
+    returning {
+      id
+    }
+  }
+
+  # update_winnibook_images(
+  #   where: {
+  #     stories: {
+  #       stories_id: {
+  #         _eq: $id
+  #       }
+  #     }
+  #   }, 
+  #   _set: {
+  #     url: $mainImage
+  #   }
+  # ) {
+  #   returning {
+  #     id
+  #   }
+  # }
+}
