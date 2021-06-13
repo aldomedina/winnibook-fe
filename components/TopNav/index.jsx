@@ -13,7 +13,6 @@ import Menu from './Menu';
 import NavSearch from './NavSearch';
 
 const TopNav = ({ showSearch, hasBG, reference }) => {
-  
   const [isOpen, setIsOpen] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
@@ -63,9 +62,7 @@ const TopNav = ({ showSearch, hasBG, reference }) => {
   }, []);
 
   return (
-    <div
-      ref={reference}
-    >
+    <div ref={reference}>
       <animated.div
         style={BGAnimation}
         className={`
@@ -94,6 +91,7 @@ const TopNav = ({ showSearch, hasBG, reference }) => {
               openSearch={openSearch}
               setOpenSearch={setOpenSearch}
               isMobile={isMobile}
+              colorTheme={colorTheme}
             />
           )}
         </div>

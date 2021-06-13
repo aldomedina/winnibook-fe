@@ -40,10 +40,14 @@
   .outline-title {
     @apply uppercase;
     @apply font-medium;
-    color: rgba(16, 59, 64, 1);
-    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+    color: currentColor;
+    -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: rgba(16, 59, 64, 1);
+    -webkit-text-stroke-color: currentColor;
+    transition: all 0.3s ease;
+  }
+  .outline-title:hover {
+    -webkit-text-fill-color: currentColor; /* Will override color (regardless of order) */
   }
   .bg-image {
     @apply bg-center;

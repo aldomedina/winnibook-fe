@@ -74,7 +74,10 @@ const Menu = ({ isOpen, setIsOpen, aboutMenu, openMenu, setOpenMenu, isMobile })
               style={aboutAnimation}
             >
               {el.subItems.map((sub, i) => (
-                <li key={i} className="uppercase text-left whitespace-nowrap md:text-sm mb-3 ">
+                <li
+                  key={i}
+                  className="uppercase text-left whitespace-nowrap md:text-sm mb-3 last:mb-0"
+                >
                   <Link href={`/${sub.slug}`}>{sub.name}</Link>
                 </li>
               ))}
