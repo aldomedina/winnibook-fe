@@ -4,6 +4,8 @@ query MyQuery {
     published_on
     title
     subtitle
+    is_published
+    is_featured
     main_category {
       id
       name

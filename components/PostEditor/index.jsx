@@ -39,7 +39,7 @@ const PostEditorWrapper = styled.div`
 
 `;
 
-const PostEditor = ({onChange}) => {
+const PostEditor = ({onChange, initialContent}) => {
 
   const editorRef = useRef();
   const imageInputRef = useRef();
@@ -48,9 +48,16 @@ const PostEditor = ({onChange}) => {
   const [editorState, setEditorState] = useState(undefined);
 
   useEffect(async () => {
-    setEditorState(
-      () => EditorState.createEmpty(),
-    )
+    if(initialContent) {
+      setEditorState(
+        () => EditorState.createWithContent(initialContent)
+      );
+    } else {
+      setEditorState(
+        () => EditorState.createEmpty()
+      )
+    }
+
     setEditorReady(true);
   }, []);
 
@@ -131,12 +138,15 @@ const PostEditor = ({onChange}) => {
             </Toolbar>
           </div>
 
-          <Editor
-            ref={editorRef}
-            editorState={editorState}
-            onChange={handleEditorChange}
-            plugins={plugins}
-          /> 
+          {
+            editorState &&
+            <Editor
+              ref={editorRef}
+              editorState={editorState}
+              onChange={handleEditorChange}
+              plugins={plugins}
+            />
+          } 
         </> : ""
       }
     </PostEditorWrapper>
