@@ -1,0 +1,142 @@
+mutation MyMutation(
+  $id: uuid = "",
+  $name: String = "", 
+  $short_description: String = "", 
+  $description: String = "",
+  $is_active: Boolean = false, 
+  $street_line_1: String = "",
+  $street_line_2: String = "",  
+  $region: String = "",  
+  $postcode: String = "",  
+  $latitude: String = "",  
+  $longitude: String = "",  
+  $city_id: uuid = "",  
+  $main_category_id: uuid = ""
+  $categories: [winnibook_local_categories_insert_input!]!, 
+  $tags: [winnibook_local_tags_insert_input!]!,
+  $links: [winnibook_links_insert_input!]!,
+  $contacts: [winnibook_contacts_insert_input!]!
+) {
+
+  update_winnibook_locals(
+    where: {
+      id: {
+        _eq: $id
+      }
+    },
+    _set: {
+      name: $name, 
+      short_description: $short_description, 
+      description: $description, 
+      is_active: $is_active, 
+      main_category_id: $main_category_id
+    }
+  ) {
+    returning {
+      id
+    }
+  }
+
+  update_winnibook_local_addresses(
+    where: {
+      locals: {
+        id: {
+          _eq: $id
+        }
+      }
+    }, 
+    _set: {
+      street_line_1: $street_line_1, 
+      street_line_2: $street_line_2, 
+      region: $region, 
+      postcode: $postcode, 
+      city_id: $city_id, 
+      latitude: $latitude, 
+      longitude: $longitude
+    }
+  ) {
+    returning {
+      id
+    }
+  }
+
+  delete_winnibook_local_categories(
+    where: {
+      locals_id: {
+        _eq: $id
+      }
+    }
+  ) {
+    returning {
+      locals_id
+    }
+  }
+
+  insert_winnibook_local_categories(
+    objects: $categories
+  ) {
+    returning {
+      locals_id
+    }
+  }
+
+  delete_winnibook_local_tags(
+    where: {
+      locals_id: {
+        _eq: $id
+      }
+    }
+  ) {
+    returning {
+      locals_id
+    }
+  }
+
+  insert_winnibook_local_tags(
+    objects: $tags
+  ) {
+    returning {
+      locals_id
+    }
+  }
+
+  delete_winnibook_local_links(
+    where: {
+      locals_id: {
+        _eq: $id
+      }
+    }
+  ) {
+    returning {
+      locals_id
+    }
+  }
+
+  insert_winnibook_links(
+    objects: $links
+  ) {
+    returning {
+      id
+    }
+  }
+
+  delete_winnibook_local_contacts(
+    where: {
+      locals_id: {
+        _eq: $id
+      }
+    }
+  ) {
+    returning {
+      locals_id
+    }
+  }
+
+  insert_winnibook_contacts(
+    objects: $contacts
+  ) {
+    returning {
+      id
+    }
+  }
+}

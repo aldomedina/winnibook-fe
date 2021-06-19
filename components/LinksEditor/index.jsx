@@ -14,7 +14,7 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
     if (initialLinks) {
       setLinks(initialLinks);
     }
-  }, []);
+  }, [initialLinks]);
 
   const setLinkValue = (key, value, index) => {
     let tempLinks = links;
@@ -36,6 +36,12 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
 
     setNewLinkName("");
     setNewLinkUrl("");
+  }
+
+  const removeLink = (index) => {
+    let tempLinks = links.filter((link, linkIndex) => linkIndex !== index);
+    setLinks(tempLinks);
+    onLinksChange(tempLinks);
   }
 
   return (
@@ -60,7 +66,7 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
               />
             </div>
             <div
-              onClick={() => setLinks(links.filter((link, linkIndex) => linkIndex !== index))}
+              onClick={() => removeLink(index)}
             >
               <Icon icon="x" />
             </div>

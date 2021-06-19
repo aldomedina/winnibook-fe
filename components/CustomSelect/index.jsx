@@ -11,11 +11,11 @@ const CustomSelect = ({
   big = false
 }) => {
 
-  useEffect(() => {
-    if (options && options[0] && onChange) {
-      onChange(options[0].value);
-    }
-  }, [options])
+  // useEffect(() => {
+  //   if (options && options[0] && onChange) {
+  //     onChange(options[0].value);
+  //   }
+  // }, [options])
 
   return (
     <div

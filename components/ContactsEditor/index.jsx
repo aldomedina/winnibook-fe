@@ -24,11 +24,18 @@ const ContactsEditor = ({initialContacts, onContactsChange}) => {
   const [newContactValue, setNewContactValue] = useState('');
   const [newContactIsPublic, setNewContactIsPublic] = useState(false);
 
+  // useEffect(() => {
+  //   if (initialContacts) {
+  //     setContacts(initialContacts);
+  //   }
+  //   console.log(initialContacts)
+  // }, []);
+
   useEffect(() => {
     if (initialContacts) {
       setContacts(initialContacts);
     }
-  }, []);
+  }, [initialContacts]);
 
   const setLinkValue = (key, value, index) => {
     let tempContacts = contacts;
@@ -38,7 +45,7 @@ const ContactsEditor = ({initialContacts, onContactsChange}) => {
     onContactsChange(tempContacts);
   }
 
-  const addLink = () => {
+  const addContact = () => {
     let tempContacts = contacts;
     tempContacts.push({
       name: newContactName,
@@ -54,6 +61,12 @@ const ContactsEditor = ({initialContacts, onContactsChange}) => {
     setNewContactType("");
     setNewContactValue("");
     setNewContactIsPublic(false);
+  }
+
+  const removeContact = (index) => {
+    let tempContacts = contacts.filter((contact, contactIndex) => contactIndex !== index);
+    setContacts(tempContacts);
+    onContactsChange(tempContacts);
   }
 
   return (
@@ -94,7 +107,7 @@ const ContactsEditor = ({initialContacts, onContactsChange}) => {
               />
             </div>
             <div
-              onClick={() => setContacts(contacts.filter((link, linkIndex) => linkIndex !== index))}
+              onClick={() => removeContact(index)}
             >
               <Icon icon="x" />
             </div>
@@ -135,7 +148,7 @@ const ContactsEditor = ({initialContacts, onContactsChange}) => {
           />
         </div>
         <div
-          onClick={addLink}
+          onClick={addContact}
         >
           <Tag name="ADD" filterTag big />
         </div>

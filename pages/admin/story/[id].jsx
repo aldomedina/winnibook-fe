@@ -234,7 +234,7 @@ const EditStory = ({ story }) => {
 
         </div>
         
-        <div class="flex-grow flex border rounded-3xl overflow-hidden">
+        <div className="flex-grow flex border rounded-3xl overflow-hidden">
 
           <div className="flex flex-grow">
             <div 
