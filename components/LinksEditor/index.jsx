@@ -36,6 +36,8 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
 
     setNewLinkName("");
     setNewLinkUrl("");
+
+    console.log(tempLinks);
   }
 
   const removeLink = (index) => {
@@ -48,8 +50,8 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
     <div>
       {
         links.map((item, index) => (
-          <div className="mb-4 py-2 border-b flex items-center">
-            <div className="mr-4">
+          <div className="mb-4 py-2 border-b flex flex-wrap items-center">
+            <div className="mb-4 w-full">
               <Input
                 customClasses="min-h-40p"
                 value={item.name}
@@ -57,7 +59,7 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
                 disabled
               />
             </div>
-            <div className="w-2/3 mr-4">
+            <div className="w-full md:w-auto md:mr-4 mb-4 flex-grow">
               <Input
                 customClasses="min-h-40p"
                 value={item.url}
@@ -73,8 +75,8 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
           </div>
         ))
       }
-      <div className="mb-4 py-2 border-b flex items-center">
-        <div className="mr-4">
+      <div className="mb-4 py-2 flex flex-wrap items-center">
+        <div className="mb-4 w-full">
           <Input
             customClasses="min-h-40p"
             value={newLinkName}
@@ -82,7 +84,7 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
             onChange={(value) => setNewLinkName(value)}
           />
         </div>
-        <div className="w-2/3 mr-4">
+        <div className="w-full md:w-auto md:mr-4 mb-4 flex-grow">
           <Input
             customClasses="min-h-40p"
             value={newLinkUrl}

@@ -15,7 +15,7 @@ const Input = ({
         w-full 
         bg-black 
         bg-opacity-5 
-        rounded-full 
+        rounded-2xl 
         transition-colors 
         focus-within:bg-opacity-10 
         ${customClasses}

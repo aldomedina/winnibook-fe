@@ -28,8 +28,20 @@ const GeneralDetails = ({ formDetails, setFormDetails, errors, setErrors, active
           maxLength="50"
         />
         <InputTextarea
+          error={errors.short_description ?? false}
+          label="Short description"
+          id="short-description"
+          placeholder="Short description"
+          value={formDetails.short_description}
+          onChange={value => {
+            setErrors({});
+            setFormDetails({ ...formDetails, short_description: value });
+          }}
+          maxLength="400"
+        />
+        <InputTextarea
           error={errors.description ?? false}
-          label="Description*"
+          label="Description"
           id="description"
           placeholder="Description"
           value={formDetails.description}

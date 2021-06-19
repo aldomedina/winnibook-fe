@@ -47,7 +47,6 @@ const TagsSearch = ({ items, theme, onTagClick, searchPlaceholder, onSearchChang
           
           gap-2
 
-          border-b
           md:border-0
         "
       >

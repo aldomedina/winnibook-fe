@@ -9,6 +9,7 @@ import PlaceCard from '../../components/PlaceCard';
 import PostBody from '../../components/Post/PostBody';
 import DateBox from '../../components/DateBox';
 import Tag from '../../components/Tag';
+import {Icon} from '../../components/Icon';
 
 import { ColorContext } from '../../components/Theme';
 
@@ -89,6 +90,10 @@ const Story = ({storyData}) => {
                   <PostBody
                     content={story?.body}
                   />
+
+                  <div className="pt-8 pb-16 flex justify-center">
+                    <Icon icon="logo" w="30px" h="30px" />
+                  </div>
                 </div>
               </div>
 

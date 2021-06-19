@@ -14,6 +14,8 @@ const Button = ({ theme, title, onClick, invertColors }) => {
       $t={theme}
       $invert={invertColors}
       className="
+        w-full
+        md:w-auto
         py-2
         px-2
 
