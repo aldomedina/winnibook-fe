@@ -1,19 +1,21 @@
 const Input = ({
   reference,
   onChange,
+  error,
   value,
   customClasses,
   placeholder,
   disabled,
   big = false
 }) => {
+  console.log(error)
   return (
     <div
       ref={reference}
       className={`
         relative 
         w-full 
-        bg-black 
+        ${error ? "bg-red-700" : "bg-black"} 
         bg-opacity-5 
         rounded-2xl 
         transition-colors 
