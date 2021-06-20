@@ -137,13 +137,13 @@ const JoinUs = () => {
       (variables.latitude && variables.latitude !== "") &&
       (variables.longitude && variables.longitude !== "")
     ) {
-      await addLocalMutation(
-        { 
-          variables: variables 
-        }
-      ); 
 
-      router.push("/admin/locals");
+      const res = await axios.post('/api/join', {
+        params: variables
+      });
+  
+      console.log(res);
+
     }
   }
 
@@ -269,7 +269,7 @@ const JoinUs = () => {
               "
             >
               <textarea 
-                className="w-full h-full border-0 bg-transparent text-white" 
+                className="w-full h-full border-0 bg-transparent" 
                 type="text" 
                 placeholder="Short description"
                 value={newLocalShortDescription}
@@ -307,7 +307,7 @@ const JoinUs = () => {
               "
             >
               <textarea 
-                className="w-full h-full border-0 bg-transparent text-white" 
+                className="w-full h-full border-0 bg-transparent" 
                 type="text" 
                 placeholder="Description"
                 value={newLocalDescription}

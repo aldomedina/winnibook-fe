@@ -175,7 +175,7 @@ const NewLocal = () => {
 
   const geocode = async () => {
     const { street_line_1, street_line_2, postcode, city } = newLocalAddress;
-    const address = `${street_line_1} ${street_line_2 ? address2 : ''} ${postcode}, ${city.name}, Canada`;
+    const address = `${street_line_1} ${street_line_2 ? street_line_2 : ''} ${postcode}, ${city.name}, Canada`;
     try {
       const { data } = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
         params: {
