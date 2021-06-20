@@ -1,16 +1,16 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import { client } from '../../../apollo/client';
+import { client } from '../../../../apollo/client';
 
-import GET_ALL_LOCALS from '../../../apollo/queries/admin/locals/getAllLocals.gql';
+import GET_ALL_LOCALS_FOR_REVIEW from '../../../../apollo/queries/admin/locals/getAllLocalsForReview.gql';
 
-import AdminHeader from '../../../components/AdminHeader';
-import Button from '../../../components/Button';
-import Tag from '../../../components/Tag';
+import AdminHeader from '../../../../components/AdminHeader';
+import Button from '../../../../components/Button';
+import Tag from '../../../../components/Tag';
 
-import { ColorContext } from '../../../components/Theme';
+import { ColorContext } from '../../../../components/Theme';
 
-const Locals = ({ locals, toReviewCount }) => {
+const Locals = ({ locals }) => {
   const router = useRouter();
   const { colorTheme, setColorTheme } = useContext(ColorContext);
 
@@ -28,52 +28,19 @@ const Locals = ({ locals, toReviewCount }) => {
         <div className="w-full flex p-4 justify-between">
 
           <div>
-            <h2 className="text-2xl font-bold">All locals</h2>
-          </div>
-
-          <div className="actions">
-
-            <Button 
-              title="New local"
-              onClick={() => router.push("/admin/local/new")}
-            />
-
+            <h2 className="text-2xl font-bold">Review locals</h2>
           </div>
 
         </div>
-
-        {
-          toReviewCount && toReviewCount > 0 &&
-          <div className="w-full flex justify-between items-center border-4 rounded-3xl p-4 mb-4 bg-white bg-opacity-25">
-
-            <div>
-              <h2 className="font-bold">{toReviewCount} local reviews pending</h2>
-            </div>
-
-            <div className="actions">
-
-              <Button 
-                title="Review locals"
-                onClick={() => router.push("/admin/locals/review")}
-              />
-
-            </div>
-
-          </div>
-        }
         
         <div className="flex-grow flex border rounded-3xl py-4">
           <table className="table-auto flex-grow h-fit">
             <thead>
               <tr className="border-b">
-                <th className="pb-4 px-4 max-w-1/4 text-left">ID</th>
                 <th className="pb-4 px-4 text-left">Name</th>
                 <th className="pb-4 px-4 text-left">Main Category</th>
                 <th className="pb-4 px-4 text-left">Categories</th>
                 <th className="pb-4 px-4 text-left">Tags</th>
-                <th className="pb-4 px-4 text-left">Active</th>
-                <th className="pb-4 px-4 text-left">Confirmed</th>
-                <th className="pb-4 px-4 text-left">Visits</th>
               </tr>
             </thead>
 
@@ -84,7 +51,6 @@ const Locals = ({ locals, toReviewCount }) => {
                     className="border-b cursor-pointer hover:bg-white hover:bg-opacity-25"
                     onClick={() => router.push("/admin/local/" + item.id)}
                   >
-                    <td className="p-4">{item.id}</td>
                     <td className="p-4">{item.name}</td>
                     <td className="p-4">
                       <div className="flex flex-wrap">
@@ -107,9 +73,6 @@ const Locals = ({ locals, toReviewCount }) => {
                         ))
                       }
                     </td>
-                    <td className="p-4">{item.is_active ? "Yes" : "No"}</td>
-                    <td className="p-4">{item.is_confirmed ? "Yes" : "No"}</td>
-                    <td className="p-4">{item.visits}</td>
                   </tr>
                 ))
               }
@@ -126,7 +89,7 @@ const Locals = ({ locals, toReviewCount }) => {
 
 export async function getServerSideProps() {
   const { data } = await client.query({
-    query: GET_ALL_LOCALS
+    query: GET_ALL_LOCALS_FOR_REVIEW
   });
 
   // const { colorTheme, setColorTheme } = useContext(ColorContext);
@@ -134,8 +97,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      locals: data.winnibook_locals,
-      toReviewCount: data.winnibook_locals_aggregate?.aggregate?.count
+      locals: data.winnibook_locals
     }
   };
 }

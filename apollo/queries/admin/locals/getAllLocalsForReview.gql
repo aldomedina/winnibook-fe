@@ -1,5 +1,5 @@
 query MyQuery {
-  winnibook_locals(where: {is_confirmed: {_eq: true}}) {
+  winnibook_locals(where: {is_confirmed: {_eq: false}}) {
     id
     name
     short_description
@@ -24,12 +24,6 @@ query MyQuery {
         id
         name
       }
-    }
-  }
-
-  winnibook_locals_aggregate(where: {is_confirmed: {_eq: false}}) {
-    aggregate {
-      count
     }
   }
 }

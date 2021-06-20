@@ -9,6 +9,7 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
   const [links, setLinks] = useState([]);
   const [newLinkName, setNewLinkName] = useState('');
   const [newLinkUrl, setNewLinkUrl] = useState('');
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (initialLinks) {
@@ -25,6 +26,15 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
   }
 
   const addLink = () => {
+
+    const urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+    if (!urlRegex.test(newLinkUrl)) {
+      setError(true)
+      return;
+    };
+
+    setError(false);
+
     let tempLinks = links;
     tempLinks.push({
       name: newLinkName,
@@ -90,7 +100,12 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
             value={newLinkUrl}
             placeholder="http://example.com"
             onChange={(value) => setNewLinkUrl(value)}
+            error={error}
           />
+          {
+            error &&
+            <span className="text-red-500">Invalid link</span>
+          }
         </div>
         <div
           onClick={addLink}

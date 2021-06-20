@@ -8,7 +8,6 @@ const Input = ({
   disabled,
   big = false
 }) => {
-  console.log(error)
   return (
     <div
       ref={reference}

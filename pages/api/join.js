@@ -11,7 +11,7 @@ export default async function handler(req, res) {
       variables: req.body.params
     });
     
-    res.status(200).json({ id: insert_winnibook_locals_one.id })
+    res.status(200).json({ id: data.insert_winnibook_locals_one.id })
 
   }
 }
