@@ -123,13 +123,22 @@ const Home = ({ homeQueryResults }) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const { data } = await client.query({
+export async function getServerSideProps() {
+  console.log("home init");
+
+  const { data, error } = await client.query({
     query: HOME_QUERY,
     variables: {
       featuredListId: '4ba99eca-ebb8-4e14-86b4-833772b8f74a'
     }
   });
+
+  if (error) {
+    console.log(error);
+    return false;
+  }
+
+  console.log(data);
 
   return {
     props: {
