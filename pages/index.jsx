@@ -25,7 +25,7 @@ import bottomNavItems from '../content/homeBottomNav';
 import { ColorContext } from '../components/Theme';
 export const PanelContext = createContext();
 
-const Home = ({ homeQueryResults }) => {
+const Home = () => {
   const { colorTheme, setColorTheme } = useContext(ColorContext);
 
   const [activeSection, setActiveSection] = useState(0);
@@ -42,6 +42,11 @@ const Home = ({ homeQueryResults }) => {
   const mapRef = useRef(null);
   const joinUsRef = useRef(null);
 
+  const {data: homeQueryResults} =  useQuery(HOME_QUERY, {
+    variables: {
+      featuredListId: '4ba99eca-ebb8-4e14-86b4-833772b8f74a'
+    }
+  });
   const {data: mostVisited} =  useQuery(MOST_VISITED);
   const {data: mapLocals} =  useQuery(MAP_LOCALS);
 
@@ -135,26 +140,26 @@ const Home = ({ homeQueryResults }) => {
   );
 };
 
-export async function getServerSideProps() {
-  console.log("home init");
+// export async function getServerSideProps() {
+//   console.log("home init");
 
-  const { data: homeQueryResults, error: err1 } = await client.query({
-    query: HOME_QUERY,
-    variables: {
-      featuredListId: '4ba99eca-ebb8-4e14-86b4-833772b8f74a'
-    }
-  });
+//   const { data: homeQueryResults, error: err1 } = await client.query({
+//     query: HOME_QUERY,
+//     variables: {
+//       featuredListId: '4ba99eca-ebb8-4e14-86b4-833772b8f74a'
+//     }
+//   });
 
-  if (err1) {
-    console.log(err1);
-    return false;
-  }
+//   if (err1) {
+//     console.log(err1);
+//     return false;
+//   }
 
-  return {
-    props: {
-      homeQueryResults: homeQueryResults
-    }
-  };
-}
+//   return {
+//     props: {
+//       homeQueryResults: homeQueryResults
+//     }
+//   };
+// }
 
 export default Home;
