@@ -127,7 +127,6 @@ const PostEditor = ({onChange, initialContent}) => {
                         accept=".png,.jpeg,.jpg"
                         onChange={(e) => {insertImage(e.target.files[0])}} 
                       />
-                      {/* <button onClick={() => insertImage('https://media-cdn.tripadvisor.com/media/photo-s/18/45/7c/f0/blue-restaurant-bar.jpg')}> */}
                       <button onClick={() => imageInputRef.current.click()}>
                         Add image
                       </button>
