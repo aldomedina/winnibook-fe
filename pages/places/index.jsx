@@ -10,6 +10,7 @@ import { mountSearchQuery } from '../../apollo/queries/search/searchQueryHelper'
 import TopNav from '../../components/TopNav';
 import Loader from '../../components/Loader';
 import FilterBars from '../../components/FiltersBar';
+import Head from '../../components/Head';
 
 import PlaceRowHeader from '../../components/PlaceRow/PlaceRowHeader';
 
@@ -121,6 +122,7 @@ const Places = () => {
         overflow: openPlace !== false ? 'hidden' : 'auto'
       }}
     >
+      <Head title="Places" />
       <TopNav reference={headerRef} hasBG />
       {loading ? (
         <div className="w-full min-h-80vh  flex justify-center items-center">

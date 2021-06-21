@@ -5,6 +5,7 @@ import GET_LOCAL from '../../apollo/queries/local/localByIdForLocalPage.gql';
 import INCREMENT_VISIT from '../../apollo/queries/local/incrementVisit.gql';
 
 import TopNav from '../../components/TopNav';
+import Head from '../../components/Head';
 import PlaceRow from '../../components/PlaceRow';
 import { ColorContext } from '../../components/Theme';
 import Loader from '../../components/Loader';
@@ -23,6 +24,7 @@ const Place = ({ local }) => {
 
   return (
     <div className="h-screen">
+      <Head title={local.name} />
       <TopNav reference={headerRef} hasBG showSearch />
 
       {local ? (

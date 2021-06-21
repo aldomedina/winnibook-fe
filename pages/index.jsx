@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useContext, createContext } from 'react';
+
 import HorizontalScroll from 'react-scroll-horizontal';
 import { client } from '../apollo/client';
 import { useQuery } from '@apollo/client';
@@ -23,6 +24,7 @@ import Winnimap from '../components/Panel/Winnimap';
 import bottomNavItems from '../content/homeBottomNav';
 
 import { ColorContext } from '../components/Theme';
+import Head from '../components/Head';
 export const PanelContext = createContext();
 
 const Home = () => {
@@ -84,6 +86,7 @@ const Home = () => {
 
   return (
     <PanelContext.Provider value={{ selectActiveSection, activeSection }}>
+      <Head />
       <div className="h-full w-screen">
         <TopNav reference={topNavRef} showSearch hasBG />
 

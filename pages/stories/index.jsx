@@ -2,9 +2,9 @@ import { useState, useRef, Fragment, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useLazyQuery } from '@apollo/client';
 import Link from 'next/link';
-
 import useWindowSize from '../../components/Hooks/useWindowSize';
 
+import Head from '../../components/Head';
 import TopNav from '../../components/TopNav';
 import Loader from '../../components/Loader';
 import FilterBars from '../../components/FiltersBar';
@@ -80,6 +80,7 @@ const Stories = () => {
 
   return (
     <div className="h-full overflow-hidden">
+      <Head title="Stories" />
       <TopNav reference={headerRef} hasBG />
 
       {!loading ? (

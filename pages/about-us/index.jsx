@@ -2,6 +2,7 @@ import { useRef, useContext, useState, useEffect } from 'react';
 import ABOUT_US_QUERY from '../../apollo/queries/about/aboutUsQueries.gql';
 import { client } from '../../apollo/client';
 import TopNav from '../../components/TopNav';
+import Head from '../../components/Head';
 import PlaceCard from '../../components/PlaceCard';
 import { ColorContext } from '../../components/Theme';
 import mapstyle from '../../assets/mapstyle';
@@ -83,6 +84,7 @@ const AboutUs = ({ data }) => {
 
   return (
     <div className="h-screen overflow-y-scroll">
+      <Head title="Who we are" />
       <TopNav reference={headerRef} hasBG showSearch />
       <div className="mx-auto max-w-max block my-16 px-3">
         <h1 className="text-6xl text-center font-medium mb-8 flex flex-wrap justify-center">

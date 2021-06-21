@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 
 import GET_STORY_BY_ID from '../../apollo/queries/story/getStoryById.gql';
 
+import Head from '../../components/Head';
 import TopNav from '../../components/TopNav';
 import PlaceCard from '../../components/PlaceCard';
 import PostBody from '../../components/Post/PostBody';
@@ -35,6 +36,7 @@ const Story = ({ storyData }) => {
 
   return (
     <div className="bg-white h-full">
+      <Head title={story.title} />
       <TopNav reference={headerRef} hasBG showSearch />
 
       {loading ? (
