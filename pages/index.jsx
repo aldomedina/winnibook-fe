@@ -42,13 +42,13 @@ const Home = () => {
   const mapRef = useRef(null);
   const joinUsRef = useRef(null);
 
-  const {data: homeQueryResults} =  useQuery(HOME_QUERY, {
+  const {data: homeQueryResults, loading: homeQueryLoading} =  useQuery(HOME_QUERY, {
     variables: {
       featuredListId: '4ba99eca-ebb8-4e14-86b4-833772b8f74a'
     }
   });
-  const {data: mostVisited} =  useQuery(MOST_VISITED);
-  const {data: mapLocals} =  useQuery(MAP_LOCALS);
+  const {data: mostVisited, loading: mostVisitedLoading} =  useQuery(MOST_VISITED);
+  const {data: mapLocals, loading: mapsLocalsLoading} =  useQuery(MAP_LOCALS);
 
   useEffect(() => {
     setColorTheme('base');
