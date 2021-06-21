@@ -1,0 +1,11 @@
+query MyQuery {
+  mostVisitedLocals: winnibook_locals(order_by: {visits: desc}, limit: 5, where: {_and: {is_active: {_eq: true}, is_confirmed: {_eq: true}}}) {
+    id
+    name
+    main_category {
+      id
+      name
+      theme
+    }
+  }
+}

@@ -1,8 +1,11 @@
 import { useState, useRef, useEffect, useContext, createContext } from 'react';
 import HorizontalScroll from 'react-scroll-horizontal';
 import { client } from '../apollo/client';
+import { useQuery } from '@apollo/client';
 
 import HOME_QUERY from '../apollo/queries/home/allHomeQueries.gql';
+import MOST_VISITED from '../apollo/queries/home/mostVisitedLocals.gql';
+import MAP_LOCALS from '../apollo/queries/home/mapLocals.gql';
 
 import useWindowSize from '../components/Hooks/useWindowSize';
 
@@ -38,6 +41,9 @@ const Home = ({ homeQueryResults }) => {
   const topRef = useRef(null);
   const mapRef = useRef(null);
   const joinUsRef = useRef(null);
+
+  const {data: mostVisited} =  useQuery(MOST_VISITED);
+  const {data: mapLocals} =  useQuery(MAP_LOCALS);
 
   useEffect(() => {
     setColorTheme('base');
@@ -99,14 +105,20 @@ const Home = ({ homeQueryResults }) => {
                 reference={latestRef}
                 stories={homeQueryResults ? homeQueryResults.stories : []}
               />
-              <Places
-                reference={topRef}
-                places={homeQueryResults ? homeQueryResults.mostVisitedLocals : []}
-              />
-              <Winnimap
-                reference={mapRef}
-                locals={homeQueryResults ? homeQueryResults.mapLocals : []}
-              />
+              {
+                mostVisited &&
+                <Places
+                  reference={topRef}
+                  places={mostVisited ? mostVisited.mostVisitedLocals : []}
+                />
+              }
+              {
+                mapLocals &&
+                <Winnimap
+                  reference={mapRef}
+                  locals={mapLocals ? mapLocals.mapLocals : []}
+                />
+              }
               <JoinUs reference={joinUsRef} />
             </div>
           </HorizontalScroll>
@@ -126,23 +138,21 @@ const Home = ({ homeQueryResults }) => {
 export async function getServerSideProps() {
   console.log("home init");
 
-  const { data, error } = await client.query({
+  const { data: homeQueryResults, error: err1 } = await client.query({
     query: HOME_QUERY,
     variables: {
       featuredListId: '4ba99eca-ebb8-4e14-86b4-833772b8f74a'
     }
   });
 
-  if (error) {
-    console.log(error);
+  if (err1) {
+    console.log(err1);
     return false;
   }
 
-  console.log(data);
-
   return {
     props: {
-      homeQueryResults: data
+      homeQueryResults: homeQueryResults
     }
   };
 }
