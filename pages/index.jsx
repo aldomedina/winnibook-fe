@@ -42,13 +42,13 @@ const Home = () => {
   const mapRef = useRef(null);
   const joinUsRef = useRef(null);
 
-  const {data: homeQueryResults, loading: homeQueryLoading} =  useQuery(HOME_QUERY, {
+  const { data: homeQueryResults, loading: homeQueryLoading } = useQuery(HOME_QUERY, {
     variables: {
       featuredListId: '4ba99eca-ebb8-4e14-86b4-833772b8f74a'
     }
   });
-  const {data: mostVisited, loading: mostVisitedLoading} =  useQuery(MOST_VISITED);
-  const {data: mapLocals, loading: mapsLocalsLoading} =  useQuery(MAP_LOCALS);
+  const { data: mostVisited, loading: mostVisitedLoading } = useQuery(MOST_VISITED);
+  const { data: mapLocals, loading: mapsLocalsLoading } = useQuery(MAP_LOCALS);
 
   useEffect(() => {
     setColorTheme('base');
@@ -105,25 +105,30 @@ const Home = () => {
               customClasses="min-w-100vw md:min-w-50vw h-100vh select-none"
             />
             <div className="flex  h-85hv md:h-90vh bg-white rounded-bl-20p shadow-lg">
-              <FeaturedPlaces reference={featuredRef} list={homeQueryResults?.featuredList[0]} />
+              <FeaturedPlaces
+                reference={featuredRef}
+                list={homeQueryResults?.featuredList[0]}
+                isLoading={homeQueryLoading}
+              />
               <Stories
                 reference={latestRef}
                 stories={homeQueryResults ? homeQueryResults.stories : []}
+                isLoading={homeQueryLoading}
               />
-              {
-                mostVisited &&
+              {mostVisited && (
                 <Places
                   reference={topRef}
                   places={mostVisited ? mostVisited.mostVisitedLocals : []}
+                  isLoading={mostVisitedLoading}
                 />
-              }
-              {
-                mapLocals &&
+              )}
+              {mapLocals && (
                 <Winnimap
                   reference={mapRef}
                   locals={mapLocals ? mapLocals.mapLocals : []}
+                  isLoading={mapsLocalsLoading}
                 />
-              }
+              )}
               <JoinUs reference={joinUsRef} />
             </div>
           </HorizontalScroll>

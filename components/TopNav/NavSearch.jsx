@@ -49,6 +49,8 @@ const NavSearch = ({ searchRef, openSearch, setOpenSearch, isMobile, colorTheme 
         setOpenSearch={setOpenSearch}
         activeSearch={searchValue}
         results={searchResults}
+        isLoading={searchLoading}
+        theme={colorTheme}
       />
     </div>
   );

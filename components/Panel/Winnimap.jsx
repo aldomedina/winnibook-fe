@@ -7,7 +7,7 @@ import themeConfig from '../Theme/colors';
 
 import PlaceCard from '../PlaceCard';
 
-const Winnimap = ({ reference, locals }) => {
+const Winnimap = ({ reference, locals, isLoading }) => {
   const googlemap = useRef(null);
   const [activePlace, setActivePlace] = useState();
 
@@ -72,9 +72,13 @@ const Winnimap = ({ reference, locals }) => {
         md:flex-row
       "
     >
-      <div
-        id="map"
-        className={`
+      {isLoading ? (
+        <Loader theme="base" />
+      ) : (
+        <>
+          <div
+            id="map"
+            className={`
           bg-yellow-200 
           h-full
           rounded-3xl
@@ -82,26 +86,28 @@ const Winnimap = ({ reference, locals }) => {
           ${activePlace?.name ? 'w-10/12' : 'w-full'}
           
         `}
-        ref={googlemap}
-      />
+            ref={googlemap}
+          />
 
-      {activePlace?.name && (
-        <div
-          className="
+          {activePlace?.name && (
+            <div
+              className="
             w-2/12 
             max-h-44
             min-w-44
             min-h-32
           "
-        >
-          <a href={'/place/' + activePlace.id}>
-            <PlaceCard
-              name={activePlace.name}
-              categories={[activePlace.main_category]}
-              theme={activePlace.main_category.theme}
-            />
-          </a>
-        </div>
+            >
+              <a href={'/place/' + activePlace.id}>
+                <PlaceCard
+                  name={activePlace.name}
+                  categories={[activePlace.main_category]}
+                  theme={activePlace.main_category.theme}
+                />
+              </a>
+            </div>
+          )}
+        </>
       )}
     </SectionWrapper>
   );
