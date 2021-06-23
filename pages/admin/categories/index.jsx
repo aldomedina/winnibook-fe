@@ -90,15 +90,23 @@ const Categories = ({ categories }) => {
 };
 
 export async function getServerSideProps() {
-  const { data } = await client.query({
-    query: GET_ALL_CATEGORIES
-  });
+  
+  try {
+    const { data } = await client.query({
+      query: GET_ALL_CATEGORIES
+    });
+  
+    return {
+      props: {
+        categories: data.winnibook_categories
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 
-  return {
-    props: {
-      categories: data.winnibook_categories
-    }
-  };
 }
 
 export default withPageAuthRequired(Categories);

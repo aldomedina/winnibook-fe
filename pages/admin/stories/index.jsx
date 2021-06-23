@@ -101,20 +101,26 @@ const Stories = ({ stories }) => {
 };
 
 export async function getServerSideProps({ req, res }) {
-  const client = await initializeClient(req, res);
+  try {
+    const client = await initializeClient(req, res);
   
-  const { data } = await client.query({
-    query: GET_ALL_STORIES
-  });
-
-  // const { colorTheme, setColorTheme } = useContext(ColorContext);
-  // setColorTheme(data.winnibook_stories[0].main_category.theme);
-
-  return {
-    props: {
-      stories: data.winnibook_stories
-    }
-  };
+    const { data } = await client.query({
+      query: GET_ALL_STORIES
+    });
+  
+    // const { colorTheme, setColorTheme } = useContext(ColorContext);
+    // setColorTheme(data.winnibook_stories[0].main_category.theme);
+  
+    return {
+      props: {
+        stories: data.winnibook_stories
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 }
 
 export default withPageAuthRequired(Stories);

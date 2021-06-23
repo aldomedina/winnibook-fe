@@ -112,20 +112,26 @@ const EditTag = ({ tag }) => {
 };
 
 export async function getServerSideProps({ req, res, params: { id }  }) {
-  const client = await initializeClient(req, res);
+  try {
+    const client = await initializeClient(req, res);
   
-  const { data } = await client.query({
-    query: GET_TAG_BY_ID,
-    variables: {
-      id: id
-    }
-  });
-
-  return {
-    props: {
-      tag: data.winnibook_tags[0]
-    }
-  };
+    const { data } = await client.query({
+      query: GET_TAG_BY_ID,
+      variables: {
+        id: id
+      }
+    });
+  
+    return {
+      props: {
+        tag: data.winnibook_tags[0]
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 }
 
 export default withPageAuthRequired(EditTag);

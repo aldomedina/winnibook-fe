@@ -77,20 +77,26 @@ const Categories = ({ lists }) => {
 };
 
 export async function getServerSideProps({ req, res }) {
-  const client = await initializeClient(req, res);
+  try {
+    const client = await initializeClient(req, res);
 
-  const { data } = await client.query({
-    query: GET_ALL_LISTS
-  });
+    const { data } = await client.query({
+      query: GET_ALL_LISTS
+    });
 
-  // const { colorTheme, setColorTheme } = useContext(ColorContext);
-  // setColorTheme(data.winnibook_categories[0].main_category.theme);
+    // const { colorTheme, setColorTheme } = useContext(ColorContext);
+    // setColorTheme(data.winnibook_categories[0].main_category.theme);
 
-  return {
-    props: {
-      lists: data.winnibook_locals_lists
-    }
-  };
+    return {
+      props: {
+        lists: data.winnibook_locals_lists
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 }
 
 export default withPageAuthRequired(Categories);

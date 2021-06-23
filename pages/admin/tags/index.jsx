@@ -76,17 +76,23 @@ const Tags = ({ tags }) => {
 };
 
 export async function getServerSideProps({ req, res }) {
-  const client = await initializeClient(req, res);
+  try {
+    const client = await initializeClient(req, res);
 
-  const { data } = await client.query({
-    query: GET_ALL_TAGS,
-  });
-
-  return {
-    props: {
-      tags: data.winnibook_tags
-    }
-  };
+    const { data } = await client.query({
+      query: GET_ALL_TAGS,
+    });
+  
+    return {
+      props: {
+        tags: data.winnibook_tags
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 }
 
 export default withPageAuthRequired(Tags);

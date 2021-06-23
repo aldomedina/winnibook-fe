@@ -126,21 +126,27 @@ const Locals = ({ locals, toReviewCount }) => {
 };
 
 export async function getServerSideProps({ req, res }) {
-  const client = await initializeClient(req, res);
+  try {
+    const client = await initializeClient(req, res);
 
-  const { data } = await client.query({
-    query: GET_ALL_LOCALS
-  });
+    const { data } = await client.query({
+      query: GET_ALL_LOCALS
+    });
 
-  // const { colorTheme, setColorTheme } = useContext(ColorContext);
-  // setColorTheme(data.winnibook_locals[0].main_category.theme);
+    // const { colorTheme, setColorTheme } = useContext(ColorContext);
+    // setColorTheme(data.winnibook_locals[0].main_category.theme);
 
-  return {
-    props: {
-      locals: data.winnibook_locals,
-      toReviewCount: data.winnibook_locals_aggregate?.aggregate?.count
-    }
-  };
+    return {
+      props: {
+        locals: data.winnibook_locals,
+        toReviewCount: data.winnibook_locals_aggregate?.aggregate?.count
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 }
 
 export default withPageAuthRequired(Locals);

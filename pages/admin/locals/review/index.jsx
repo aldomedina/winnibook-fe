@@ -89,20 +89,26 @@ const Locals = ({ locals }) => {
 };
 
 export async function getServerSideProps({ req, res }) {
-  const client = await initializeClient(req, res);
+  try {
+    const client = await initializeClient(req, res);
 
-  const { data } = await client.query({
-    query: GET_ALL_LOCALS_FOR_REVIEW
-  });
-
-  // const { colorTheme, setColorTheme } = useContext(ColorContext);
-  // setColorTheme(data.winnibook_locals[0].main_category.theme);
-
-  return {
-    props: {
-      locals: data.winnibook_locals
-    }
-  };
+    const { data } = await client.query({
+      query: GET_ALL_LOCALS_FOR_REVIEW
+    });
+  
+    // const { colorTheme, setColorTheme } = useContext(ColorContext);
+    // setColorTheme(data.winnibook_locals[0].main_category.theme);
+  
+    return {
+      props: {
+        locals: data.winnibook_locals
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 }
 
 export default withPageAuthRequired(Locals);

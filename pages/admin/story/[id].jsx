@@ -495,20 +495,26 @@ const EditStory = ({ story }) => {
 };
 
 export async function getServerSideProps({ req, res, params: { id }  }) {
-  const client = await initializeClient(req, res);
+  try {
+    const client = await initializeClient(req, res);
 
-  const { data } = await client.query({
-    query: GET_STORY_BY_ID,
-    variables: {
-      storyId: id
-    }
-  });
-
-  return {
-    props: {
-      story: data.winnibook_stories[0] ? data.winnibook_stories[0] : {}
-    }
-  };
+    const { data } = await client.query({
+      query: GET_STORY_BY_ID,
+      variables: {
+        storyId: id
+      }
+    });
+  
+    return {
+      props: {
+        story: data.winnibook_stories[0] ? data.winnibook_stories[0] : {}
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 }
 
 export default withPageAuthRequired(EditStory);

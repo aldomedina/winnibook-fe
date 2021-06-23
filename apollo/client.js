@@ -6,15 +6,20 @@ export const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export const initializeClient = async (req, res) => {
+export const initializeClient = async (req, res, token) => {
+  let session;
 
-  const session = await getSession(req, res);
+  if (!token) {
+    const getSessionRes = await getSession(req, res);
+    session = getSessionRes?.idToken;
+  } else {
+    session = token;
+  }
 
   let headers = {};
 
-  if (session?.idToken) {
-    headers.Authorization = "Bearer " + session.idToken
-    console.log(session.idToken);
+  if (session) {
+    headers.Authorization = "Bearer " + session
   }
 
   return new ApolloClient({

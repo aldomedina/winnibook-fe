@@ -222,20 +222,26 @@ const EditCategory = ({ category }) => {
 };
 
 export async function getServerSideProps({ req, res, params: { id } }) {
-  const client = await initializeClient(req, res);
+  try {
+    const client = await initializeClient(req, res);
 
-  const { data } = await client.query({
-    query: GET_CATEGORY_BY_ID,
-    variables: {
-      id: id
-    }
-  });
+    const { data } = await client.query({
+      query: GET_CATEGORY_BY_ID,
+      variables: {
+        id: id
+      }
+    });
 
-  return {
-    props: {
-      category: data.winnibook_categories[0]
-    }
-  };
+    return {
+      props: {
+        category: data.winnibook_categories[0]
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 }
 
 export default withPageAuthRequired(EditCategory);

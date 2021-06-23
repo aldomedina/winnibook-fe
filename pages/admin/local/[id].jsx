@@ -69,6 +69,7 @@ const dropdownOptions = [
 ];
 
 const UpdateLocal = ({ local }) => {
+
   const router = useRouter();
   const { colorTheme, setColorTheme } = useContext(ColorContext);
 
@@ -131,7 +132,7 @@ const UpdateLocal = ({ local }) => {
     geocode()
   }, [localStreetLine1, localStreetLine2, localPostcode, localCity]);
 
-  const updateLocal = async () => {
+  const updateLocal = async (shouldConfirm) => {
 
     let variables = {
       id: local.id,
@@ -139,6 +140,7 @@ const UpdateLocal = ({ local }) => {
       short_description: localShortDescription,
       description: localDescription,
       is_active: localIsActive,
+      is_confirmed: shouldConfirm ? true : local.is_confirmed,
       street_line_1: localStreetLine1,
       street_line_2: localStreetLine2,
       region: localRegion,
@@ -248,10 +250,18 @@ const UpdateLocal = ({ local }) => {
 
           <div className="actions">
 
-            <Button 
-              title="Save"
-              onClick={() => updateLocal()}
-            />
+            {
+              !local.is_confirmed ?
+              <Button 
+                title="Confirm and save"
+                onClick={() => updateLocal(true)}
+              />
+              :
+              <Button 
+                title="Save"
+                onClick={() => updateLocal()}
+              /> 
+            }
 
           </div>
 
@@ -616,21 +626,30 @@ const UpdateLocal = ({ local }) => {
 };
 
 export async function getServerSideProps({ req, res, params: { id } }) {
-  const client = await initializeClient(req, res);
 
-  const { data } = await client.query({
-    query: GET_LOCAL_BY_ID,
-    variables: {
-      localId: id
-    },
-    fetchPolicy: "no-cache"
-  });
+  try {
+    const client = await initializeClient(req, res);
 
-  return {
-    props: {
-      local: data.winnibook_locals[0] ? data.winnibook_locals[0] : {}
+    const { data } = await client.query({
+      query: GET_LOCAL_BY_ID,
+      variables: {
+        localId: id
+      },
+      fetchPolicy: "no-cache"
+    });
+
+    return {
+      props: {
+        local: data.winnibook_locals[0] ? data.winnibook_locals[0] : {}
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
     }
-  };
+  }
+
+  
 }
 
 export default withPageAuthRequired(UpdateLocal);
