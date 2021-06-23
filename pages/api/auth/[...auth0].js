@@ -1,9 +1,5 @@
 import { handleAuth, handleCallback, handleLogin } from '@auth0/nextjs-auth0';
 
-const afterCallback = (req, res, session, state) => {
-  return session;
-};
-
 export default handleAuth({
   async login(req, res) {
     try {
@@ -17,8 +13,7 @@ export default handleAuth({
   },
   async callback(req, res) {
     try {
-      await handleCallback(req, res, { 
-        afterCallback,
+      await handleCallback(req, res, {
         redirectUri: process.env.BASE_URL
       });
     } catch (error) {
