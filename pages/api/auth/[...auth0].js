@@ -10,6 +10,7 @@ export default handleAuth({
       await handleLogin(req, res, {
         returnTo: process.env.BASE_URL
       });
+      console.log("BASE_URL", process.env.BASE_URL);
     } catch (error) {
       res.status(error.status || 500).end(error.message);
     }
