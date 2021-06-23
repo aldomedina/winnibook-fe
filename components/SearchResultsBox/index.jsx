@@ -2,20 +2,27 @@ import styled from 'styled-components';
 import Link from 'next/link';
 
 import { Icon } from '../Icon';
+import Loader from '../Loader';
 
 const SearchResultsContainer = styled.div`
-  transition: height .6s, opacity .3s .3s;
+  transition: height 0.6s, opacity 0.3s 0.3s;
 
   height: ${({ $open }) => ($open ? '50vh' : '0vh')};
 
   opacity: ${({ $open }) => ($open ? '1' : '0')};
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
-  background-color: rgba(255, 255, 255, .95);
+  background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
 `;
 
-const SearchResultsBox = ({ openSearch, setOpenSearch, results, activeSearch }) => {
-
+const SearchResultsBox = ({
+  openSearch,
+  setOpenSearch,
+  results,
+  activeSearch,
+  isLoading,
+  theme
+}) => {
   return (
     <SearchResultsContainer
       $open={openSearch}
@@ -23,7 +30,6 @@ const SearchResultsBox = ({ openSearch, setOpenSearch, results, activeSearch }) 
     >
       {openSearch && (
         <>
-
           <button
             onClick={() => setOpenSearch(false)}
             className="absolute right-5	top-5 cursor-pointer"
@@ -31,19 +37,19 @@ const SearchResultsBox = ({ openSearch, setOpenSearch, results, activeSearch }) 
             <Icon icon="x" />
           </button>
 
-          {
-            results?.locals?.length ||
-            results?.stories?.length ? (
-              <>
-                {/* LOCAL RESULTS */}
-                <div className="border-b last:border-0">
-                  {results.locals.length ? <h3 className="text-lg px-5 pt-4">Locals</h3> : ""}
-                  <ul className="overflow-y-auto overflow-x-hidden styled-scrollbar list-none">
-                    {results?.locals?.length ? (
-                      results?.locals?.map((el, i) => (
+          {isLoading ? (
+            <Loader theme={theme} />
+          ) : results?.locals?.length || results?.stories?.length ? (
+            <>
+              {/* LOCAL RESULTS */}
+              <div className="border-b last:border-0">
+                {results.locals.length ? <h3 className="text-lg px-5 pt-4">Locals</h3> : ''}
+                <ul className="overflow-y-auto overflow-x-hidden styled-scrollbar list-none">
+                  {results?.locals?.length
+                    ? results?.locals?.map((el, i) => (
                         <li
                           key={`${el.id}-${i}`}
-                          className={` text-lg px-5 first:my-3 py-1  ${
+                          className={`font-light text-lg px-5 first:my-3 py-1  ${
                             i + 1 === results.length && 'mb-16'
                           }`}
                         >
@@ -57,15 +63,15 @@ const SearchResultsBox = ({ openSearch, setOpenSearch, results, activeSearch }) 
                           </Link>
                         </li>
                       ))
-                    ) : ""}
-                  </ul>
-                </div>
+                    : ''}
+                </ul>
+              </div>
 
-                {/* STORIES RESULTS */}
-                {results.stories?.length ? <h3 className="text-lg px-5 pt-4">Stories</h3> : ""}
-                <ul className="overflow-y-auto overflow-x-hidden styled-scrollbar list-none">
-                  {results?.stories?.length ? (
-                    results?.stories?.map((el, i) => (
+              {/* STORIES RESULTS */}
+              {results.stories?.length ? <h3 className="text-lg px-5 pt-4">Stories</h3> : ''}
+              <ul className="overflow-y-auto overflow-x-hidden styled-scrollbar list-none">
+                {results?.stories?.length
+                  ? results?.stories?.map((el, i) => (
                       <li
                         key={`${el.id}-${i}`}
                         className={` text-lg px-5 first:mt-3 py-1  ${
@@ -82,18 +88,16 @@ const SearchResultsBox = ({ openSearch, setOpenSearch, results, activeSearch }) 
                         </Link>
                       </li>
                     ))
-                  ) : ""}
-                </ul>
-              </>
-            )
-            : (
-              <div className="w-full h-full flex justify-center items-center">
-                <span className="opacity-50">
-                  {activeSearch.length ? 'No results' : 'Search something…'}
-                </span>
-              </div>
-            )
-          }
+                  : ''}
+              </ul>
+            </>
+          ) : (
+            <div className="w-full h-full flex justify-center items-center">
+              <span className="opacity-50">
+                {activeSearch.length ? 'No results' : 'Search something…'}
+              </span>
+            </div>
+          )}
 
           <Link href={`/places?name=${activeSearch}`}>
             <button className="btn btn-outline shadow-md absolute bottom-5 right-5 ">

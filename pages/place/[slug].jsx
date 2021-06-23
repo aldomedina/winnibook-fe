@@ -5,51 +5,40 @@ import GET_LOCAL from '../../apollo/queries/local/localByIdForLocalPage.gql';
 import INCREMENT_VISIT from '../../apollo/queries/local/incrementVisit.gql';
 
 import TopNav from '../../components/TopNav';
+import Head from '../../components/Head';
 import PlaceRow from '../../components/PlaceRow';
 import { ColorContext } from '../../components/Theme';
+import Loader from '../../components/Loader';
 
 const Place = ({ local }) => {
   const headerRef = useRef(null);
-
   const { colorTheme, setColorTheme } = useContext(ColorContext);
 
   useEffect(async () => {
-    
     setTimeout(() => {
       if (local.main_category) {
         setColorTheme(local.main_category.theme);
       }
-    }, 200)
-
+    }, 200);
   }, [local]);
-  
+
   return (
     <div className="h-screen">
+      <Head title={local.name} />
+      <TopNav reference={headerRef} hasBG showSearch />
 
-      <TopNav
-        reference={headerRef} 
-        hasBG
-        showSearch
-      />
-
-      {
-        local ?
+      {local ? (
         <div
           className={`
             scrollbar-hide 
             overflow-y-hidden
           `}
         >
-          <PlaceRow
-            place={local}
-            openPlace={true}
-            setOpenPlace={() => {}}
-            isSingle={true}
-          />
+          <PlaceRow place={local} openPlace={true} setOpenPlace={() => {}} isSingle={true} />
         </div>
-        : ""
-      }
-      
+      ) : (
+        <Loader theme={colorTheme} />
+      )}
     </div>
   );
 };

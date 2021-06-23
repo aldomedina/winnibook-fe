@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useContext, createContext } from 'react';
+
 import HorizontalScroll from 'react-scroll-horizontal';
 import { client } from '../apollo/client';
 import { useQuery } from '@apollo/client';
@@ -23,6 +24,7 @@ import Winnimap from '../components/Panel/Winnimap';
 import bottomNavItems from '../content/homeBottomNav';
 
 import { ColorContext } from '../components/Theme';
+import Head from '../components/Head';
 export const PanelContext = createContext();
 
 const Home = () => {
@@ -42,13 +44,13 @@ const Home = () => {
   const mapRef = useRef(null);
   const joinUsRef = useRef(null);
 
-  const {data: homeQueryResults, loading: homeQueryLoading} =  useQuery(HOME_QUERY, {
+  const { data: homeQueryResults, loading: homeQueryLoading } = useQuery(HOME_QUERY, {
     variables: {
       featuredListId: '4ba99eca-ebb8-4e14-86b4-833772b8f74a'
     }
   });
-  const {data: mostVisited, loading: mostVisitedLoading} =  useQuery(MOST_VISITED);
-  const {data: mapLocals, loading: mapsLocalsLoading} =  useQuery(MAP_LOCALS);
+  const { data: mostVisited, loading: mostVisitedLoading } = useQuery(MOST_VISITED);
+  const { data: mapLocals, loading: mapsLocalsLoading } = useQuery(MAP_LOCALS);
 
   useEffect(() => {
     setColorTheme('base');
@@ -84,6 +86,7 @@ const Home = () => {
 
   return (
     <PanelContext.Provider value={{ selectActiveSection, activeSection }}>
+      <Head />
       <div className="h-full w-screen">
         <TopNav reference={topNavRef} showSearch hasBG />
 
@@ -105,25 +108,30 @@ const Home = () => {
               customClasses="min-w-100vw md:min-w-50vw h-100vh select-none"
             />
             <div className="flex  h-85hv md:h-90vh bg-white rounded-bl-20p shadow-lg">
-              <FeaturedPlaces reference={featuredRef} list={homeQueryResults?.featuredList[0]} />
+              <FeaturedPlaces
+                reference={featuredRef}
+                list={homeQueryResults?.featuredList[0]}
+                isLoading={homeQueryLoading}
+              />
               <Stories
                 reference={latestRef}
                 stories={homeQueryResults ? homeQueryResults.stories : []}
+                isLoading={homeQueryLoading}
               />
-              {
-                mostVisited &&
+              {mostVisited && (
                 <Places
                   reference={topRef}
                   places={mostVisited ? mostVisited.mostVisitedLocals : []}
+                  isLoading={mostVisitedLoading}
                 />
-              }
-              {
-                mapLocals &&
+              )}
+              {mapLocals && (
                 <Winnimap
                   reference={mapRef}
                   locals={mapLocals ? mapLocals.mapLocals : []}
+                  isLoading={mapsLocalsLoading}
                 />
-              }
+              )}
               <JoinUs reference={joinUsRef} />
             </div>
           </HorizontalScroll>

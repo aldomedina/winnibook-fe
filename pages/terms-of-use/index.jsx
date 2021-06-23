@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/client';
 import GET_TERMS_AND_CONDITIONS from '../../apollo/queries/misc/getTermsAndConditions.gql';
 
 import TopNav from '../../components/TopNav';
+import Head from '../../components/Head';
 
 import { ColorContext } from '../../components/Theme';
 
@@ -17,6 +18,7 @@ const Terms = ({ termsAndConditions }) => {
 
   return (
     <div className="bg-white h-full">
+      <Head title="Terms of use" />
       <TopNav reference={headerRef} hasBG showSearch />
 
       <div className="px-3 md:px-5 pt-5">
@@ -42,8 +44,6 @@ export async function getServerSideProps(context) {
   const { data } = await client.query({
     query: GET_TERMS_AND_CONDITIONS
   });
-
-  console.log(data);
 
   return {
     props: {
