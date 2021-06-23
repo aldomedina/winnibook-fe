@@ -1,7 +1,7 @@
 // GRAPHQL RELATED
 import { ApolloProvider } from '@apollo/client';
 import { client } from '../apollo/client';
-// import { UserProvider } from '@auth0/nextjs-auth0';
+import { UserProvider } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router';
 
 // STYLE RELATED
@@ -20,14 +20,14 @@ function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter();
   const showSearch = pagesWithSearch.indexOf(pathname) >= 0 ? true : false;
   const topNavBG = pagesWithNavBG.indexOf(pathname) >= 0 ? true : false;
-
+  
   return (
     <Theme>
-      {/* <UserProvider> */}
+      <UserProvider>
       <ApolloProvider client={client}>
         <Component {...pageProps} />
       </ApolloProvider>
-      {/* </UserProvider> */}
+      </UserProvider>
     </Theme>
   );
 }

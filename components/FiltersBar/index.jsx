@@ -262,8 +262,6 @@ const FilterBars = ({
     tempTags.push(tag.id);
     tempTagsName.push(tag.name);
 
-    console.log(tempTags);
-
     setQuery({
       ...router.query,
       tags: tempTags,

@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import { client } from '../../../apollo/client';
+import { initializeClient } from '../../../apollo/client';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import GET_ALL_TAGS from '../../../apollo/queries/admin/tags/allTags.gql';
 
@@ -74,7 +75,9 @@ const Tags = ({ tags }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req, res }) {
+  const client = await initializeClient(req, res);
+
   const { data } = await client.query({
     query: GET_ALL_TAGS,
   });
@@ -86,4 +89,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default Tags;
+export default withPageAuthRequired(Tags);

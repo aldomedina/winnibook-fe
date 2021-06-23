@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { client } from '../../../apollo/client';
 import { convertToHTML } from 'draft-convert';
 import { useMutation } from '@apollo/client';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import ADD_STORY from '../../../apollo/mutations/story/insert.gql';
 
@@ -130,7 +131,6 @@ const NewStory = () => {
     const reader = new FileReader();
     reader.onloadend = () => {
       setMainImage(reader.result);
-      console.log(reader.result);
     };
     reader.readAsDataURL(file);
     
@@ -149,7 +149,6 @@ const NewStory = () => {
   }
 
   const selectLocal = (local) => {
-    console.log(postLocals, local);
     if (!postLocals.filter((item) => item.id === local.id).length) {
       setPostLocals([...postLocals, local]);
     }
@@ -455,4 +454,4 @@ const NewStory = () => {
   );
 };
 
-export default NewStory;
+export default withPageAuthRequired(NewStory);

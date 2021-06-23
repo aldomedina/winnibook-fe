@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import { client } from '../../../../apollo/client';
+import { initializeClient } from '../../../../apollo/client';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import GET_ALL_LOCALS_FOR_REVIEW from '../../../../apollo/queries/admin/locals/getAllLocalsForReview.gql';
 
@@ -87,7 +88,9 @@ const Locals = ({ locals }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req, res }) {
+  const client = await initializeClient(req, res);
+
   const { data } = await client.query({
     query: GET_ALL_LOCALS_FOR_REVIEW
   });
@@ -102,4 +105,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default Locals;
+export default withPageAuthRequired(Locals);

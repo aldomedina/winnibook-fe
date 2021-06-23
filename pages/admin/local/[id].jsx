@@ -1,8 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery, useMutation } from '@apollo/client';
-import { client } from '../../../apollo/client';
+import { initializeClient } from '../../../apollo/client';
 import axios from 'axios';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import GET_LOCAL_BY_ID from '../../../apollo/queries/local/getLocalById.gql';
 import UPDATE_LOCAL from '../../../apollo/mutations/local/update.gql';
@@ -71,8 +72,6 @@ const UpdateLocal = ({ local }) => {
   const router = useRouter();
   const { colorTheme, setColorTheme } = useContext(ColorContext);
 
-  console.log(local);
-
   const [localName, setLocalName] = useState('');
   const [localShortDescription, setLocalShortDescription] = useState('');
   const [localDescription, setLocalDescription] = useState('');
@@ -134,8 +133,6 @@ const UpdateLocal = ({ local }) => {
 
   const updateLocal = async () => {
 
-    console.log(localCategories.filter((item) => item.parent_category_id && item.parent_category_id !== '').reduce((obj, item) => [...obj, {categories_id: item.id}], []))
-
     let variables = {
       id: local.id,
       name: localName,
@@ -173,8 +170,6 @@ const UpdateLocal = ({ local }) => {
         }
       }], []),
     }
-
-    console.log(variables);
 
     if (
       (variables.name && variables.name !== "") &&
@@ -620,7 +615,8 @@ const UpdateLocal = ({ local }) => {
   );
 };
 
-export async function getServerSideProps({ params: { id } }) {
+export async function getServerSideProps({ req, res, params: { id } }) {
+  const client = await initializeClient(req, res);
 
   const { data } = await client.query({
     query: GET_LOCAL_BY_ID,
@@ -637,4 +633,4 @@ export async function getServerSideProps({ params: { id } }) {
   };
 }
 
-export default UpdateLocal;
+export default withPageAuthRequired(UpdateLocal);

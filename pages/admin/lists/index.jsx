@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import { client } from '../../../apollo/client';
+import { initializeClient } from '../../../apollo/client';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import GET_ALL_LISTS from '../../../apollo/queries/admin/lists/allLists.gql';
 
@@ -75,7 +76,9 @@ const Categories = ({ lists }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req, res }) {
+  const client = await initializeClient(req, res);
+
   const { data } = await client.query({
     query: GET_ALL_LISTS
   });
@@ -90,4 +93,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default Categories;
+export default withPageAuthRequired(Categories);

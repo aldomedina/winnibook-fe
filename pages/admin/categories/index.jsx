@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { client } from '../../../apollo/client';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import GET_ALL_CATEGORIES from '../../../apollo/queries/admin/categories/allCategories.gql';
 
@@ -100,4 +101,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default Categories;
+export default withPageAuthRequired(Categories);

@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import ADD_TAG from '../../../apollo/mutations/tag/insert.gql';
 
@@ -89,4 +90,4 @@ const NewTag = () => {
   );
 };
 
-export default NewTag;
+export default withPageAuthRequired(NewTag);

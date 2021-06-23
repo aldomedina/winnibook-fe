@@ -191,8 +191,6 @@ const JoinUs = () => {
       )
     };
 
-    console.log(newLocalAddress);
-
     if (
       variables.name &&
       variables.name !== '' &&

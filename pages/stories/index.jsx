@@ -44,7 +44,6 @@ const Stories = () => {
 
   useEffect(() => {
     if (storiesQueryResponse) {
-      console.log(storiesQueryResponse);
       setStories(storiesQueryResponse.winnibook_stories);
     }
   }, [storiesQueryResponse]);

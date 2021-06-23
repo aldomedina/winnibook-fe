@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import ADD_CATEGORY from '../../../apollo/mutations/category/insert.gql';
 
@@ -198,4 +199,4 @@ const NewCategory = () => {
   );
 };
 
-export default NewCategory;
+export default withPageAuthRequired(NewCategory);

@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
-import { client } from '../../../apollo/client';
+import { initializeClient } from '../../../apollo/client';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import GET_CATEGORY_BY_ID from '../../../apollo/queries/categories/getCategoryById.gql';
 import UPDATE_CATEGORY from '../../../apollo/mutations/category/update.gql';
@@ -220,7 +221,9 @@ const EditCategory = ({ category }) => {
   );
 };
 
-export async function getServerSideProps({ params: { id } }) {
+export async function getServerSideProps({ req, res, params: { id } }) {
+  const client = await initializeClient(req, res);
+
   const { data } = await client.query({
     query: GET_CATEGORY_BY_ID,
     variables: {
@@ -235,4 +238,4 @@ export async function getServerSideProps({ params: { id } }) {
   };
 }
 
-export default EditCategory;
+export default withPageAuthRequired(EditCategory);
