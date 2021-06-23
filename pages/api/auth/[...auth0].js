@@ -8,7 +8,6 @@ export default handleAuth({
   async login(req, res) {
     try {
       await handleLogin(req, res, {
-        afterCallback,
         returnTo: process.env.BASE_URL
       });
     } catch (error) {
