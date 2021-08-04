@@ -14,8 +14,6 @@ const SImg = styled.div`
       background-repeat: no-repeat;
 
       `
-      : noImg
-      ? ''
       : `
       background-color: ${theme.colors[$t].bg};      
       opacity: 0.8;
@@ -53,14 +51,16 @@ const StoryCard = ({
         vertical ? 'flex-col' : 'flex-row'
       }`}
     >
-      <SImg
-        $t={colorTheme}
-        className={`relative transition rounded-xl ${
-          growWithSpace ? 'flex-1 w-full min-h-32' : 'h-32 md:h-auto w-32 md:w-48'
-        } ${vertical ? 'mb-3' : big ? 'mr-5' : 'mr-3'}`}
-        img={image}
-        noImg={noImg}
-      />
+      {!noImg && (
+        <SImg
+          $t={colorTheme}
+          className={`relative transition rounded-xl ${
+            growWithSpace ? 'flex-1 w-full min-h-32' : 'h-32 md:h-auto w-32 md:w-48'
+          } ${vertical ? 'mb-3' : big ? 'mr-5' : 'mr-3'}`}
+          img={image}
+          noImg={noImg}
+        />
+      )}
 
       <div className={` ${imgBigger ? '' : 'flex-1 flex flex-col'}`}>
         <div>
