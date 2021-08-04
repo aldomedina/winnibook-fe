@@ -116,7 +116,7 @@ const JoinUs = () => {
     geocode();
   }, [
     newLocalAddress.street_line_1,
-    newLocalAddress.street_line_2,
+    // newLocalAddress.street_line_2,
     newLocalAddress.postcode,
     newLocalAddress.city
   ]);
@@ -190,8 +190,6 @@ const JoinUs = () => {
         []
       )
     };
-
-    console.log(newLocalAddress);
 
     if (
       variables.name &&
@@ -351,11 +349,11 @@ const JoinUs = () => {
 
               {/* 
                 -
-                DESCRIPTION
+                DESCRIPTION // removed - client corrections 
                 -
                 -
               */}
-              <div className="px-4 mb-16 w-full">
+              {/* <div className="px-4 mb-16 w-full">
                 <h4 className="mb-2 px-4">Description</h4>
                 <div
                   className="
@@ -379,7 +377,7 @@ const JoinUs = () => {
                     onChange={e => setNewLocalDescription(e.target.value)}
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="flex-grow flex flex-wrap py-4 border-b">
@@ -397,7 +395,7 @@ const JoinUs = () => {
                     <Input
                       customClasses="min-h-40p"
                       value={newLocalAddress.street_line_1}
-                      placeholder="Address line 1"
+                      placeholder="Address line 1*"
                       onChange={value =>
                         setNewLocalAddress({ ...newLocalAddress, street_line_1: value })
                       }
@@ -425,21 +423,21 @@ const JoinUs = () => {
                     <Input
                       customClasses="min-h-40p"
                       value={newLocalAddress.postcode}
-                      placeholder="Postcode"
+                      placeholder="Postal Code*"
                       onChange={value =>
                         setNewLocalAddress({ ...newLocalAddress, postcode: value })
                       }
                       error={errors.postcode}
                     />
                     {errors.postcode && (
-                      <span className="text-red-500 mt-4">Postcode is invalid</span>
+                      <span className="text-red-500 mt-4">Postal Code is invalid</span>
                     )}
                   </div>
 
                   <Input
                     customClasses="min-h-40p mb-4"
                     value={newLocalAddress.region}
-                    placeholder="Region"
+                    placeholder="Province"
                     onChange={value => setNewLocalAddress({ ...newLocalAddress, region: value })}
                   />
                   <CustomSelect
