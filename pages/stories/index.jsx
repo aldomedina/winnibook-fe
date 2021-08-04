@@ -126,6 +126,7 @@ const Stories = () => {
                     growWithSpace
                     big
                     vertical={isMobile}
+                    noImg
                   />
                 </div>
               </div>

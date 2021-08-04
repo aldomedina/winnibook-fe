@@ -10,6 +10,8 @@ export const sortByName = array => {
   return tempArray.sort((a, b) => a.name.localeCompare(b.name));
 };
 
+export const truncate = (str, max) => (str.length > max ? str.substr(0, max - 1) + '...' : str);
+
 export const months = [
   'January',
   'February',
