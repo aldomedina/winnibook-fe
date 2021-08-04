@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useQuery, useMutation } from '@apollo/client';
 import axios from 'axios';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import ADD_LOCAL from '../../../apollo/mutations/local/insert.gql';
 import GET_ALL_CITIES from '../../../apollo/queries/address/getAllCities.gql';
@@ -128,8 +129,6 @@ const NewLocal = () => {
       contacts: newLocalContacts.reduce((obj, item) => [...obj, {contact: { data: { name: item.name, type: item.type, value: item.value, is_public: item.is_public } }}], []),
     }
 
-    console.log(variables)
-
     if (
       (variables.name && variables.name !== "") &&
       (variables.main_category_id && variables.main_category_id !== "") &&
@@ -183,8 +182,6 @@ const NewLocal = () => {
           key: process.env.GOOGLE_MAPS_KEY
         }
       });
-
-      console.log(data.results[0].geometry.location);
 
       setNewLocalAddress({
         ...newLocalAddress,
@@ -576,4 +573,4 @@ const NewLocal = () => {
   );
 };
 
-export default NewLocal;
+export default withPageAuthRequired(NewLocal);

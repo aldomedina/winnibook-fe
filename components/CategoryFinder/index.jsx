@@ -15,10 +15,6 @@ const Categories = ({hasParent = false, onSelectCategory}) => {
   let searchTimeout;
 
   useEffect(() => {
-    console.log(hasParent);
-  }, [])
-
-  useEffect(() => {
     setCategories(categoriesQueryResults?.winnibook_categories ? categoriesQueryResults.winnibook_categories : []);
   }, [categoriesQueryResults])
 

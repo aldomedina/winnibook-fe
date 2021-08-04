@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import { client } from '../../../../apollo/client';
+import { initializeClient } from '../../../../apollo/client';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import GET_ALL_LOCALS_FOR_REVIEW from '../../../../apollo/queries/admin/locals/getAllLocalsForReview.gql';
 
@@ -87,19 +88,27 @@ const Locals = ({ locals }) => {
   );
 };
 
-export async function getServerSideProps() {
-  const { data } = await client.query({
-    query: GET_ALL_LOCALS_FOR_REVIEW
-  });
+export async function getServerSideProps({ req, res }) {
+  try {
+    const client = await initializeClient(req, res);
 
-  // const { colorTheme, setColorTheme } = useContext(ColorContext);
-  // setColorTheme(data.winnibook_locals[0].main_category.theme);
-
-  return {
-    props: {
-      locals: data.winnibook_locals
-    }
-  };
+    const { data } = await client.query({
+      query: GET_ALL_LOCALS_FOR_REVIEW
+    });
+  
+    // const { colorTheme, setColorTheme } = useContext(ColorContext);
+    // setColorTheme(data.winnibook_locals[0].main_category.theme);
+  
+    return {
+      props: {
+        locals: data.winnibook_locals
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 }
 
-export default Locals;
+export default withPageAuthRequired(Locals);

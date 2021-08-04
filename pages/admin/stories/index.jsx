@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import { client } from '../../../apollo/client';
+import { initializeClient } from '../../../apollo/client';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { getDayNumFromTS, getMonthNameFromTS, getYearFromTS } from '../../../utils';
 
 import GET_ALL_STORIES from '../../../apollo/queries/admin/stories/allStories.gql';
@@ -99,19 +100,27 @@ const Stories = ({ stories }) => {
   );
 };
 
-export async function getServerSideProps() {
-  const { data } = await client.query({
-    query: GET_ALL_STORIES
-  });
-
-  // const { colorTheme, setColorTheme } = useContext(ColorContext);
-  // setColorTheme(data.winnibook_stories[0].main_category.theme);
-
-  return {
-    props: {
-      stories: data.winnibook_stories
-    }
-  };
+export async function getServerSideProps({ req, res }) {
+  try {
+    const client = await initializeClient(req, res);
+  
+    const { data } = await client.query({
+      query: GET_ALL_STORIES
+    });
+  
+    // const { colorTheme, setColorTheme } = useContext(ColorContext);
+    // setColorTheme(data.winnibook_stories[0].main_category.theme);
+  
+    return {
+      props: {
+        stories: data.winnibook_stories
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 }
 
-export default Stories;
+export default withPageAuthRequired(Stories);

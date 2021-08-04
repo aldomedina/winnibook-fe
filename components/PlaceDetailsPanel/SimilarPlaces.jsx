@@ -27,7 +27,6 @@ const SimilarPlaces = ({ similar, main_category }) => {
                 <PlaceCard
                   name={item?.name}
                   theme={main_category === item?.main_category.id && item?.categories[0] ? item?.categories[0].category.theme : item?.main_category.theme}
-                  onClick={() => console.log(item?.name)}
                   categories={item.categories.map((cat) => cat.category).concat([item?.main_category])}
                   extraBig
                 />

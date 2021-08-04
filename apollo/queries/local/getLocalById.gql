@@ -4,6 +4,7 @@ query localById($localId: uuid = "") {
     name
     description
     is_active
+    is_confirmed
     categories {
       category {
         id

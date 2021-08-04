@@ -21,7 +21,6 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
     let tempLinks = links;
     tempLinks[index][key] = value;
     setLinks(tempLinks);
-    console.log(tempLinks, key, value, index);
     onLinksChange(tempLinks);
   }
 
@@ -46,8 +45,6 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
 
     setNewLinkName("");
     setNewLinkUrl("");
-
-    console.log(tempLinks);
   }
 
   const removeLink = (index) => {

@@ -2,7 +2,8 @@ import { useState, useEffect, useContext, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { convertToHTML, convertFromHTML } from 'draft-convert';
 import { useMutation } from '@apollo/client';
-import { client } from '../../../apollo/client';
+import { initializeClient } from '../../../apollo/client';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import GET_STORY_BY_ID from '../../../apollo/queries/stories/getStoryById.gql';
 import UPDATE_STORY from '../../../apollo/mutations/story/update.gql';
@@ -70,15 +71,12 @@ const EditStory = ({ story }) => {
   useEffect(() => {
     setColorTheme('dark');
 
-    console.log(story);
-
     setPostId(story.id);
     setPostTitle(story.title);
     setPostSubtitle(story.subtitle);
 
     let allCategories = story.categories.reduce((obj, item) => {return [...obj, item.category]}, []);
     allCategories.unshift(story.main_category);
-    console.log(allCategories);
     setPostCategories(allCategories);
     setPostLocals(story.locals.reduce((obj, item) => {return [...obj, item.local]}, []));
 
@@ -117,8 +115,6 @@ const EditStory = ({ story }) => {
         is_featured: postIsFeatured,
         is_published: postIsPublished
       };
-
-      console.log(variables);
   
       try {
         await addStoryMutation(
@@ -171,7 +167,6 @@ const EditStory = ({ story }) => {
     const reader = new FileReader();
     reader.onloadend = () => {
       setMainImage(reader.result);
-      console.log(reader.result);
     };
     reader.readAsDataURL(file);
     
@@ -190,7 +185,6 @@ const EditStory = ({ story }) => {
   }
 
   const selectLocal = (local) => {
-    console.log(postLocals, local);
     if (!postLocals.filter((item) => item.id === local.id).length) {
       setPostLocals([...postLocals, local]);
     }
@@ -500,20 +494,27 @@ const EditStory = ({ story }) => {
   );
 };
 
-export async function getServerSideProps({ params: { id } }) {
+export async function getServerSideProps({ req, res, params: { id }  }) {
+  try {
+    const client = await initializeClient(req, res);
 
-  const { data } = await client.query({
-    query: GET_STORY_BY_ID,
-    variables: {
-      storyId: id
-    }
-  });
-
-  return {
-    props: {
-      story: data.winnibook_stories[0] ? data.winnibook_stories[0] : {}
-    }
-  };
+    const { data } = await client.query({
+      query: GET_STORY_BY_ID,
+      variables: {
+        storyId: id
+      }
+    });
+  
+    return {
+      props: {
+        story: data.winnibook_stories[0] ? data.winnibook_stories[0] : {}
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 }
 
-export default EditStory;
+export default withPageAuthRequired(EditStory);

@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import { client } from '../../../apollo/client';
+import { initializeClient } from '../../../apollo/client';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import GET_ALL_LISTS from '../../../apollo/queries/admin/lists/allLists.gql';
 
@@ -75,19 +76,27 @@ const Categories = ({ lists }) => {
   );
 };
 
-export async function getServerSideProps() {
-  const { data } = await client.query({
-    query: GET_ALL_LISTS
-  });
+export async function getServerSideProps({ req, res }) {
+  try {
+    const client = await initializeClient(req, res);
 
-  // const { colorTheme, setColorTheme } = useContext(ColorContext);
-  // setColorTheme(data.winnibook_categories[0].main_category.theme);
+    const { data } = await client.query({
+      query: GET_ALL_LISTS
+    });
 
-  return {
-    props: {
-      lists: data.winnibook_locals_lists
-    }
-  };
+    // const { colorTheme, setColorTheme } = useContext(ColorContext);
+    // setColorTheme(data.winnibook_categories[0].main_category.theme);
+
+    return {
+      props: {
+        lists: data.winnibook_locals_lists
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 }
 
-export default Categories;
+export default withPageAuthRequired(Categories);

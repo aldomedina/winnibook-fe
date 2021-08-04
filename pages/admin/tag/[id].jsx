@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/client';
-import { client } from '../../../apollo/client';
+import { initializeClient } from '../../../apollo/client';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import GET_TAG_BY_ID from '../../../apollo/queries/tags/getTagById.gql';
 import UPDATE_TAG from '../../../apollo/mutations/tag/update.gql';
@@ -110,19 +111,27 @@ const EditTag = ({ tag }) => {
   );
 };
 
-export async function getServerSideProps({ params: { id } }) {
-  const { data } = await client.query({
-    query: GET_TAG_BY_ID,
-    variables: {
-      id: id
-    }
-  });
-
-  return {
-    props: {
-      tag: data.winnibook_tags[0]
-    }
-  };
+export async function getServerSideProps({ req, res, params: { id }  }) {
+  try {
+    const client = await initializeClient(req, res);
+  
+    const { data } = await client.query({
+      query: GET_TAG_BY_ID,
+      variables: {
+        id: id
+      }
+    });
+  
+    return {
+      props: {
+        tag: data.winnibook_tags[0]
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 }
 
-export default EditTag;
+export default withPageAuthRequired(EditTag);

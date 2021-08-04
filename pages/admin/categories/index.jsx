@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { client } from '../../../apollo/client';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import GET_ALL_CATEGORIES from '../../../apollo/queries/admin/categories/allCategories.gql';
 
@@ -89,15 +90,23 @@ const Categories = ({ categories }) => {
 };
 
 export async function getServerSideProps() {
-  const { data } = await client.query({
-    query: GET_ALL_CATEGORIES
-  });
+  
+  try {
+    const { data } = await client.query({
+      query: GET_ALL_CATEGORIES
+    });
+  
+    return {
+      props: {
+        categories: data.winnibook_categories
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 
-  return {
-    props: {
-      categories: data.winnibook_categories
-    }
-  };
 }
 
-export default Categories;
+export default withPageAuthRequired(Categories);

@@ -4,6 +4,7 @@ mutation MyMutation(
   $short_description: String = "", 
   $description: String = "",
   $is_active: Boolean = false, 
+  $is_confirmed: Boolean = false, 
   $street_line_1: String = "",
   $street_line_2: String = "",  
   $region: String = "",  
@@ -29,6 +30,7 @@ mutation MyMutation(
       short_description: $short_description, 
       description: $description, 
       is_active: $is_active, 
+      is_confirmed: $is_confirmed, 
       main_category_id: $main_category_id
     }
   ) {

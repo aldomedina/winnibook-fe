@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import { client } from '../../../apollo/client';
+import { initializeClient } from '../../../apollo/client';
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 
 import GET_ALL_TAGS from '../../../apollo/queries/admin/tags/allTags.gql';
 
@@ -74,16 +75,24 @@ const Tags = ({ tags }) => {
   );
 };
 
-export async function getServerSideProps() {
-  const { data } = await client.query({
-    query: GET_ALL_TAGS,
-  });
+export async function getServerSideProps({ req, res }) {
+  try {
+    const client = await initializeClient(req, res);
 
-  return {
-    props: {
-      tags: data.winnibook_tags
-    }
-  };
+    const { data } = await client.query({
+      query: GET_ALL_TAGS,
+    });
+  
+    return {
+      props: {
+        tags: data.winnibook_tags
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 }
 
-export default Tags;
+export default withPageAuthRequired(Tags);

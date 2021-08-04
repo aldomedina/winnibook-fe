@@ -148,26 +148,4 @@ const Home = () => {
   );
 };
 
-// export async function getServerSideProps() {
-//   console.log("home init");
-
-//   const { data: homeQueryResults, error: err1 } = await client.query({
-//     query: HOME_QUERY,
-//     variables: {
-//       featuredListId: '4ba99eca-ebb8-4e14-86b4-833772b8f74a'
-//     }
-//   });
-
-//   if (err1) {
-//     console.log(err1);
-//     return false;
-//   }
-
-//   return {
-//     props: {
-//       homeQueryResults: homeQueryResults
-//     }
-//   };
-// }
-
 export default Home;

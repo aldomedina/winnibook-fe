@@ -42,14 +42,7 @@ const ContactsEditor = ({initialContacts, onContactsChange, noPrivate}) => {
   const [newContactType, setNewContactType] = useState(contactTypesOptions[0].value);
   const [newContactValue, setNewContactValue] = useState('');
   const [newContactIsPublic, setNewContactIsPublic] = useState(false);
-
-  // useEffect(() => {
-  //   if (initialContacts) {
-  //     setContacts(initialContacts);
-  //   }
-  //   console.log(initialContacts)
-  // }, []);
-
+  
   useEffect(() => {
     if (initialContacts) {
       setContacts(initialContacts);
@@ -60,7 +53,6 @@ const ContactsEditor = ({initialContacts, onContactsChange, noPrivate}) => {
     let tempContacts = contacts;
     tempContacts[index][key] = value;
     setContacts(tempContacts);
-    console.log(tempContacts, key, value, index);
     onContactsChange(tempContacts);
   }
 

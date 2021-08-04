@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import { client } from '../../../apollo/client';
+import { initializeClient } from '../../../apollo/client';
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 import GET_ALL_LOCALS from '../../../apollo/queries/admin/locals/getAllLocals.gql';
 
@@ -124,20 +125,28 @@ const Locals = ({ locals, toReviewCount }) => {
   );
 };
 
-export async function getServerSideProps() {
-  const { data } = await client.query({
-    query: GET_ALL_LOCALS
-  });
+export async function getServerSideProps({ req, res }) {
+  try {
+    const client = await initializeClient(req, res);
 
-  // const { colorTheme, setColorTheme } = useContext(ColorContext);
-  // setColorTheme(data.winnibook_locals[0].main_category.theme);
+    const { data } = await client.query({
+      query: GET_ALL_LOCALS
+    });
 
-  return {
-    props: {
-      locals: data.winnibook_locals,
-      toReviewCount: data.winnibook_locals_aggregate?.aggregate?.count
-    }
-  };
+    // const { colorTheme, setColorTheme } = useContext(ColorContext);
+    // setColorTheme(data.winnibook_locals[0].main_category.theme);
+
+    return {
+      props: {
+        locals: data.winnibook_locals,
+        toReviewCount: data.winnibook_locals_aggregate?.aggregate?.count
+      }
+    };
+  } catch (error) {
+    return {
+      props: {}
+    };
+  }
 }
 
-export default Locals;
+export default withPageAuthRequired(Locals);
