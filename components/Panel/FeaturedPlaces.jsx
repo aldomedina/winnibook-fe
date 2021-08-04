@@ -26,7 +26,6 @@ const FeaturedPlaces = ({ reference, list, isLoading }) => {
                   .concat([p.localByLocal?.main_category])
                   .splice(0, 3)}
                 theme={p.localByLocal.main_category.theme}
-                big={true}
               />
             </a>
           ))}

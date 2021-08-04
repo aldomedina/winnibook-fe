@@ -47,10 +47,12 @@ const Story = ({ storyData }) => {
         <div className="px-3 md:px-5 pt-5">
           <div className="story-header-grid gap-2 md:gap-3 mb-3 md:mb-6">
             {/* MAIN IMAGE */}
-            <div
-              className="rounded-xl bg-image w-full h-70vh grid-item-img mb-10"
-              style={{ backgroundImage: `url(${story?.images[0]?.image.url})` }}
-            />
+            {story?.images[0]?.image.url && (
+              <div
+                className="rounded-xl bg-image w-full h-70vh grid-item-img mb-10"
+                style={{ backgroundImage: `url(${story?.images[0]?.image.url})` }}
+              />
+            )}
 
             {/* STORY DATE */}
             <div className="grid-item-date">
@@ -75,24 +77,26 @@ const Story = ({ storyData }) => {
 
           <div className="flex flex-col lg:flex-row">
             {/* RELATED PLACES */}
-            <div className="block mx-auto lg:mx-none max-w-full lg:mx-0 lg:sticky top-16 self-start">
-              <h4 className="opacity-50 mb-3">on this article</h4>
-              <div className="flex flex-row lg:flex-col md:overflow-y-visible overflow-x-auto md:overflow-x-visible w-full gap-3 mb-4">
-                {story?.locals.map(item => (
-                  <a
-                    key={item.local.id}
-                    href={'/place/' + item.local.id}
-                    className="w-44 h-36  min-w-44 min-h-36 md:overflow-y-visible"
-                  >
-                    <PlaceCard
-                      name={item.local.name}
-                      theme={item.local.main_category.theme}
-                      categories={[item.local.main_category]}
-                    />
-                  </a>
-                ))}
+            {story.locals && !!story.locals.length && (
+              <div className="block mx-auto lg:mx-none max-w-full lg:mx-0 lg:sticky top-16 self-start">
+                <h4 className="opacity-50 mb-3">on this article</h4>
+                <div className="flex flex-row lg:flex-col md:overflow-y-visible overflow-x-auto md:overflow-x-visible w-full gap-3 mb-4">
+                  {story?.locals.map(item => (
+                    <a
+                      key={item.local.id}
+                      href={'/place/' + item.local.id}
+                      className="w-44 h-36  min-w-44 min-h-36 md:overflow-y-visible"
+                    >
+                      <PlaceCard
+                        name={item.local.name}
+                        theme={item.local.main_category.theme}
+                        categories={[item.local.main_category]}
+                      />
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* STORY BODY */}
             <div className="max-w-152 block mx-auto">

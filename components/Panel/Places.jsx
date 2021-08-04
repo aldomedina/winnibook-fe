@@ -36,7 +36,6 @@ const Places = ({ reference, places, isLoading }) => {
                     name={el.name}
                     theme={el.main_category.theme}
                     categories={[el.main_category]}
-                    big={true}
                   />
                 </a>
               ))}
