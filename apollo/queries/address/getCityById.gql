@@ -1,0 +1,6 @@
+query MyQuery($id: uuid = "") {
+  winnibook_cities(where: {id: {_eq: $id}}) {
+    id
+    name
+  }
+}

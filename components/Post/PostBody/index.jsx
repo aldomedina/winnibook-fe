@@ -105,6 +105,14 @@ const PostBodyContent = styled.div`
     }
 
   }
+
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style: decimal;
+  }
 `;
 
 const PostBody = ({content}) => {

@@ -1,0 +1,7 @@
+query MyQuery {
+  winnibook_misc {
+    id
+    name
+    content
+  }
+}

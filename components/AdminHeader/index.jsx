@@ -57,17 +57,24 @@ const AdminHeader = () => {
 
       <a 
         className="mr-8"
+        href="/admin/cities"
+      >
+        Cities
+      </a>
+
+      <a 
+        className="mr-8"
         href="/admin/lists"
       >
         Lists
       </a>
 
-      {/* <a 
+      <a 
         className="mr-8"
-        href="/admin/misc"
+        href="/admin/miscs"
       >
-        Misc
-      </a> */}
+        Miscellaneous
+      </a>
 
     </div>
   );

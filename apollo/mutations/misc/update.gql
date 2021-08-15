@@ -1,0 +1,6 @@
+mutation MyMutation($content: String = "", $name: String = "", $id: uuid = "") {
+  update_winnibook_misc_by_pk(_set: {name: $name, content: $content}, pk_columns: {id: $id}) {
+    id
+    name
+  }
+}

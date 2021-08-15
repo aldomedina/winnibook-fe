@@ -108,7 +108,9 @@ const NewLocal = () => {
     geocode()
   }, [newLocalAddress.street_line_1, newLocalAddress.street_line_2, newLocalAddress.postcode, newLocalAddress.city]);
 
-  const addCategory = async () => {
+  const addLocal = async () => {
+
+    console.log("TEST");
 
     let variables = {
       name: newLocalName,
@@ -122,7 +124,7 @@ const NewLocal = () => {
       latitude: newLocalAddress.latitude.toString(),
       longitude: newLocalAddress.longitude.toString(),
       city_id: newLocalAddress.city,
-      main_category_id: newLocalCategories.filter((item) => !item.parent_category_id || item.parent_category_id === '')[0].id,
+      main_category_id: newLocalCategories.filter((item) => !item.parent_category_id || item.parent_category_id === '')[0]?.id,
       categories_ids: newLocalCategories.filter((item) => item.parent_category_id && item.parent_category_id !== '').reduce((obj, item) => [...obj, {categories_id: item.id}], []),
       tags_ids: newLocalTags.reduce((obj, item) => [...obj, {tags_id: item.id}], []),
       links: newLocalLinks.reduce((obj, item) => [...obj, {link: { data: { name: item.name, url: item.url } }}], []),
@@ -138,6 +140,7 @@ const NewLocal = () => {
       (variables.latitude && variables.latitude !== "") &&
       (variables.longitude && variables.longitude !== "")
     ) {
+      console.log("adasdsa");
       await addLocalMutation(
         { 
           variables: variables 
@@ -212,7 +215,7 @@ const NewLocal = () => {
 
             <Button 
               title="Save"
-              onClick={() => addCategory()}
+              onClick={() => addLocal()}
             />
 
           </div>

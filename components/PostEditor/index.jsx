@@ -37,6 +37,26 @@ const PostEditorWrapper = styled.div`
     margin-top: 20px;
   }
 
+  ul,
+  ol {
+    list-style: disc;
+
+    margin: 0 0 20px 20px;
+
+    li {
+      margin-bottom: 5px;
+    }
+
+  }
+
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+
 `;
 
 const PostEditor = ({onChange, initialContent}) => {
