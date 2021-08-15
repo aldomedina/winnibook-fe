@@ -22,7 +22,7 @@ query MyQuery($featuredListId: uuid = "") {
     }
   }
 
-  stories: winnibook_stories(where: {is_published: {_eq: true}}, limit: 4) {
+  stories: winnibook_stories(where: {is_published: {_eq: true}}, limit: 4, order_by: {published_on: desc}) {
     id
     title
     subtitle

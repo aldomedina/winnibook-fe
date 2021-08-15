@@ -1,0 +1,7 @@
+query MyQuery($id: uuid = "") {
+  winnibook_misc(where: {id: {_eq: $id}}) {
+    id
+    name
+    content
+  }
+}

@@ -405,19 +405,21 @@ const JoinUs = () => {
                       <span className="text-red-500 mt-4">Address line 1 is mandatory</span>
                     )}
                   </div>
-
-                  <Input
-                    customClasses="min-h-40p mb-4"
-                    value={newLocalAddress.street_line_2}
-                    placeholder="Address line 2"
-                    onChange={value =>
-                      setNewLocalAddress({ ...newLocalAddress, street_line_2: value })
-                    }
-                    error={errors.street_line_2}
-                  />
-                  {errors.street_line_2 && (
-                    <span className="text-red-500 mb-4">Address line 2 is mandatory</span>
-                  )}
+                  
+                  <div className="mb-4">
+                    <Input
+                      customClasses="min-h-40p mb-4"
+                      value={newLocalAddress.street_line_2}
+                      placeholder="Address line 2"
+                      onChange={value =>
+                        setNewLocalAddress({ ...newLocalAddress, street_line_2: value })
+                      }
+                      error={errors.street_line_2}
+                    />
+                    {errors.street_line_2 && (
+                      <span className="text-red-500 mb-4">Address line 2 is mandatory</span>
+                    )}
+                  </div>
 
                   <div className="mb-16">
                     <Input

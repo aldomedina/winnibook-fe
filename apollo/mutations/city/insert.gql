@@ -1,0 +1,6 @@
+mutation MyMutation($name: String = "") {
+  insert_winnibook_cities_one(object: {name: $name}, on_conflict: {constraint: cities_pkey, update_columns: [name]}) {
+    id
+    name
+  }
+}
