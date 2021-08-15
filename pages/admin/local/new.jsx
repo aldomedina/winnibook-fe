@@ -102,6 +102,10 @@ const NewLocal = () => {
 
   useEffect(() => {
     setAllCities(allCitiesResults?.winnibook_cities.reduce((obj, item) => [...obj, { value: item.id, name: item.name }], []));
+    
+    if (allCitiesResults?.winnibook_cities[0]) {
+      setNewLocalAddress({...newLocalAddress, city: allCitiesResults?.winnibook_cities[0].id});
+    }
   }, [allCitiesResults]);
 
   useEffect(() => {
@@ -109,8 +113,6 @@ const NewLocal = () => {
   }, [newLocalAddress.street_line_1, newLocalAddress.street_line_2, newLocalAddress.postcode, newLocalAddress.city]);
 
   const addLocal = async () => {
-
-    console.log("TEST");
 
     let variables = {
       name: newLocalName,
@@ -131,6 +133,8 @@ const NewLocal = () => {
       contacts: newLocalContacts.reduce((obj, item) => [...obj, {contact: { data: { name: item.name, type: item.type, value: item.value, is_public: item.is_public } }}], []),
     }
 
+    console.log(variables);
+
     if (
       (variables.name && variables.name !== "") &&
       (variables.main_category_id && variables.main_category_id !== "") &&
@@ -140,7 +144,6 @@ const NewLocal = () => {
       (variables.latitude && variables.latitude !== "") &&
       (variables.longitude && variables.longitude !== "")
     ) {
-      console.log("adasdsa");
       await addLocalMutation(
         { 
           variables: variables 
@@ -550,7 +553,6 @@ const NewLocal = () => {
                 Links
               </h4>
               <LinksEditor
-                initialLinks={[]}
                 onLinksChange={(value) => setNewLocalLinks(value)}
               />
             </div>

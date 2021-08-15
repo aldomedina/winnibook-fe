@@ -14,6 +14,7 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
   useEffect(() => {
     if (initialLinks) {
       setLinks(initialLinks);
+      console.log(initialLinks);
     }
   }, [initialLinks]);
 
@@ -42,6 +43,8 @@ const LinksEditor = ({initialLinks, onLinksChange}) => {
 
     setLinks(tempLinks);
     onLinksChange(tempLinks);
+
+    console.log(tempLinks);
 
     setNewLinkName("");
     setNewLinkUrl("");
