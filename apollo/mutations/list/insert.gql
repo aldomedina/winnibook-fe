@@ -1,0 +1,6 @@
+mutation MyMutation($name: String = "") {
+  insert_winnibook_tags_one(object: {name: $name}, on_conflict: {constraint: tags_pkey, update_columns: [name]}) {
+    id
+    name
+  }
+}

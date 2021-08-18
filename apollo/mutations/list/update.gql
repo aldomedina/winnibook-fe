@@ -1,0 +1,15 @@
+mutation MyMutation($list: uuid = "", $locals: [winnibook_list_locals_insert_input!]!, $text: String = "") {
+  delete_winnibook_list_locals(where: {locals_list: {_eq: $list}}) {
+    returning {
+      locals_list
+    }
+  }
+  insert_winnibook_list_locals(objects: $locals) {
+    returning {
+      locals_list
+    }
+  }
+  update_winnibook_locals_lists_by_pk(pk_columns: {id: $list}, _set: {text: $text}) {
+    id
+  }
+}

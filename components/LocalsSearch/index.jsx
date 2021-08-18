@@ -50,12 +50,14 @@ const LocalsSearch = ({ items, theme, onLocalClick, searchPlaceholder, onSearchC
           md:border-0
         "
       >
-        {filteredItems &&
+        {
+          filteredItems &&
           sortByName(filteredItems).map(item => (
             <div className="flex-grow" onClick={() => onLocalClick(item)}>
               <PlaceCard name={item.name} theme={item.main_category.theme} categories={[item.main_category]} />
             </div>
-          ))}
+          ))
+        }
       </div>
     </div>
   );
