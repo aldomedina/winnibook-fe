@@ -17,12 +17,13 @@ import PlaceRowHeader from '../../components/PlaceRow/PlaceRowHeader';
 import { ColorContext } from '../../components/Theme';
 
 import { sortByName } from '../../utils';
+import Link from 'next/link';
 
 const PlacesSearchResults = styled.div`
   min-height: 100vh;
 
   a {
-    max-height: 56px;
+    /* max-height: 56px; */
     opacity: 1;
     transition: max-height 0.4s 0.4s, opacity 0.3s;
 

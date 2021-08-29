@@ -33,13 +33,13 @@ const BigStoryCardImage = styled.div`
       background-size: 20px 20px;
       background-repeat: repeat;
     `};
-    & {
+  & {
     position: relative;
-    }
+  }
 
-    &:hover {
+  &:hover {
     box-shadow: 4px 4px 0 ${({ theme, $t }) => theme.colors[$t].primary};
-    }
+  }
 `;
 
 const Stories = ({ reference, stories, isLoading }) => {
@@ -95,13 +95,15 @@ const Stories = ({ reference, stories, isLoading }) => {
             {stories
               .filter((el, i, ar) => i > 0)
               .map((s, i) => (
-                <div key={`${i}-${s.title}`} className="flex-1 ">
-                  <StoryCard
-                    title={s.title}
-                    image={s.images[0]?.image.url}
-                    categories={[s.main_category]}
-                  />
-                </div>
+                <Link href={'/story/' + s.id}>
+                  <div key={`${i}-${s.title}`} className="flex-1 ">
+                    <StoryCard
+                      title={s.title}
+                      image={s.images[0]?.image.url}
+                      categories={[s.main_category]}
+                    />
+                  </div>
+                </Link>
               ))}
           </div>
         </div>

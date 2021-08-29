@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import axios from 'axios';
+import NProgress from 'nprogress';
+import Head from 'next/head';
 
 // GRAPHQL RELATED
 import { ApolloProvider } from '@apollo/client';
@@ -19,13 +21,21 @@ import Theme from '../components/Theme';
 const pagesWithSearch = ['/', '/story/[slug]', '/place/[slug]'];
 const pagesWithNavBG = ['/places', '/stories', '/story/[slug]', '/join-us'];
 
+// Loader between page transitions
+Router.events.on('routeChangeStart', url => {
+  console.log(`Loading: ${url}`);
+  NProgress.start();
+});
+Router.events.on('routeChangeComplete', () => NProgress.done());
+Router.events.on('routeChangeError', () => NProgress.done());
+
 function MyApp({ Component, pageProps }) {
   const { pathname } = useRouter();
 
   const showSearch = pagesWithSearch.indexOf(pathname) >= 0 ? true : false;
   const topNavBG = pagesWithNavBG.indexOf(pathname) >= 0 ? true : false;
 
-  const [apolloClient, setAppoloClient] = useState(client); 
+  const [apolloClient, setAppoloClient] = useState(client);
 
   useEffect(async () => {
     try {
@@ -43,9 +53,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <Theme>
       <UserProvider>
-      <ApolloProvider client={apolloClient}>
-        <Component {...pageProps} />
-      </ApolloProvider>
+        <ApolloProvider client={apolloClient}>
+          <Component {...pageProps} />
+        </ApolloProvider>
       </UserProvider>
     </Theme>
   );

@@ -26,11 +26,7 @@ const Tag = ({
       $isFilterTag={filterTag}
       $invert={invertColors}
       className={`tag ${
-        big
-          ? 'text-md lg:text-lg'
-          : small
-          ? 'text-3xs md:text-2xs'
-          : 'text-3xs lg:text-xs '
+        big ? 'text-md lg:text-lg' : small ? 'text-3xs md:text-2xs' : 'text-3xs lg:text-2xs '
       } ${onTagClick ? 'cursor-pointer hover-interaction' : ''} ${
         filterTag ? 'border border-1 flex items-center 	' : ''
       }`}

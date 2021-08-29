@@ -36,11 +36,12 @@ const PlaceCard = ({ name, theme, onClick, categories, big, extraBig }) => {
       <h3
         className={`
           uppercase 
+          overflow-hidden
           ${
             big
               ? 'md:text-3xl text-xl leading-normal leading-6 '
               : extraBig
-              ? 'md:text-6xl text-3xl leading-normal'
+              ? 'md:text-4xl text-3xl leading-normal'
               : 'text-md md:text-xl leading-5 '
           }
         `}
@@ -53,7 +54,7 @@ const PlaceCard = ({ name, theme, onClick, categories, big, extraBig }) => {
           trimRight
         />
       </h3>
-      <div className="categories flex flex-col">
+      <div className="categories flex flex-col overflow-hidden">
         {categories.map(cat => (
           <Tag theme={cat.theme} name={cat.name} />
         ))}
