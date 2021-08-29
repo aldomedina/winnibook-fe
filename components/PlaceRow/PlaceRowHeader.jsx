@@ -45,7 +45,7 @@ const PlaceRowHeader = ({
           {name}
         </h3>
 
-        {categories && !isOpen && (
+        {categories && (
           <div className="flex gap-1">
             {categories.map(cat => (
               <Tag
