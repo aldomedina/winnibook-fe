@@ -20,6 +20,7 @@ import PostEditor from '../../../components/PostEditor';
 import PostBody from '../../../components/Post/PostBody';
 
 import { ColorContext } from '../../../components/Theme';
+import { uploadPhoto } from '../../../utils';
 import { from } from 'apollo-link';
 
 const isPublishedOptions = [
@@ -164,13 +165,15 @@ const EditStory = ({ story }) => {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setMainImage(reader.result);
-    };
-    reader.readAsDataURL(file);
+    const url = await uploadPhoto(file);
+    
+    if (url) {
+      setMainImage(url);
+    }
     
   };
+
+  
   
   const selectCategory = (category) => {
     if (!postCategories.filter((item) => item.id === category.id).length) {

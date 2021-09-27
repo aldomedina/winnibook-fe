@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import styled from 'styled-components';
 import { EditorState } from 'draft-js';
-import imageToBase64 from 'image-to-base64/browser';
+import { uploadPhoto } from '../../utils';
 
 import Editor from '@draft-js-plugins/editor';
 import createImagePlugin from '@draft-js-plugins/image';
@@ -100,14 +100,11 @@ const PostEditor = ({onChange, initialContent}) => {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      handleEditorChange(imagePlugin.addImage(editorState, reader.result));
-    };
-    reader.readAsDataURL(file);
-
-    // const base64Image = await imageToBase64(url);
-    // handleEditorChange(imagePlugin.addImage(editorState, "data:image;base64," + base64Image));
+    const url = await uploadPhoto(file);
+    
+    if (url) {
+      handleEditorChange(imagePlugin.addImage(editorState, url));
+    }
   };
 
   return (

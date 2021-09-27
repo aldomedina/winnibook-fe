@@ -134,3 +134,25 @@ export const percentageToAlpha = {
   '1%': { alpha: '03' },
   '0%': { alpha: '00' }
 };
+
+export const uploadPhoto = async (file) => {
+  const filename = file.name;
+  const res = await fetch(`/api/upload-url?file=${filename}`);
+  const { url, fields, objectName } = await res.json();
+  const formData = new FormData();
+
+  Object.entries({ ...fields, file }).forEach(([key, value]) => {
+    formData.append(key, value);
+  });
+
+  const upload = await fetch(url, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (upload.ok) {
+    return `${upload.url}/${objectName}`
+  } else {
+    return false;
+  }
+};
