@@ -1,5 +1,6 @@
 import aws from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
+import { withApiAuthRequired } from '@auth0/nextjs-auth0';	
 
 const getExtension = (fileName) => {
   var patternFileExtension = /\.([0-9a-z]+)(?:[\?#]|$)/i;
@@ -7,7 +8,7 @@ const getExtension = (fileName) => {
  return (fileName).match(patternFileExtension)
 } 
 
-export default async function handler(req, res) {
+export default withApiAuthRequired(async function handler(req, res) {
   const objectName = `story-${uuidv4()}${getExtension(req.query.file)[0]}`;
 
    aws.config.update({
@@ -32,4 +33,4 @@ export default async function handler(req, res) {
    });
 
    res.status(200).json({...post, objectName: objectName});
-}
+});
