@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 const CustomSelect = ({
   reference,
   onChange,
+  onInputBlur = () => {},
   options,
   value,
   customClasses,
@@ -49,6 +50,7 @@ const CustomSelect = ({
         placeholder={placeholder}
         value={value}
         onChange={e => onChange(e.target.value)}
+        onBlur={() => onInputBlur ? onInputBlur() : ''}
         disabled={disabled}
       >
 

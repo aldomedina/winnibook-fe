@@ -108,9 +108,9 @@ const NewLocal = () => {
     }
   }, [allCitiesResults]);
 
-  useEffect(() => {
-    geocode()
-  }, [newLocalAddress.street_line_1, newLocalAddress.street_line_2, newLocalAddress.postcode, newLocalAddress.city]);
+  // useEffect(() => {
+  //   geocode();
+  // }, [newLocalAddress.street_line_1, newLocalAddress.street_line_2, newLocalAddress.postcode, newLocalAddress.city]);
 
   const addLocal = async () => {
 
@@ -363,18 +363,21 @@ const NewLocal = () => {
                 value={newLocalAddress.street_line_1}
                 placeholder="Address line 1"
                 onChange={(value) => setNewLocalAddress({...newLocalAddress, street_line_1: value})}
+                onInputBlur={geocode}
               />
               <Input
                 customClasses="min-h-40p mb-4"
                 value={newLocalAddress.street_line_2}
                 placeholder="Address line 2"
                 onChange={(value) => setNewLocalAddress({...newLocalAddress, street_line_2: value})}
+                onInputBlur={geocode}
               />
               <Input
                 customClasses="min-h-40p mb-4"
                 value={newLocalAddress.postcode}
                 placeholder="Postcode"
                 onChange={(value) => setNewLocalAddress({...newLocalAddress, postcode: value})}
+                onInputBlur={geocode}
               />
             </div>
 
@@ -389,12 +392,14 @@ const NewLocal = () => {
                 value={newLocalAddress.region}
                 placeholder="Region"
                 onChange={(value) => setNewLocalAddress({...newLocalAddress, region: value})}
+                onInputBlur={geocode}
               />
               <CustomSelect
                 options={allCities}
                 placeholder="City"
                 value={newLocalAddress.city}
                 onChange={(value) => setNewLocalAddress({...newLocalAddress, city: value})}
+                onInputBlur={geocode}
               />
             </div>
 

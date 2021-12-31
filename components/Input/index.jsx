@@ -1,6 +1,7 @@
 const Input = ({
   reference,
   onChange,
+  onInputBlur,
   error,
   value,
   customClasses,
@@ -41,6 +42,7 @@ const Input = ({
         placeholder={placeholder}
         value={value}
         onChange={e => onChange(e.target.value)}
+        onBlur={() => onInputBlur ? onInputBlur() : ''}
         disabled={disabled}
       />
     </div>

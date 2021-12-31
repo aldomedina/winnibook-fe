@@ -67,6 +67,8 @@ const dropdownOptions = [
 ];
 
 const JoinUs = () => {
+  // let timeout;
+
   const router = useRouter();
   const { colorTheme, setColorTheme } = useContext(ColorContext);
 
@@ -85,9 +87,9 @@ const JoinUs = () => {
     postcode: '',
     region: '',
     city: '',
-    latitude: '',
-    longitude: ''
   });
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
 
   const [showCategoriesSelector, setShowCategoriesSelector] = useState(true);
   const [showTagsSelector, setShowTagsSelector] = useState(true);
@@ -112,14 +114,17 @@ const JoinUs = () => {
     );
   }, [allCitiesResults]);
 
-  useEffect(() => {
-    geocode();
-  }, [
-    newLocalAddress.street_line_1,
-    // newLocalAddress.street_line_2,
-    newLocalAddress.postcode,
-    newLocalAddress.city
-  ]);
+  // useEffect(() => {
+  //   clearTimeout(timeout);
+  //   timeout = setTimeout(() => {
+  //     geocode();
+  //   }, 3000);
+  // }, [
+  //   newLocalAddress.street_line_1,
+  //   newLocalAddress.street_line_2,
+  //   newLocalAddress.postcode,
+  //   newLocalAddress.city
+  // ]);
 
   const addLocal = async () => {
     let tempErrors = {};
@@ -159,8 +164,8 @@ const JoinUs = () => {
       street_line_2: newLocalAddress.street_line_2,
       region: newLocalAddress.region,
       postcode: newLocalAddress.postcode,
-      latitude: newLocalAddress.latitude.toString(),
-      longitude: newLocalAddress.longitude.toString(),
+      latitude: latitude.toString(),
+      longitude: longitude.toString(),
       city_id: newLocalAddress.city,
       main_category_id: newLocalCategories.filter(
         item => !item.parent_category_id || item.parent_category_id === ''
@@ -245,7 +250,7 @@ const JoinUs = () => {
 
   const geocode = async () => {
     const { street_line_1, street_line_2, postcode, city } = newLocalAddress;
-    const address = `${street_line_1} ${street_line_2 ? address2 : ''} ${postcode}, ${
+    const address = `${street_line_1} ${street_line_2 ? street_line_2 : ''} ${postcode}, ${
       city.name
     }, Canada`;
     try {
@@ -256,11 +261,13 @@ const JoinUs = () => {
         }
       });
 
-      setNewLocalAddress({
-        ...newLocalAddress,
-        latitude: data.results[0].geometry.location.lat,
-        longitude: data.results[0].geometry.location.lng
-      });
+      // setNewLocalAddress({
+      //   ...newLocalAddress,
+      //   latitude: data.results[0].geometry.location.lat,
+      //   longitude: data.results[0].geometry.location.lng
+      // });
+      setLatitude(data.results[0].geometry.location.lat);
+      setLongitude(data.results[0].geometry.location.lng);
 
       return true;
     } catch (err) {
@@ -399,6 +406,7 @@ const JoinUs = () => {
                       onChange={value =>
                         setNewLocalAddress({ ...newLocalAddress, street_line_1: value })
                       }
+                      onInputBlur={geocode}
                       error={errors.street_line_1}
                     />
                     {errors.street_line_1 && (
@@ -414,6 +422,7 @@ const JoinUs = () => {
                       onChange={value =>
                         setNewLocalAddress({ ...newLocalAddress, street_line_2: value })
                       }
+                      onInputBlur={geocode}
                       error={errors.street_line_2}
                     />
                     {errors.street_line_2 && (
@@ -429,6 +438,7 @@ const JoinUs = () => {
                       onChange={value =>
                         setNewLocalAddress({ ...newLocalAddress, postcode: value })
                       }
+                      onInputBlur={geocode}
                       error={errors.postcode}
                     />
                     {errors.postcode && (
@@ -441,20 +451,22 @@ const JoinUs = () => {
                     value={newLocalAddress.region}
                     placeholder="Province"
                     onChange={value => setNewLocalAddress({ ...newLocalAddress, region: value })}
+                    onInputBlur={geocode}
                   />
                   <CustomSelect
                     options={allCities}
                     placeholder="City"
                     value={newLocalAddress.city}
                     onChange={value => setNewLocalAddress({ ...newLocalAddress, city: value })}
+                    onInputBlur={geocode}
                   />
                 </div>
 
                 <div className="px-4 w-full md:w-1/2 h-30vh">
                   <Map
                     location={{
-                      latitude: newLocalAddress.latitude,
-                      longitude: newLocalAddress.longitude
+                      latitude: latitude,
+                      longitude: longitude
                     }}
                     theme={newLocalTheme}
                   />

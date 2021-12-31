@@ -128,9 +128,9 @@ const UpdateLocal = ({ local }) => {
     setAllCities(allCitiesResults?.winnibook_cities.reduce((obj, item) => [...obj, { value: item.id, name: item.name }], []));
   }, [allCitiesResults]);
 
-  useEffect(() => {
-    geocode()
-  }, [localStreetLine1, localStreetLine2, localPostcode, localCity]);
+  // useEffect(() => {
+  //   geocode()
+  // }, [localStreetLine1, localStreetLine2, localPostcode, localCity]);
 
   const updateLocal = async (shouldConfirm) => {
 
@@ -405,18 +405,21 @@ const UpdateLocal = ({ local }) => {
                 value={localStreetLine1}
                 placeholder="Address line 1"
                 onChange={(value) => setLocalStreetLine1(value)}
+                onInputBlur={geocode}
               />
               <Input
                 customClasses="min-h-40p mb-4"
                 value={localStreetLine2}
                 placeholder="Address line 2"
                 onChange={(value) => setLocalStreetLine2(value)}
+                onInputBlur={geocode}
               />
               <Input
                 customClasses="min-h-40p mb-4"
                 value={localPostcode}
                 placeholder="Postcode"
                 onChange={(value) => setLocalPostcode(value)}
+                onInputBlur={geocode}
               />
             </div>
 
@@ -431,6 +434,7 @@ const UpdateLocal = ({ local }) => {
                 value={localRegion}
                 placeholder="Region"
                 onChange={(value) => setLocalRegion(value)}
+                onInputBlur={geocode}
               />
               {
                 allCities && allCities.length &&
@@ -439,6 +443,7 @@ const UpdateLocal = ({ local }) => {
                   placeholder="City"
                   value={localCity}
                   onChange={(value) => setLocalCity(value)}
+                  onInputBlur={geocode}
                 />
               }
             </div>
