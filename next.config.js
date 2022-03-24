@@ -12,7 +12,8 @@ module.exports = withImages({
     return config;
   },
   env: {
-    GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY
+    GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
+    NEXT_PUBLIC_GOOGLE_ANALYTICS: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS,
   },
   future: {
     webpack5: true
